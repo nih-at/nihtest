@@ -1,0 +1,2 @@
+- Exclude unwanted files from distribution.
+- Create and install script.
