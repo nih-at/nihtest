@@ -1,0 +1,204 @@
+.\" nihtest-case.mdoc -- nihtest test case format description
+.\" Copyright (C) 2020 Dieter Baron and Thomas Klausner
+.\"
+.\" This file is part of nihtest, a testing framework.
+.\" The authors can be contacted at <nihtest@nih.at>
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in
+.\"    the documentation and/or other materials provided with the
+.\"    distribution.
+.\" 3. The names of the authors may not be used to endorse or promote
+.\"    products derived from this software without specific prior
+.\"    written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE AUTHORS ``AS IS'' AND ANY EXPRESS
+.\" OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+.\" WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY
+.\" DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+.\" GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+.\" INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+.\" IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+.\" OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+.\" IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+.\"
+.Dd June 2, 2020
+.Dt NIHTEST-CASE 5
+.Os
+.Sh NAME
+.Nm nihtest-case
+.Nd test case format for nihtest
+.Sh DESCRIPTION
+.Xr nihtest 1
+is a testing tool.
+It uses
+.Pa .test
+files as input.
+This man page describes the format of these test files.
+.Pp
+Lines beginning with
+.Dq \&#
+are comments.
+.Pp
+The following commands are recognized.
+The
+.Ic return
+and
+.Ic args
+commands must appear exactly once, the others are optional.
+.Bl -tag -width 20n
+.It Ic args Op Ar args ...
+Run the program with command line arguments
+.Ar args .
+.It Ic description Ar text
+Describes the purpose of the test.
+.It Ic features Ar feature ...
+Only run test if all
+.Ar feature Ns No s
+are present, otherwise skip it.
+The features are extracted from a top-level
+.Pa config.h
+file.
+If the string
+.Dv HAVE_FOO
+is defined in the file, the feature
+.Dv FOO
+is assumed to be available, otherwise not.
+See also the description of
+.Ic top-build-directory
+in
+.Xr nihtest-config 5 .
+.It Ic file Ar test in Op Ar out
+Copy file
+.Ar in
+into the testing directory as
+.Ar test ,
+compare it against
+.Ar out
+after program run.
+If
+.Ar out
+is omitted, it is compared to
+.Ar in .
+.It Ic file-del Ar test in
+Copy file
+.Ar in
+into the testing directory as
+.Ar test ,
+check that it is removed by the program.
+.It Ic file-new Ar test out
+Check that file
+.Ar test
+is created by the program and compare it against
+.Ar out .
+.\" .It Ic mkdir Ar MODE NAME
+.\" Create directory
+.\" .Ar NAME
+.\" with permissions
+.\" .Ar MODE .
+.It Ic precheck Ar command Op Ar args ...
+If
+.Ar command
+exits with non-zero status, skip the test.
+.It Ic preload Ar library
+Pre-load the shared object
+.Ar library
+before running the program.
+.It Ic program Ar prg
+Run
+.Ar prg .
+See the description of
+.Ic args
+above for its command line arguments.
+If this directive is omitted,
+.Ic default-program
+from
+.Pa nihtest.conf
+is run.
+.It Ic return Ar ret
+.Ar ret
+is the expected exit code (usually 0 on success).
+.It Ic setenv Ar var value
+Set the environment variable
+.Ar var
+to
+.Ar value .
+.It Ic stderr Ar text
+Expect the error message
+.Ar text
+on standard error output (stderr).
+If multiple
+.Ic stderr
+commands are used, the messages are expected in the order given.
+.It Ic stderr-replace Ar pattern replacement
+Run regular expression replacement over the standard error output
+and the expected output as provided by
+.Ic stderr
+before comparing them.
+.Ar pattern
+is the match expression,
+.Ar replacement
+is the replacement expression.
+In the replacement expression,
+.Dq $1
+to
+.Dq $9
+are replaced with the content of the corresponding
+.Dq (...)
+match in the
+.Ar pattern .
+See
+.Xr re_format 7
+for details.
+.It Ic stdin Ar text
+Provide
+.Ar text
+to the program's standard input.
+If multiple
+.Ic stdin
+commands are used, the messages are expected in the order given.
+.It Ic stdin-file Ar file
+Provide the contents of the file
+.Ar file
+to the program's standard input.
+.It Ic stdout Ar text
+The program is expected to print
+.Ar text
+to it standard output (stdout).
+If multiple
+.Ic  stdout
+commands are used, the messages are expected in the order given.
+.\" .It Ic touch Ar MTIME FILE
+.\" Set the last modified timestamp of
+.\" .Ar FILE
+.\" to
+.\" .Ar MTIME
+.\" (in seconds since epoch).
+.\" If
+.\" .Ar FILE
+.\" doesn't exist, an empty file is created.
+.\" .It Ic ulimit Ar C VALUE
+.\" Set
+.\" .Xr ulimit 1
+.\" flag
+.\" .Fl Ar C
+.\" to
+.\" .Ar VALUE
+.\" while running the program.
+.\" E.g.,
+.\" .Dl ulimit n 16
+.\" would run the equivalent of the
+.\" .Xr sh 1
+.\" command
+.\" .Dl ulimit -n 16 .
+.El
+.Sh SEE ALSO
+.Xr nihtest 1 ,
+.Xr nihtest-config 5

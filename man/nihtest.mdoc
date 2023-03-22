@@ -1,0 +1,166 @@
+.\" nihtest.mdoc -- nihtest usage
+.\" Copyright (C) 2020 Dieter Baron and Thomas Klausner
+.\"
+.\" This file is part of nihtest, a testing framework.
+.\" The authors can be contacted at <nihtest@nih.at>
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in
+.\"    the documentation and/or other materials provided with the
+.\"    distribution.
+.\" 3. The names of the authors may not be used to endorse or promote
+.\"    products derived from this software without specific prior
+.\"    written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE AUTHORS ``AS IS'' AND ANY EXPRESS
+.\" OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+.\" WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY
+.\" DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+.\" GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+.\" INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+.\" IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+.\" OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+.\" IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+.\"
+.Dd June 2, 2020
+.Dt NIHTEST 1
+.Os
+.Sh NAME
+.Nm nihtest
+.Nd testing tool
+.Sh SYNOPSIS
+.Nm
+.Op Fl hqVv
+.Op Fl C Ar config
+.Op Fl Fl keep-broken
+.Op Fl Fl no-cleanup
+.Op Fl Fl setup-only
+.Ar testcase
+.Sh DESCRIPTION
+.Nm
+is a testing tool for command line utilities.
+It uses
+.Pa .test
+files as input.
+The format of these files is described in
+.Xr nihtest-case 5 .
+.Pp
+.Nm
+runs the test case
+.Ar testcase
+expected in the test case directory (see
+.Xr nihtest.conf 5 )
+in the file
+.Pa testcase
+or
+.Pa testcase.test .
+.Nm
+searches the current directory and the
+.Ic source-directory
+specified in
+.Xr nihtest.conf 5
+for test cases, input and output files.
+.Pp
+.Nm
+supports the following options
+.Bl -tag -width 15n -offset 8n
+.It Fl C Ar config , Fl Fl config-file Ar config
+Use
+.Ar config
+as configuration file instead of
+.Pa ./nihtest.conf .
+.It Fl h , Fl Fl help
+Display a short help message and exit.
+.It Fl Fl keep-broken
+Do not delete the sandbox if the test fails.
+.It Fl Fl no-cleanup
+Do not delete the sandbox after the test finishes (successfully or not).
+.It Fl q , Fl Fl quiet
+Do not print test results.
+.It Fl Fl setup-only
+Only populate the sandbox, but do not run the actual test.
+.It Fl v , Fl Fl verbose
+Print detailed test results.
+.It Fl V , Fl Fl version
+Print
+.Nm
+version number and exit.
+.El
+.Pp
+A test run consists of the following steps:
+.Bl -bullet -compact -offset 8n
+.It
+check if test should be skipped
+.It
+create sandbox directory
+.It
+populate sandbox directory with input files
+.It
+run program
+.It
+compare program output, exit code, and output files
+.It
+remove sandbox
+.El
+.Sh ENVIRONMENT
+.Nm
+honors the following environment variables:
+.Bl -tag -width 20n
+.It Ev KEEP_BROKEN
+If set, don't delete test environment if test failed.
+.It Ev VERBOSE
+If set, be more verbose (e. g., output diffs).
+.El
+.Sh FILES
+.Bl -tag -width 15n
+.It Pa nihtest.conf
+.Nm
+configuration file, see
+.Xr nihtest.conf 5
+for details
+.El
+.Sh EXIT STATUS
+.Nm
+uses the following exit codes:
+.Bl -tag -width 3n -compact -offset 8n
+.It 0
+Test passed
+.It 1
+Test failed
+.It 2
+Other error
+.It 77
+Test was skipped.
+.El
+.Sh DIAGNOSTICS
+In general, differences to the test case expectation are marked up with
+.Dq \&-
+if something expected did not happen and
+.Dq \&+
+if something unexpected happened.
+.Pp
+In case the return value does not match,
+.Nm
+will report
+.Dq Exit code not as expected .
+If the standard output or standard error output are not correct,
+.Nm
+will report
+.Dq Output not as expected
+or
+.Dq Error output not as expected
+respectively.
+And finally, if the file contents of the sandbox are not correct,
+.Nm
+will report
+.Dq Files in sandbox not as expected .
+.Sh SEE ALSO
+.Xr nihtest-case 5 ,
+.Xr nihtest.conf 5

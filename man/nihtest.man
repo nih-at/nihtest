@@ -1,0 +1,191 @@
+.\" Automatically generated from an mdoc input file.  Do not edit.
+.\" nihtest.mdoc -- nihtest usage
+.\" Copyright (C) 2020 Dieter Baron and Thomas Klausner
+.\"
+.\" This file is part of nihtest, a testing framework.
+.\" The authors can be contacted at <nihtest@nih.at>
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in
+.\"    the documentation and/or other materials provided with the
+.\"    distribution.
+.\" 3. The names of the authors may not be used to endorse or promote
+.\"    products derived from this software without specific prior
+.\"    written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE AUTHORS ``AS IS'' AND ANY EXPRESS
+.\" OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+.\" WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY
+.\" DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+.\" GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+.\" INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+.\" IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+.\" OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+.\" IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+.\"
+.TH "NIHTEST" "1" "June 2, 2020" "NiH" "General Commands Manual"
+.nh
+.if n .ad l
+.SH "NAME"
+\fBnihtest\fR
+\- testing tool
+.SH "SYNOPSIS"
+.HP 8n
+\fBnihtest\fR
+[\fB\-hqVv\fR]
+[\fB\-C\fR\ \fIconfig\fR]
+[\fB\-\fR\fB\-keep-broken\fR]
+[\fB\-\fR\fB\-no-cleanup\fR]
+[\fB\-\fR\fB\-setup-only\fR]
+\fItestcase\fR
+.SH "DESCRIPTION"
+\fBnihtest\fR
+is a testing tool for command line utilities.
+It uses
+\fI.test\fR
+files as input.
+The format of these files is described in
+nihtest-case(5).
+.PP
+\fBnihtest\fR
+runs the test case
+\fItestcase\fR
+expected in the test case directory (see
+nihtest.conf(5))
+in the file
+\fItestcase\fR
+or
+\fItestcase.test\fR.
+\fBnihtest\fR
+searches the current directory and the
+\fBsource-directory\fR
+specified in
+nihtest.conf(5)
+for test cases, input and output files.
+.PP
+\fBnihtest\fR
+supports the following options
+.RS 8n
+.TP 17n
+\fB\-C\fR \fIconfig\fR, \fB\-\fR\fB\-config-file\fR \fIconfig\fR
+Use
+\fIconfig\fR
+as configuration file instead of
+\fI./nihtest.conf\fR.
+.TP 17n
+\fB\-h\fR, \fB\-\fR\fB\-help\fR
+Display a short help message and exit.
+.TP 17n
+\fB\-\fR\fB\-keep-broken\fR
+Do not delete the sandbox if the test fails.
+.TP 17n
+\fB\-\fR\fB\-no-cleanup\fR
+Do not delete the sandbox after the test finishes (successfully or not).
+.TP 17n
+\fB\-q\fR, \fB\-\fR\fB\-quiet\fR
+Do not print test results.
+.TP 17n
+\fB\-\fR\fB\-setup-only\fR
+Only populate the sandbox, but do not run the actual test.
+.TP 17n
+\fB\-v\fR, \fB\-\fR\fB\-verbose\fR
+.br
+Print detailed test results.
+.TP 17n
+\fB\-V\fR, \fB\-\fR\fB\-version\fR
+.br
+Print
+\fBnihtest\fR
+version number and exit.
+.RE
+.PP
+A test run consists of the following steps:
+.RS 8n
+.PD 0
+.TP 4n
+\fB\(bu\fR
+check if test should be skipped
+.TP 4n
+\fB\(bu\fR
+create sandbox directory
+.TP 4n
+\fB\(bu\fR
+populate sandbox directory with input files
+.TP 4n
+\fB\(bu\fR
+run program
+.TP 4n
+\fB\(bu\fR
+compare program output, exit code, and output files
+.TP 4n
+\fB\(bu\fR
+remove sandbox
+.RE
+.PD
+.SH "ENVIRONMENT"
+\fBnihtest\fR
+honors the following environment variables:
+.TP 22n
+\fRKEEP_BROKEN\fR
+If set, don't delete test environment if test failed.
+.TP 22n
+\fRVERBOSE\fR
+If set, be more verbose (e. g., output diffs).
+.SH "FILES"
+.TP 17n
+\fInihtest.conf\fR
+\fBnihtest\fR
+configuration file, see
+nihtest.conf(5)
+for details
+.SH "EXIT STATUS"
+\fBnihtest\fR
+uses the following exit codes:
+.RS 8n
+.PD 0
+.TP 5n
+0
+Test passed
+.TP 5n
+1
+Test failed
+.TP 5n
+2
+Other error
+.TP 5n
+77
+Test was skipped.
+.RE
+.PD
+.SH "DIAGNOSTICS"
+In general, differences to the test case expectation are marked up with
+\(lq\&-\(rq
+if something expected did not happen and
+\(lq\&+\(rq
+if something unexpected happened.
+.PP
+In case the return value does not match,
+\fBnihtest\fR
+will report
+\(lqExit code not as expected\(rq.
+If the standard output or standard error output are not correct,
+\fBnihtest\fR
+will report
+\(lqOutput not as expected\(rq
+or
+\(lqError output not as expected\(rq
+respectively.
+And finally, if the file contents of the sandbox are not correct,
+\fBnihtest\fR
+will report
+\(lqFiles in sandbox not as expected\(rq.
+.SH "SEE ALSO"
+nihtest-case(5),
+nihtest.conf(5)

@@ -1,0 +1,191 @@
+.\" Automatically generated from an mdoc input file.  Do not edit.
+.\" nihtest-case.mdoc -- nihtest test case format description
+.\" Copyright (C) 2020 Dieter Baron and Thomas Klausner
+.\"
+.\" This file is part of nihtest, a testing framework.
+.\" The authors can be contacted at <nihtest@nih.at>
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in
+.\"    the documentation and/or other materials provided with the
+.\"    distribution.
+.\" 3. The names of the authors may not be used to endorse or promote
+.\"    products derived from this software without specific prior
+.\"    written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE AUTHORS ``AS IS'' AND ANY EXPRESS
+.\" OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+.\" WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY
+.\" DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+.\" GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+.\" INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+.\" IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+.\" OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+.\" IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+.\"
+.TH "NIHTEST-CASE" "5" "June 2, 2020" "NiH" "File Formats Manual"
+.nh
+.if n .ad l
+.SH "NAME"
+\fBnihtest-case\fR
+\- test case format for nihtest
+.SH "DESCRIPTION"
+nihtest(1)
+is a testing tool.
+It uses
+\fI.test\fR
+files as input.
+This man page describes the format of these test files.
+.PP
+Lines beginning with
+\(lq\&#\(rq
+are comments.
+.PP
+The following commands are recognized.
+The
+\fBreturn\fR
+and
+\fBargs\fR
+commands must appear exactly once, the others are optional.
+.TP 22n
+\fBargs\fR [\fIargs ...\fR]
+Run the program with command line arguments
+\fIargs\fR.
+.TP 22n
+\fBdescription\fR \fItext\fR
+Describes the purpose of the test.
+.TP 22n
+\fBfeatures\fR \fIfeature ...\fR
+Only run test if all
+\fIfeature\fRs
+are present, otherwise skip it.
+The features are extracted from a top-level
+\fIconfig.h\fR
+file.
+If the string
+\fRHAVE_FOO\fR
+is defined in the file, the feature
+\fRFOO\fR
+is assumed to be available, otherwise not.
+See also the description of
+\fBtop-build-directory\fR
+in
+nihtest-config(5).
+.TP 22n
+\fBfile\fR \fItest in\fR [\fIout\fR]
+Copy file
+\fIin\fR
+into the testing directory as
+\fItest\fR,
+compare it against
+\fIout\fR
+after program run.
+If
+\fIout\fR
+is omitted, it is compared to
+\fIin\fR.
+.TP 22n
+\fBfile-del\fR \fItest in\fR
+Copy file
+\fIin\fR
+into the testing directory as
+\fItest\fR,
+check that it is removed by the program.
+.TP 22n
+\fBfile-new\fR \fItest out\fR
+Check that file
+\fItest\fR
+is created by the program and compare it against
+\fIout\fR.
+.TP 22n
+\fBprecheck\fR \fIcommand\fR [\fIargs ...\fR]
+If
+\fIcommand\fR
+exits with non-zero status, skip the test.
+.TP 22n
+\fBpreload\fR \fIlibrary\fR
+Pre-load the shared object
+\fIlibrary\fR
+before running the program.
+.TP 22n
+\fBprogram\fR \fIprg\fR
+Run
+\fIprg\fR.
+See the description of
+\fBargs\fR
+above for its command line arguments.
+If this directive is omitted,
+\fBdefault-program\fR
+from
+\fInihtest.conf\fR
+is run.
+.TP 22n
+\fBreturn\fR \fIret\fR
+\fIret\fR
+is the expected exit code (usually 0 on success).
+.TP 22n
+\fBsetenv\fR \fIvar value\fR
+Set the environment variable
+\fIvar\fR
+to
+\fIvalue\fR.
+.TP 22n
+\fBstderr\fR \fItext\fR
+Expect the error message
+\fItext\fR
+on standard error output (stderr).
+If multiple
+\fBstderr\fR
+commands are used, the messages are expected in the order given.
+.TP 22n
+\fBstderr-replace\fR \fIpattern replacement\fR
+Run regular expression replacement over the standard error output
+and the expected output as provided by
+\fBstderr\fR
+before comparing them.
+\fIpattern\fR
+is the match expression,
+\fIreplacement\fR
+is the replacement expression.
+In the replacement expression,
+\(lq$1\(rq
+to
+\(lq$9\(rq
+are replaced with the content of the corresponding
+\(lq(...)\(rq
+match in the
+\fIpattern\fR.
+See
+re_format(7)
+for details.
+.TP 22n
+\fBstdin\fR \fItext\fR
+Provide
+\fItext\fR
+to the program's standard input.
+If multiple
+\fBstdin\fR
+commands are used, the messages are expected in the order given.
+.TP 22n
+\fBstdin-file\fR \fIfile\fR
+Provide the contents of the file
+\fIfile\fR
+to the program's standard input.
+.TP 22n
+\fBstdout\fR \fItext\fR
+The program is expected to print
+\fItext\fR
+to it standard output (stdout).
+If multiple
+\fBstdout\fR
+commands are used, the messages are expected in the order given.
+.SH "SEE ALSO"
+nihtest(1),
+nihtest-config(5)

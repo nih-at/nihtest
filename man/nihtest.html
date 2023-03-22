@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+   nihtest.mdoc -- nihtest usage
+   Copyright (C) 2020 Dieter Baron and Thomas Klausner
+  
+   This file is part of nihtest, a testing framework.
+   The authors can be contacted at <nihtest@nih.at>
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in
+      the documentation and/or other materials provided with the
+      distribution.
+   3. The names of the authors may not be used to endorse or promote
+      products derived from this software without specific prior
+      written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE AUTHORS ``AS IS'' AND ANY EXPRESS
+   OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+   WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+   ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY
+   DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+   DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+   GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+   IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+   OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+   IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+   -->
+<head>
+  <meta charset="utf-8"/>
+  <link rel="stylesheet" href="../nih-man.css" type="text/css" media="all"/>
+  <title>NIHTEST(1)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">NIHTEST(1)</td>
+    <td class="head-vol">General Commands Manual</td>
+    <td class="head-rtitle">NIHTEST(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<code class="Nm">nihtest</code> &#x2014;
+<div class="Nd">testing tool</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<table class="Nm">
+  <tr>
+    <td><code class="Nm">nihtest</code></td>
+    <td>[<code class="Fl">-hqVv</code>] [<code class="Fl">-C</code>
+      <var class="Ar">config</var>]
+      [<code class="Fl">-</code><code class="Fl">-keep-broken</code>]
+      [<code class="Fl">-</code><code class="Fl">-no-cleanup</code>]
+      [<code class="Fl">-</code><code class="Fl">-setup-only</code>]
+      <var class="Ar">testcase</var></td>
+  </tr>
+</table>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<code class="Nm">nihtest</code> is a testing tool for command line utilities. It
+  uses <span class="Pa">.test</span> files as input. The format of these files
+  is described in <a class="Xr" href="nihtest-case.html">nihtest-case(5)</a>.
+<p class="Pp"><code class="Nm">nihtest</code> runs the test case
+    <var class="Ar">testcase</var> expected in the test case directory (see
+    <a class="Xr" href="nihtest.conf.html">nihtest.conf(5)</a>) in the file
+    <span class="Pa">testcase</span> or <span class="Pa">testcase.test</span>.
+    <code class="Nm">nihtest</code> searches the current directory and the
+    <code class="Ic">source-directory</code> specified in
+    <a class="Xr" href="nihtest.conf.html">nihtest.conf(5)</a> for test cases,
+    input and output files.</p>
+<p class="Pp"><code class="Nm">nihtest</code> supports the following options</p>
+<div class="Bd-indent">
+<dl class="Bl-tag">
+  <dt><a class="permalink" href="#C"><code class="Fl" id="C">-C</code></a>
+    <var class="Ar">config</var>,
+    <code class="Fl">-</code><code class="Fl">-config-file</code>
+    <var class="Ar">config</var></dt>
+  <dd>Use <var class="Ar">config</var> as configuration file instead of
+      <span class="Pa">./nihtest.conf</span>.</dd>
+  <dt><a class="permalink" href="#h"><code class="Fl" id="h">-h</code></a>,
+    <code class="Fl">-</code><code class="Fl">-help</code></dt>
+  <dd>Display a short help message and exit.</dd>
+  <dt><code class="Fl">-</code><code class="Fl">-keep-broken</code></dt>
+  <dd>Do not delete the sandbox if the test fails.</dd>
+  <dt><code class="Fl">-</code><code class="Fl">-no-cleanup</code></dt>
+  <dd>Do not delete the sandbox after the test finishes (successfully or
+    not).</dd>
+  <dt><a class="permalink" href="#q"><code class="Fl" id="q">-q</code></a>,
+    <code class="Fl">-</code><code class="Fl">-quiet</code></dt>
+  <dd>Do not print test results.</dd>
+  <dt><code class="Fl">-</code><code class="Fl">-setup-only</code></dt>
+  <dd>Only populate the sandbox, but do not run the actual test.</dd>
+  <dt><a class="permalink" href="#v"><code class="Fl" id="v">-v</code></a>,
+    <code class="Fl">-</code><code class="Fl">-verbose</code></dt>
+  <dd>Print detailed test results.</dd>
+  <dt><a class="permalink" href="#V"><code class="Fl" id="V">-V</code></a>,
+    <code class="Fl">-</code><code class="Fl">-version</code></dt>
+  <dd>Print <code class="Nm">nihtest</code> version number and exit.</dd>
+</dl>
+</div>
+<p class="Pp">A test run consists of the following steps:</p>
+<ul class="Bl-bullet Bd-indent Bl-compact">
+  <li>check if test should be skipped</li>
+  <li>create sandbox directory</li>
+  <li>populate sandbox directory with input files</li>
+  <li>run program</li>
+  <li>compare program output, exit code, and output files</li>
+  <li>remove sandbox</li>
+</ul>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ENVIRONMENT"><a class="permalink" href="#ENVIRONMENT">ENVIRONMENT</a></h1>
+<code class="Nm">nihtest</code> honors the following environment variables:
+<dl class="Bl-tag">
+  <dt><a class="permalink" href="#KEEP_BROKEN"><code class="Ev" id="KEEP_BROKEN">KEEP_BROKEN</code></a></dt>
+  <dd>If set, don't delete test environment if test failed.</dd>
+  <dt><a class="permalink" href="#VERBOSE"><code class="Ev" id="VERBOSE">VERBOSE</code></a></dt>
+  <dd>If set, be more verbose (e. g., output diffs).</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<dl class="Bl-tag">
+  <dt><span class="Pa">nihtest.conf</span></dt>
+  <dd><code class="Nm">nihtest</code> configuration file, see
+      <a class="Xr" href="nihtest.conf.html">nihtest.conf(5)</a> for
+    details</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXIT_STATUS"><a class="permalink" href="#EXIT_STATUS">EXIT
+  STATUS</a></h1>
+<code class="Nm">nihtest</code> uses the following exit codes:
+<div class="Bd-indent">
+<dl class="Bl-tag Bl-compact">
+  <dt>0</dt>
+  <dd>Test passed</dd>
+  <dt>1</dt>
+  <dd>Test failed</dd>
+  <dt>2</dt>
+  <dd>Other error</dd>
+  <dt>77</dt>
+  <dd>Test was skipped.</dd>
+</dl>
+</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DIAGNOSTICS"><a class="permalink" href="#DIAGNOSTICS">DIAGNOSTICS</a></h1>
+In general, differences to the test case expectation are marked up with
+  &#x201C;-&#x201D; if something expected did not happen and &#x201C;+&#x201D;
+  if something unexpected happened.
+<p class="Pp">In case the return value does not match,
+    <code class="Nm">nihtest</code> will report &#x201C;Exit code not as
+    expected&#x201D;. If the standard output or standard error output are not
+    correct, <code class="Nm">nihtest</code> will report &#x201C;Output not as
+    expected&#x201D; or &#x201C;Error output not as expected&#x201D;
+    respectively. And finally, if the file contents of the sandbox are not
+    correct, <code class="Nm">nihtest</code> will report &#x201C;Files in
+    sandbox not as expected&#x201D;.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<a class="Xr" href="nihtest-case.html">nihtest-case(5)</a>,
+  <a class="Xr" href="nihtest.conf.html">nihtest.conf(5)</a>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">June 2, 2020</td>
+    <td class="foot-os">NiH</td>
+  </tr>
+</table>
+</body>
+</html>

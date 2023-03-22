@@ -1,0 +1,151 @@
+.\" Automatically generated from an mdoc input file.  Do not edit.
+.\" nihtest.conf.mdoc -- nihtest config file format
+.\" Copyright (C) 2020 Dieter Baron and Thomas Klausner
+.\"
+.\" This file is part of nihtest, a testing framework.
+.\" The authors can be contacted at <nihtest@nih.at>
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in
+.\"    the documentation and/or other materials provided with the
+.\"    distribution.
+.\" 3. The names of the authors may not be used to endorse or promote
+.\"    products derived from this software without specific prior
+.\"    written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE AUTHORS ``AS IS'' AND ANY EXPRESS
+.\" OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+.\" WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY
+.\" DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+.\" GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+.\" INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+.\" IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+.\" OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+.\" IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+.\"
+.TH "NIHTEST.CONF" "5" "June 2, 2020" "NiH" "File Formats Manual"
+.nh
+.if n .ad l
+.SH "NAME"
+\fBnihtest.conf\fR
+\- testing tool configuration file format
+.SH "DESCRIPTION"
+nihtest(1)
+is a testing tool.
+It reads a configuration file to get its default settings.
+The default path for the file is
+\fInihtest.conf\fR
+in the current directory; this can be overridden with
+nihtest(1)'s
+\fB\-C\fR
+flag.
+This man page describes the format of this configuration file.
+.PP
+The following commands are recognized:
+.TP 22n
+\fBdefault-program\fR \fIprogram\fR
+Test
+\fIprogram\fR
+if no
+\fBprogram\fR
+directive is found in the test.
+.TP 22n
+\fBfile-compare\fR \fItest-extension source-extension command\fR [\fIargs ...\fR]
+When comparing files after test runs, use
+\fIcommand\fR
+with argument
+\fIargs\fR
+for files where the file in the sandbox ends with the extension
+\fItext-extension\fR
+or the file to compare against ends with the extension
+\fIsource-extension\fR.
+I.e., the complete command line used will be:
+.RS 28n
+command args ... expected-file test-result
+.RE
+.TP 22n
+\fBkeep-sandbox\fR
+Describe when to keep the sandbox (i.e., not delete it) after running the test.
+The following values are supported:
+.RS 30n
+.PD 0
+.TP 8n
+\fRnever\fR
+Never keep the sandbox.
+.TP 8n
+\fRfailed\fR
+Keep the sandbox when the test failed.
+.TP 8n
+\fRalways\fR
+Always keep the sandbox.
+.RE
+.RS 22n
+This can be overridden with the
+nihtest(1)
+flags
+\fB\-\fR\fB\-keep-broken\fR
+or
+\fB\-\fR\fB\-no-cleanup\fR.
+The default is
+\fRnever\fR.
+.RE
+.PD
+.TP 22n
+\fBprint-results\fR
+Describe when to print the test results verbosely.
+The following values are supported:
+.RS 30n
+.PD 0
+.TP 8n
+\fRnever\fR
+Quiet mode.
+.TP 8n
+\fRfailed\fR
+Print details when the test failed.
+.TP 8n
+\fRalways\fR
+Verbose mode.
+.RE
+.RS 22n
+This can be overridden with the
+nihtest(1)
+flags
+\fB\-\fR\fB\-quiet\fR
+or
+\fB\-\fR\fB\-verbose\fR.
+The default is
+\fRfailed\fR.
+.RE
+.PD
+.TP 22n
+\fBsandbox-directory\fR \fIdirectory\fR
+Create sandboxes in
+\fIdirectory\fR.
+By default, the sandboxes will be created in the current directory.
+A random directory of the pattern
+\fIsandbox_*\fR
+will be used.
+.TP 22n
+\fBsource-directory\fR \fIdirectory\fR
+nihtest(1)
+searches the current directory and
+\fIdirectory\fR
+for test cases, input and output files.
+.TP 22n
+\fBtop-build-directory\fR \fIdirectory\fR
+Where to look for the
+\fIconfig.h\fR
+file that defines the available features.
+See the
+\fBfeatures\fR
+command in
+nihtest-case(5).
+.SH "SEE ALSO"
+nihtest(1)
