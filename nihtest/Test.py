@@ -1,7 +1,7 @@
 import re
 import sys
 
-import nihtest.File as File
+from nihtest import File
 
 
 class Directive:
@@ -103,18 +103,16 @@ class Test:
         while line := self.readline():
             if line == "end-of-inline-data":
                 return data
-            else:
-                data += line + "\n" # TODO: \r\n on Windows?
+            data += line + "\n"  # TODO: \r\n on Windows?
         self.error("missing end-of-inline-data")
         return ""
 
     def file_data(self, argument):
         if argument == "{}":
             return None
-        elif argument == "<inline>":
+        if argument == "<inline>":
             return self.get_inline_data()
-        else:
-            return File.Data(file_name=argument)
+        return File.Data(file_name=argument)
 
     def directive_arguments(self, arguments):
         self.arguments = arguments

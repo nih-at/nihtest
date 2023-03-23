@@ -5,6 +5,7 @@ class Data:
         self.file_name = file_name
         self.data = data
 
+
 class File:
     def __init__(self, name, input=None, result=None):
         self.name = name

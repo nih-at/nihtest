@@ -1,7 +1,8 @@
 import argparse
+import sys
 
-import nihtest.Test as Test
-import nihtest.Configuration as Configuration
+from nihtest import Test
+from nihtest import Configuration
 
 
 def main():
@@ -21,7 +22,7 @@ def main():
 
     if args.version:
         print("nihtest 0.1")
-        exit(0)
+        sys.exit(0)
 
     configuration = Configuration.Configuration(args.config_file)
 

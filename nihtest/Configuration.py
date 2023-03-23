@@ -5,22 +5,19 @@ import enum
 def get_value(config, key, default_value=None):
     if key in config:
         return config[key]
-    else:
-        return default_value
+    return default_value
 
 
 def get_when(config, key, default_value):
     if name := get_value(config, key):
         if name == "always":
             return When.ALWAYS
-        elif name == "failed":
+        if name == "failed":
             return When.FAILED
-        elif name == "never":
+        if name == "never":
             return When.NEVER
-        else:
-            raise RuntimeError(f"unknown value '{name}")
-    else:
-        return default_value
+        raise RuntimeError(f"unknown value '{name}")
+    return default_value
 
 
 class When(enum.Enum):
