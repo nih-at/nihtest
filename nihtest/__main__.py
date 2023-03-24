@@ -29,5 +29,6 @@ def main():
     test = Test.Test(configuration, args)
     test.run()
 
+
 if __name__ == "__main__":
     main()
