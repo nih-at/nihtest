@@ -1,6 +1,6 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "nihtest"
@@ -23,4 +23,4 @@ classifiers = [
 "Bug Tracker" = "https://github.com/nih-at/nihtest/issues"
 
 [project.scripts]
-nihtest = "nihtest.main:main_cli"
+nihtest = "nihtest.__main__:main"
