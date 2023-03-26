@@ -10,3 +10,7 @@ It is documented in man pages: [nihtest(1)](https://raw.githack.com/nih-at/nihte
 file format [nihtest.conf(5)](https://raw.githack.com/nih-at/nihtest/master/man/nihtest.conf.html) and the test
 case language [nihtest-case(5)](https://raw.githack.com/nih-at/nihtest/master/man/nihtest-case.html).
 
+The man pages are included in the source distribution tarball in the
+`manpages` directory in man (Linux-like), mdoc (BSD), and HTML
+format. When you're packaging nihtest, please make sure they are
+installed in an appropriate location.
