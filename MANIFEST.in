@@ -1,0 +1,3 @@
+include manpages/*.man
+include manpages/*.mdoc
+include manpages/*.html
