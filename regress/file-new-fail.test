@@ -1,0 +1,3 @@
+program true
+file testfile {} success.txt
+return 0

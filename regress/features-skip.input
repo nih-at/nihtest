@@ -1,0 +1,3 @@
+program nihtest-false
+features TEST_MISSING_FEATURE
+return 0

@@ -1,5 +1,13 @@
 import configparser
 import enum
+import os.path
+
+
+def get_array(config, key):
+    if value := get_value(config, key):
+        return value.split("\n")
+    else:
+        return []
 
 
 def get_value(config, key, default_value=None):
@@ -27,16 +35,50 @@ class When(enum.Enum):
 
 
 class Configuration:
-    def __init__(self, filename):
+    def __init__(self, args):
         config = configparser.ConfigParser()
-        config.read(filename)
-        self.default_program = get_value(config, "settings.default-program")
-        self.sandbox_directory = get_value(config, "settings.sandbox-directory", ".")
-        self.top_build_directory = get_value(config, "settings.top-build-directory")
-        if source_directories := get_value(config, "settings.source-directories"):
-            self.source_directories = source_directories.split("\n")
-        else:
-            self.source_directories = []
-        self.keep_sandbox = get_when(config, "settings.keep-sandbox", When.NEVER)
-        self.print_results = get_when(config, "settings.print-results", When.FAILED)
-        self.comparators = config["comparators"]
+        config.read(args.config_file)
+        settings = []
+        if "settings" in config:
+            settings = config["settings"]
+        self.default_program = get_value(settings, "default-program")
+        self.sandbox_directory = get_value(settings, "sandbox-directory", ".")
+        self.feature_files = get_array(settings, "features-files")
+        self.test_input_directories = get_array(settings, "test-input-directories")
+        self.program_directories = get_array(settings, "program-directories")
+        self.keep_sandbox = get_when(settings, "keep-sandbox", When.NEVER)
+        self.print_results = get_when(settings, "print-results", When.FAILED)
+        self.comparators = get_value(config, "comparators", [])
+        self.verbose = When.FAILED
+        self.run_test = True
+
+        if args.quiet:
+            self.verbose = When.NEVER
+        if args.verbose:
+            self.verbose = When.ALWAYS
+        if args.keep_broken:
+            self.keep_sandbox = When.FAILED
+        if args.no_cleanup:
+            self.keep_sandbox = When.ALWAYS
+        if args.setup_only:
+            self.run_test = False
+
+    def find_input_file(self, filename):
+        if file := self.find_file(filename, self.test_input_directories):
+            return file
+        raise RuntimeError(f"can't find input file '{filename}'")
+
+    def find_program(self, program):
+        if file := self.find_file(program, self.program_directories):
+            return file
+        # TODO: search in PATH
+        return program
+
+    def find_file(self, filename, directories):
+        if os.path.exists(filename):
+            return filename
+        for directory in directories:
+            name = os.path.join(directory, filename)
+            if os.path.exists(name):
+                return name
+        return None

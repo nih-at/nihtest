@@ -1,0 +1,4 @@
+program nihtest-file
+arguments delete testfile
+file testfile success.txt {}
+return 0

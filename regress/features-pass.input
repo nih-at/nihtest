@@ -1,0 +1,3 @@
+program nihtest-true
+features TEST_EXISTING_FEATURE
+return 0

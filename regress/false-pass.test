@@ -1,0 +1,5 @@
+program nihtest
+arguments false-pass.test
+return 0
+file false-pass.test false-pass.input
+file nihtest.conf nihtest-conf

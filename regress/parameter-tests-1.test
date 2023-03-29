@@ -1,0 +1,25 @@
+program ../src/nihtest
+return 99
+args parameter-tests-1.test
+file parameter-tests-1.test parameter-tests-1.input parameter-tests-1.input
+stderr parameter-tests-1.test:3: directive 'features' called with 0 arguments, expected 1-
+stderr parameter-tests-1.test:4: directive 'file' called with 0 arguments, expected 2-3
+stderr parameter-tests-1.test:5: directive 'file' called with 1 arguments, expected 2-3
+stderr parameter-tests-1.test:6: directive 'file' called with 4 arguments, expected 2-3
+stderr parameter-tests-1.test:7: directive 'file-del' called with 0 arguments, expected 2
+stderr parameter-tests-1.test:8: directive 'file-del' called with 1 arguments, expected 2
+stderr parameter-tests-1.test:9: directive 'file-del' called with 3 arguments, expected 2
+stderr parameter-tests-1.test:10: directive 'file-new' called with 0 arguments, expected 2
+stderr parameter-tests-1.test:11: directive 'file-new' called with 1 arguments, expected 2
+stderr parameter-tests-1.test:12: directive 'file-new' called with 3 arguments, expected 2
+stderr parameter-tests-1.test:13: directive 'precheck' called with 0 arguments, expected 1-
+stderr parameter-tests-1.test:14: directive 'preload' called with 0 arguments, expected 1
+stderr parameter-tests-1.test:15: directive 'program' called with 0 arguments, expected 1
+stderr parameter-tests-1.test:16: directive 'return' called with 0 arguments, expected 1
+stderr parameter-tests-1.test:17: directive 'setenv' called with 0 arguments, expected 2
+stderr parameter-tests-1.test:18: directive 'setenv' called with 1 arguments, expected 2
+stderr parameter-tests-1.test:19: directive 'setenv' called with 3 arguments, expected 2
+stderr parameter-tests-1.test:21: directive 'stderr-replace' called with 0 arguments, expected 2
+stderr parameter-tests-1.test:22: directive 'stderr-replace' called with 1 arguments, expected 2
+stderr parameter-tests-1.test:23: directive 'stderr-replace' called with 3 arguments, expected 2
+stderr parameter-tests-1.test:25: directive 'stdin-file' called with 0 arguments, expected 1

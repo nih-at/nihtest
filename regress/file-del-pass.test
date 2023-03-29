@@ -1,0 +1,6 @@
+program nihtest
+arguments file-del-pass.test
+return 0
+file file-del-pass.test file-del-pass.input
+file success.txt success.txt
+file nihtest.conf nihtest-conf

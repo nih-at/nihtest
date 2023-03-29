@@ -1,0 +1,29 @@
+#args
+#description
+features
+file
+file 1
+file 1 2 3 4
+file-del
+file-del 1
+file-del 1 2 3
+file-new
+file-new 1
+file-new 1 2 3
+precheck
+preload
+program
+return
+setenv
+setenv 1
+setenv 1 2 3
+stderr
+stderr-replace
+stderr-replace 1
+stderr-replace 1 2 3
+stdin
+stdin-file
+stdout
+# test for empty line
+
+# end of test for empty line

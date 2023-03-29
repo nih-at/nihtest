@@ -1,4 +1,5 @@
 import argparse
+import os
 import sys
 
 from nihtest import Test
@@ -24,11 +25,11 @@ def main():
         print("nihtest 0.1")
         sys.exit(0)
 
-    configuration = Configuration.Configuration(args.config_file)
+    configuration = Configuration.Configuration(args)
 
     test = Test.Test(configuration, args)
-    test.run()
+    return test.run().value
 
 
 if __name__ == "__main__":
-    main()
+    exit(main())

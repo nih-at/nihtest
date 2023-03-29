@@ -1,0 +1,11 @@
+program nihtest
+arguments false-fail.test
+return 1
+file false-fail.test false-fail.input
+file nihtest.conf nihtest-conf
+stdout
+Unexpected exit code:
+-0
++1
+false-fail -- FAIL: exit code
+end-of-inline-data

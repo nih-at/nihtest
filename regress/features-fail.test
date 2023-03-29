@@ -1,0 +1,12 @@
+program nihtest
+arguments features-fail.test
+return 1
+file features-fail.test features-fail.input
+file nihtest.conf nihtest-conf
+file config.h config.h
+stdout
+Unexpected exit code:
+-0
++1
+features-fail -- FAIL: exit code
+end-of-inline-data

@@ -1,0 +1,5 @@
+program ../src/nihtest
+return 99
+args parameter-tests-4.test
+file parameter-tests-4.test parameter-tests-4.input parameter-tests-4.input
+stderr no program specified

@@ -1,0 +1,11 @@
+program nihtest
+arguments file-del-fail.test
+return 1
+file file-del-fail.test file-del-fail.input
+file success.txt success.txt
+file nihtest.conf nihtest-conf
+stdout
+Unexpected files:
++testfile
+file-del-fail -- FAIL: files
+end-of-inline-data

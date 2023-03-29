@@ -1,0 +1,6 @@
+program ../file
+preload ineffective-remove.so
+args delete testfile
+file testfile success.txt success.txt
+stdout request to remove 'testfile' denied
+return 0

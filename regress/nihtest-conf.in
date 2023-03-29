@@ -1,0 +1,4 @@
+[settings]
+features-files = config.h
+program-directories = @PROJECT_BINARY_DIR@
+test-input-directories = input

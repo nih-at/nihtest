@@ -1,0 +1,3 @@
+program true
+precheck true
+return 0

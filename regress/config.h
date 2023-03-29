@@ -1,0 +1,2 @@
+#define TEST_EXISTING_FEATURE
+/* #undef TEST_MISSING_FEATURE */

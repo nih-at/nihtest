@@ -1,0 +1,24 @@
+program nihtest
+arguments diff-1.test
+return 1
+file diff-1.test diff-1.input
+file nihtest.conf nihtest-conf
+stdout
+Unexpected output:
+-E
++A
+ A
+ B
+-E
++B
++C
++C
+ D
+ D
+-C
+-E
+ A
+ G
+ H
+diff-1 -- FAIL: output
+end-of-inline-data

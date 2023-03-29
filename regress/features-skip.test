@@ -1,0 +1,6 @@
+program nihtest
+arguments features-skip.test
+return 77
+file features-skip.test features-skip.input
+file config.h config.h
+file nihtest.conf nihtest-conf

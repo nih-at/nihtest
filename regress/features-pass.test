@@ -1,0 +1,6 @@
+program nihtest
+arguments features-pass.test
+return 0
+file features-pass.test features-pass.input
+file nihtest.conf nihtest-conf
+file config.h config.h

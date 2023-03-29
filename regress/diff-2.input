@@ -1,0 +1,14 @@
+program nihtest-cat
+arguments -
+return 0
+stdin
+E
+A
+B
+end-of-inline-data
+stdout
+A
+A
+B
+B
+end-of-inline-data
