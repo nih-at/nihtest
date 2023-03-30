@@ -23,17 +23,17 @@ ADD_LIBRARY(ineffective-remove MODULE ineffective-remove.c)
 TARGET_LINK_LIBRARIES(ineffective-remove ${CMAKE_DL_LIBS})
 
 # Tests for helper programs
-add_test(NAME true COMMAND true)
-add_test(NAME false COMMAND false)
+add_test(NAME true COMMAND nihtest-true)
+add_test(NAME false COMMAND nihtest-false)
 set_tests_properties(false PROPERTIES WILL_FAIL TRUE)
-add_test(NAME echo COMMAND echo "This test was successful.")
+add_test(NAME echo COMMAND nihtest-echo "This test was successful.")
 set_tests_properties(echo PROPERTIES PASS_REGULAR_EXPRESSION "This test was successful.")
-add_test(NAME cat COMMAND cat ${CMAKE_CURRENT_SOURCE_DIR}/success.txt)
+add_test(NAME cat COMMAND nihtest-cat ${CMAKE_CURRENT_SOURCE_DIR}/success.txt)
 set_tests_properties(cat PROPERTIES PASS_REGULAR_EXPRESSION "This is a successful test.")
-add_test(NAME getenv-defined COMMAND getenv "DEFINED")
+add_test(NAME getenv-defined COMMAND nihtest-getenv "DEFINED")
 set_tests_properties(getenv-defined PROPERTIES ENVIRONMENT DEFINED="This is a successful test.")
 set_tests_properties(getenv-defined PROPERTIES PASS_REGULAR_EXPRESSION "DEFINED=\"This is a successful test.\"")
-add_test(NAME getenv-undefined COMMAND getenv "UNDEFINED")
+add_test(NAME getenv-undefined COMMAND nihtest-getenv "UNDEFINED")
 set_tests_properties(getenv-undefined PROPERTIES PASS_REGULAR_EXPRESSION "UNDEFINED=<null>")
 
 # these are not sorted alphabetically but by features
