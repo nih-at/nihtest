@@ -1,4 +1,5 @@
 import os
+import shutil
 import subprocess
 
 
@@ -12,8 +13,8 @@ class Command:
         self.exit_code = None
 
     def run(self):
-        # TODO: find self.program in path
-        result = subprocess.run([self.program] + self.arguments, capture_output=True, text=True, input=self.stdin)
+        program = self.program if os.path.exists(self.program) else shutil.which(self.program)
+        result = subprocess.run([program] + self.arguments, capture_output=True, text=True, input=self.stdin)
         self.exit_code = result.returncode
         self.stdout = result.stdout.splitlines()
         self.stderr = result.stderr.splitlines()

@@ -71,7 +71,6 @@ class Configuration:
     def find_program(self, program):
         if file := self.find_file(program, self.program_directories):
             return file
-        # TODO: search in PATH
         return program
 
     def find_file(self, filename, directories):
