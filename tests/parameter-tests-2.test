@@ -2,6 +2,8 @@ program nihtest
 return 99
 arguments parameter-tests-2.test
 file parameter-tests-2.test parameter-tests-2.input parameter-tests-2.input
-stderr parameter-tests-2.test:2: directive 'program' called with 2 arguments, expected 1
-stderr parameter-tests-2.test:3: directive 'return' called with 2 arguments, expected 1
-stderr parameter-tests-2.test:4: directive 'stdin-file' called with 2 arguments, expected 1
+stderr
+parameter-tests-2.test:2: directive 'program' called with 2 arguments, expected 1
+parameter-tests-2.test:3: directive 'return' called with 2 arguments, expected 1
+parameter-tests-2.test:4: directive 'stdin-file' called with 2 arguments, expected 1
+end-of-inline-data
