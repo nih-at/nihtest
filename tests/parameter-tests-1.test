@@ -23,5 +23,4 @@ parameter-tests-1.test:19: directive 'setenv' called with 3 arguments, expected 
 parameter-tests-1.test:21: directive 'stderr-replace' called with 0 arguments, expected 2
 parameter-tests-1.test:22: directive 'stderr-replace' called with 1 arguments, expected 2
 parameter-tests-1.test:23: directive 'stderr-replace' called with 3 arguments, expected 2
-parameter-tests-1.test:25: directive 'stdin-file' called with 0 arguments, expected 1
 end-of-inline-data

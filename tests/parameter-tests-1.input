@@ -21,8 +21,7 @@ stderr
 stderr-replace
 stderr-replace 1
 stderr-replace 1 2 3
-stdin
-stdin-file
+stdin 1 2
 stdout
 # test for empty line
 
