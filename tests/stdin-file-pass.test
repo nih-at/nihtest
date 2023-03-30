@@ -1,5 +1,7 @@
 program nihtest-cat
 return 0
-args -
-stdin-file success.txt
-stdout This is a successful test.
+arguments -
+stdin success.txt
+stdout
+This is a successful test.
+end-of-inline-data

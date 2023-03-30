@@ -1,6 +1,6 @@
 program nihtest
 return 99
-args parameter-tests-1.test
+arguments parameter-tests-1.test
 file parameter-tests-1.test parameter-tests-1.input parameter-tests-1.input
 stderr parameter-tests-1.test:3: directive 'features' called with 0 arguments, expected 1-
 stderr parameter-tests-1.test:4: directive 'file' called with 0 arguments, expected 2-3

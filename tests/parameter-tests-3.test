@@ -1,5 +1,5 @@
 program ../src/nihtest
 return 99
-args parameter-tests-3.test
+arguments parameter-tests-3.test
 file parameter-tests-3.test parameter-tests-3.input parameter-tests-3.input
 stderr parameter-tests-3.test:2: directive 'return' is required

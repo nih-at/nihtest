@@ -1,6 +1,6 @@
 program nihtest-echo
 return 0
-args -e This is not a successful test.
+arguments -e This is not a successful test.
 stderr
 This is a successful test.
 end-of-inline-data
