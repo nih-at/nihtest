@@ -1,2 +1,2 @@
-program ../true
+program nihtest-true
 return 1

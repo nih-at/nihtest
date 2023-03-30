@@ -1,4 +1,4 @@
-program getenv
+program nihtest-getenv
 args TEST_ENV
 setenv TEST_ENV "This is a successful test."
 stdout TEST_ENV=This is a successful test.

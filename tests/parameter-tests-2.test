@@ -1,4 +1,4 @@
-program ../src/nihtest
+program nihtest
 return 99
 args parameter-tests-2.test
 file parameter-tests-2.test parameter-tests-2.input parameter-tests-2.input

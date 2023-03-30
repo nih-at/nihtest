@@ -1,3 +1,3 @@
-program false
-precheck false
+program nihtest-false
+precheck nihtest-false
 return 0

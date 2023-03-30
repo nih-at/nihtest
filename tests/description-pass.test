@@ -1,3 +1,3 @@
 description This is a test description and should be completely ignored.
-program true
+program nihtest-true
 return 0
