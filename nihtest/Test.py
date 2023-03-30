@@ -1,5 +1,6 @@
 import enum
 import os
+import re
 
 from nihtest import Command
 from nihtest import Configuration
@@ -7,6 +8,12 @@ from nihtest import Features
 from nihtest import TestCase
 from nihtest import Sandbox
 from nihtest import Utility
+
+
+def process_stderr_line(line, replacements):
+    for replacement in replacements:
+        line = re.sub(replacement[0], replacement[1], line)
+    return line
 
 
 class TestResult(enum.Enum):
@@ -50,8 +57,7 @@ class Test:
 
         self.compare("exit code", [str(self.case.exit_code)], [str(command.exit_code)])
         self.compare("output", self.case.stdout, command.stdout)
-        # TODO: stderr replacements
-        self.compare("error output", self.case.stderr, command.stderr)
+        self.compare("error output", self.case.stderr, self.process_stderr(command.stderr))
 
         files_expected = []
         for file in self.case.files:
@@ -67,7 +73,8 @@ class Test:
         if not file_content_ok:
             self.failed.append("file contents")
 
-        if self.case.configuration.keep_sandbox == Configuration.When.NEVER or (self.case.configuration.keep_sandbox == Configuration.When.FAILED and self.failed):
+        if self.case.configuration.keep_sandbox == Configuration.When.NEVER or (
+                self.case.configuration.keep_sandbox == Configuration.When.FAILED and self.failed):
             self.sandbox.cleanup()
 
         if self.failed:
@@ -78,7 +85,8 @@ class Test:
             return TestResult.OK
 
     def compare(self, description, expected, got):
-        if not Utility.compare_lines(description, expected, got, self.case.configuration.verbose != Configuration.When.NEVER):
+        if not Utility.compare_lines(description, expected, got,
+                                     self.case.configuration.verbose != Configuration.When.NEVER):
             self.failed.append(description)
 
     def list_files(self):
@@ -91,3 +99,6 @@ class Test:
                     name = os.path.join(directory, file)[2:]
                 files.append(name)
         return files
+
+    def process_stderr(self, lines):
+        return list(map(lambda line: process_stderr_line(line, self.case.stderr_replace), lines))
