@@ -23,17 +23,35 @@ class File:
             return True
 
         input_file_name = os.path.join(directory, self.name)
-        output_data = []
+        output_file_name = configuration.find_input_file(self.result.file_name)
+        output_is_binary = False
 
         if self.result.file_name:
             # TODO: check comparators
-            # TODO: check binaries
-            output_data = Utility.read_lines(configuration.find_input_file(self.result.file_name))
+            try:
+                output_data = Utility.read_lines(output_file_name)
+            except UnicodeDecodeError:
+                with open(output_file_name, "rb") as file:
+                    output_data = file.read()
+                output_is_binary = True
         else:
             output_data = self.result.data
 
-        input_data = Utility.read_lines(input_file_name)
-        return Utility.compare_lines(self.name, input_data, output_data, configuration.verbose != Configuration.When.NEVER)
+        if not output_is_binary:
+            try:
+                input_data = Utility.read_lines(input_file_name)
+                return Utility.compare_lines(self.name, input_data, output_data, configuration.verbose != Configuration.When.NEVER)
+            except UnicodeDecodeError:
+                output_data = os.linesep.join(output_data)
+
+        with open(input_file_name, "rb") as file:
+            input_data = file.read()
+        if input_data != output_data:
+            if configuration.verbose != Configuration.When.NEVER:
+                print(f"Unexpected {self.name}:")
+                print("Binary files differ.")
+            return False
+        return True
 
     def prepare(self, configuration, directory):
         if self.input:
