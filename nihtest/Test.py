@@ -62,7 +62,7 @@ class Test:
         if self.case.preload:
             if not environment:
                 environment = {}
-            environment["LD_PRELOAD"] = " ".join(map(lambda file: self.case.configuration.find_program(file), self.case.preload))
+            environment["LD_PRELOAD"] = " ".join(map(lambda file: self.case.configuration.find_program("lib" + file), self.case.preload))
         command = Command.Command(program, self.case.arguments, stdin, environment=environment)
         command.run()
         files_got = self.list_files()
