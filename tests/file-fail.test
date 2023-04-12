@@ -4,5 +4,8 @@ return 1
 file file-fail.test file-fail.input
 file nihtest.conf nihtest-conf
 stdout
-file-fail -- FAIL: output
+testfile differs:
+-This is not a successful test.
++This is a successful test.
+file-fail -- FAIL: file contents
 end-of-inline-data

@@ -1,4 +1,4 @@
 program nihtest-file
-arguments new testfile "This is a successful test.\n"
+arguments new testfile "This is a successful test."
 file testfile {} success.txt
 return 0

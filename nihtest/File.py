@@ -48,7 +48,7 @@ class File:
             input_data = file.read()
         if input_data != output_data:
             if configuration.verbose != Configuration.When.NEVER:
-                print(f"Unexpected {self.name}:")
+                print(f"{self.name} differs:")
                 print("Binary files differ.")
             return False
         return True

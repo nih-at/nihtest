@@ -6,17 +6,14 @@ from nihtest import File
 
 
 class Directive:
-    def __init__(self, usage, method, single_argument=False, minimum_arguments=0, maximum_arguments=None,
-                 required=False, only_once=False):
+    def __init__(self, usage, method, minimum_arguments, maximum_arguments=None, only_once=False):
         self.usage = usage
         self.method = method
-        self.single_argument = single_argument
         self.minimum_arguments = minimum_arguments
         if maximum_arguments:
             self.maximum_arguments = maximum_arguments
         else:
             self.maximum_arguments = self.minimum_arguments
-        self.required = required
         self.only_once = only_once
 
 
@@ -27,6 +24,7 @@ class TestCase:
             self.name = self.name[:-5]
         self.args = args
         self.configuration = configuration
+        self.environment = {}
         file_name = args.testcase
         if file_name[-5:] != ".test":
             file_name += ".test"
@@ -38,6 +36,8 @@ class TestCase:
         self.description = ""
         self.features = []
         self.files = []
+        self.precheck = None
+        self.preload = []
         self.program = configuration.default_program
         self.exit_code = 0
         self.stderr = []
@@ -45,6 +45,7 @@ class TestCase:
         self.stdin = []
         self.stdout = []
         self.ok = True
+        self.directories = []
         self.parse_case()
         if not self.ok:
             raise RuntimeError("invalid test case")
@@ -58,10 +59,6 @@ class TestCase:
             if line == "" or line[0] == "#":
                 continue
             self.parse_line(line)
-
-        for name, directive in TestCase.directives.items():
-            if directive.required and name not in self.directives_seen:
-                self.error(f"missing required directive '{name}'")
 
     def error(self, message):
         print(f"{self.file_name}:{self.line_number}: {message}", file=sys.stderr)
@@ -78,21 +75,16 @@ class TestCase:
 
         directive = TestCase.directives[name]
 
-        if directive.single_argument:
-            directive.method(self, line[len(name):].lstrip())
-        else:
-            if len(arguments) < directive.minimum_arguments:
-                self.error(f"too few arguments for '{name}'")
-                return
-            if directive.maximum_arguments != -1 and len(arguments) > directive.maximum_arguments:
-                self.error(f"too many arguments for '{name}'")
-                return
-            if directive.only_once and name in self.directives_seen:
-                self.error(f"'{name}' only allowed once")
-                return
-
-            self.directives_seen[name] = self.line_number
-
+        if directive.only_once and name in self.directives_seen:
+            self.error(f"'{name}' only allowed once")
+            return
+        self.directives_seen[name] = self.line_number
+        if len(arguments) < directive.minimum_arguments:
+            self.error(f"too few arguments for '{name}'")
+            return
+        if directive.maximum_arguments != -1 and len(arguments) > directive.maximum_arguments:
+            self.error(f"too many arguments for '{name}'")
+            return
         directive.method(self, arguments)
 
     def get_inline_data(self):
@@ -112,7 +104,6 @@ class TestCase:
         return File.Data(file_name=argument)
 
     def directive_arguments(self, arguments):
-        #TODO: quoting
         self.arguments = arguments
 
     def directive_description(self, text):
@@ -129,11 +120,23 @@ class TestCase:
             result = input_source
         self.files.append(File.File(name=arguments[0], input=input_source, result=result))
 
+    def directive_mkdir(self, arguments):
+        self.directories.append(arguments[0])
+
+    def directive_precheck(self, arguments):
+        self.precheck = arguments
+
+    def directive_preload(self, arguments):
+        self.preload.append(arguments[0])
+
     def directive_program(self, arguments):
         self.program = arguments[0]
 
     def directive_return(self, arguments):
         self.exit_code = int(arguments[0])  # TODO: error check?
+
+    def directive_setenv(self, arguments):
+        self.environment[arguments[0]] = arguments[1]
 
     def directive_stderr(self, arguments):
         if len(arguments) > 0:
@@ -146,7 +149,7 @@ class TestCase:
 
     def directive_stdin(self, arguments):
         if len(arguments) > 0:
-            self.stdin = self.file_data(arguments[0])
+            self.stdin = arguments[0]
         else:
             self.stdin = self.file_data("<inline>")
 
@@ -159,20 +162,26 @@ class TestCase:
     directives = {
         "arguments": Directive(method=directive_arguments,
                                usage="[argument ...]",
-                               minimum_arguments=0,
-                               maximum_arguments=-1),
+                               minimum_arguments=0, maximum_arguments=-1),
         "description": Directive(method=directive_description,
-                                 usage="text",
-                                 single_argument=True),
+                                 minimum_arguments=0, maximum_arguments=-1,
+                                 usage="text"),
         "features": Directive(method=directive_features,
                               usage="feature ...",
                               minimum_arguments=1),
         "file": Directive(method=directive_file,
                           usage="test in [out]",
                           minimum_arguments=2, maximum_arguments=3),
-        # mkdir
-        # preload
-        # precheck
+        "mkdir": Directive(method=directive_mkdir,
+                           usage="name",
+                           minimum_arguments=1),
+        "precheck": Directive(method=directive_precheck,
+                              usage="program [argument ...]",
+                              minimum_arguments=1, maximum_arguments=-1,
+                              only_once=True),
+        "preload": Directive(method=directive_preload,
+                             usage="object",
+                             minimum_arguments=1),
         "program": Directive(method=directive_program,
                              usage="name",
                              minimum_arguments=1,
@@ -181,7 +190,9 @@ class TestCase:
                             usage="exit-code",
                             minimum_arguments=1,
                             only_once=True),
-        # setenv
+        "setenv": Directive(method=directive_setenv,
+                            usage="variable value",
+                            minimum_arguments=2),
         "stderr": Directive(method=directive_stderr,
                             usage="[file]",
                             minimum_arguments=0, maximum_arguments=1,
@@ -197,6 +208,4 @@ class TestCase:
                             usage="[file]",
                             minimum_arguments=0, maximum_arguments=1,
                             only_once=True),
-        # touch
-        # ulimit
     }

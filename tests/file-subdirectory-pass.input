@@ -1,4 +1,5 @@
 program nihtest-file
-arguments new subdirectory/testfile "This is a successful test.\n"
+arguments new subdirectory/testfile "This is a successful test."
+mkdir subdirectory
 file subdirectory/testfile failure.txt success.txt
 return 0

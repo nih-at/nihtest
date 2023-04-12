@@ -1,5 +1,5 @@
 program nihtest
 arguments precheck-skip.test
-return 72
+return 77
 file precheck-skip.test precheck-skip.input
 file nihtest.conf nihtest-conf

@@ -27,9 +27,12 @@ def main():
 
     configuration = Configuration.Configuration(args)
 
-    test = Test.Test(configuration, args)
-    return test.run().value
-
+    try:
+        test = Test.Test(configuration, args)
+        return test.run().value
+    except RuntimeError as ex:
+        print(f"{sys.argv[0]}: {ex}", file=sys.stderr)
+        sys.exit(99)
 
 if __name__ == "__main__":
     exit(main())

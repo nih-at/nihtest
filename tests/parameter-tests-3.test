@@ -1,7 +1,0 @@
-program ../src/nihtest
-return 99
-arguments parameter-tests-3.test
-file parameter-tests-3.test parameter-tests-3.input parameter-tests-3.input
-stderr
-parameter-tests-3.test:2: directive 'return' is required
-end-of-inline-data

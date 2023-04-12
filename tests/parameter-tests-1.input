@@ -1,28 +1,25 @@
-#args
-#description
+# arguments has no restrictions
+# description has no restrictions
 features
 file
 file 1
 file 1 2 3 4
-file-del
-file-del 1
-file-del 1 2 3
-file-new
-file-new 1
-file-new 1 2 3
+mkdir
+mkdir 1 2
 precheck
 preload
+preload 1 2
 program
 return
 setenv
 setenv 1
 setenv 1 2 3
-stderr
+stderr 1 2
 stderr-replace
 stderr-replace 1
 stderr-replace 1 2 3
 stdin 1 2
-stdout
+stdout 1 2
 # test for empty line
 
 # end of test for empty line

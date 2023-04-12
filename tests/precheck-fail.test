@@ -4,5 +4,8 @@ return 1
 file precheck-fail.test precheck-fail.input
 file nihtest.conf nihtest-conf
 stdout
-precheck-fail -- FAIL: 
+exit code differs:
+-0
++1
+precheck-fail -- FAIL: exit code
 end-of-inline-data

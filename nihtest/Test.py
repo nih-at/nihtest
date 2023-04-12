@@ -1,5 +1,6 @@
 import enum
 import os
+import platform
 import re
 
 from nihtest import Command
@@ -30,16 +31,23 @@ class Test:
         self.failed = []
 
     def run(self):
-        # TODO: Skip if preloading on macOS or Windows
+        if self.case.preload and platform.system() in ["Darwin", "Windows"]:
+            # TODO: status output if verbose
+            return TestResult.SKIPPED
 
         for feature in self.case.features:
             if not self.features.has_feature(feature):
                 # TODO: status output if verbose
                 return TestResult.SKIPPED
 
-        # TODO: Run precheck command
+        if not self.precheck_passed():
+            # TODO: status output if verbose
+            return TestResult.SKIPPED
 
         self.sandbox = Sandbox.Sandbox(self.case.name, self.case.configuration.keep_sandbox != Configuration.When.NEVER)
+
+        for directory in self.case.directories:
+            os.mkdir(os.path.join(self.sandbox.directory, directory))
 
         for file in self.case.files:
             file.prepare(self.case.configuration, self.sandbox.directory)
@@ -48,9 +56,14 @@ class Test:
             return TestResult.OK
 
         self.sandbox.enter()
-        # TODO: preload
         program = self.case.configuration.find_program(self.case.program)
-        command = Command.Command(program, self.case.arguments, self.case.stdin)
+        stdin = Utility.read_lines(self.case.configuration.find_input_file(self.case.stdin)) if isinstance(self.case.stdin, str) else self.case.stdin
+        environment = self.case.environment
+        if self.case.preload:
+            if not environment:
+                environment = {}
+            environment["LD_PRELOAD"] = " ".join(self.case.preload)
+        command = Command.Command(program, self.case.arguments, stdin, environment=environment)
         command.run()
         files_got = self.list_files()
         self.sandbox.leave()
@@ -68,7 +81,7 @@ class Test:
 
         file_content_ok = True
         for file in self.case.files:
-            if not file.compare(self.case.configuration, self.sandbox.directory):
+            if file.name in files_got and not file.compare(self.case.configuration, self.sandbox.directory):
                 file_content_ok = False
         if not file_content_ok:
             self.failed.append("file contents")
@@ -99,6 +112,14 @@ class Test:
                     name = os.path.join(directory, file)[2:]
                 files.append(name)
         return files
+
+    def precheck_passed(self):
+        if not self.case.precheck:
+            return True
+        program = self.case.configuration.find_program(self.case.precheck[0])
+        command = Command.Command(program, self.case.precheck[1:])
+        command.run()
+        return command.exit_code == 0
 
     def process_stderr(self, lines):
         return list(map(lambda line: process_stderr_line(line, self.case.stderr_replace), lines))

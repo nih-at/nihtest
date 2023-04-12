@@ -2,3 +2,4 @@
 features-files = @PROJECT_BINARY_DIR@/config.h
 test-input-directories = @CMAKE_CURRENT_SOURCE_DIR@
 program-directories = @PROJECT_BINARY_DIR@
+    @VENV_BIN_DIR@
