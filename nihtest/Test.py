@@ -64,7 +64,7 @@ class Test:
             if file.result:
                 files_expected.append(file.name)
 
-        self.compare("files", sorted(files_expected), sorted(files_got))
+        self.compare("file list", sorted(files_expected), sorted(files_got))
 
         file_content_ok = True
         for file in self.case.files:
@@ -79,7 +79,7 @@ class Test:
 
         if self.failed:
             if self.case.configuration.verbose != Configuration.When.NEVER:
-                print(self.case.name + " -- FAIL: " + " ".join(self.failed))
+                print(self.case.name + " -- FAIL: " + ", ".join(self.failed))
                 return TestResult.FAILED
         else:
             return TestResult.OK

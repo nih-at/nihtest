@@ -5,7 +5,7 @@ file file-del-fail.test file-del-fail.input
 file success.txt success.txt
 file nihtest.conf nihtest-conf
 stdout
-Unexpected files:
+file list differs:
 +testfile
-file-del-fail -- FAIL: files
+file-del-fail -- FAIL: file list
 end-of-inline-data

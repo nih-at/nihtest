@@ -1,7 +1,5 @@
-program nihtest-cat
+program nihtest
+arguments stdin-file-pass.test
 return 0
-arguments -
-stdin success.txt
-stdout
-This is a successful test.
-end-of-inline-data
+file stdin-file-pass.test stdin-file-pass.input
+file nihtest.conf nihtest-conf

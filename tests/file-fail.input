@@ -1,0 +1,3 @@
+program nihtest-true
+file testfile failure.txt success.txt
+return 0

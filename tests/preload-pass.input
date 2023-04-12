@@ -1,0 +1,8 @@
+program nihtest-file
+preload ineffective-remove.so
+arguments delete testfile
+file testfile success.txt
+stdout
+request to remove 'testfile' denied
+end-of-inline-data
+return 0

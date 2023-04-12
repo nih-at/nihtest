@@ -1,4 +1,5 @@
-program nihtest-file
-arguments new testfile "This is a successful test.\n"
-file testfile {} success.txt
+program nihtest
+arguments file-new-pass.test
 return 0
+file file-new-pass.test file-new-pass.input
+file nihtest.conf nihtest-conf

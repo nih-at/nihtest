@@ -1,0 +1,7 @@
+program nihtest-getenv
+arguments TEST_ENV
+setenv TEST_ENV "This is a successful test."
+stdout
+TEST_ENV=This is a successful test.
+end-of-inline-data
+return 0

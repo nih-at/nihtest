@@ -1,3 +1,5 @@
-program nihtest-true
-precheck nihtest-true
+program nihtest
+arguments precheck-pass.test
 return 0
+file precheck-pass.test precheck-pass.input
+file nihtest.conf nihtest-conf

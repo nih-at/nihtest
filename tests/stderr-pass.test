@@ -1,6 +1,5 @@
-program nihtest-echo
+program nihtest
+arguments stderr-pass.test
 return 0
-arguments -e This is a successful test.
-stderr
-This is a successful test.
-end-of-inline-data
+file stderr-pass.test stderr-pass.input
+file nihtest.conf nihtest-conf

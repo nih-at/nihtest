@@ -1,0 +1,9 @@
+program nihtest-cat
+return 0
+arguments -
+stdin
+This is a successful test.
+end-of-inline-data
+stdout
+This is a successful test.
+end-of-inline-data

@@ -1,3 +1,8 @@
-program nihtest-false
-precheck nihtest-true
-return 0
+program nihtest
+arguments precheck-fail.test
+return 1
+file precheck-fail.test precheck-fail.input
+file nihtest.conf nihtest-conf
+stdout
+precheck-fail -- FAIL: 
+end-of-inline-data

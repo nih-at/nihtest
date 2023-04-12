@@ -75,12 +75,12 @@ set(NIHTEST_TESTS
 
 # Tests for nihtest itself
 foreach(CASE ${NIHTEST_TESTS})
-  add_test(NAME ${CASE} COMMAND python -m nihtest ${PROJECT_SOURCE_DIR}/${CASE})
+  add_test(NAME ${CASE} COMMAND ${NIHTEST} ${PROJECT_SOURCE_DIR}/${CASE})
   set_tests_properties(${CASE} PROPERTIES ENVIRONMENT "PYTHONPATH=${PROJECT_SOURCE_DIR}/..")
   set_tests_properties(${CASE} PROPERTIES SKIP_RETURN_CODE 77)
-  if(${CASE} MATCHES ".*-fail$") 
-    set_tests_properties(${CASE} PROPERTIES WILL_FAIL TRUE)
-  endif()
+#  if(${CASE} MATCHES ".*-fail$")
+#    set_tests_properties(${CASE} PROPERTIES WILL_FAIL TRUE)
+#  endif()
 endforeach()
 
 # for testing the "features" keyword
@@ -88,6 +88,7 @@ set(HAVE_TEST_EXISTING_FEATURE 1)
 set(HAVE_TEST_MISSING_FEATURE 0)
 
 configure_file(nihtest.conf.in ${CMAKE_CURRENT_BINARY_DIR}/nihtest.conf @ONLY)
-configure_file(nihtest-conf.in ${CMAKE_CURRENT_BINARY_DIR}/nihtest-conf @ONLY)
 
 enable_testing()
+
+# TODO: testing depends on venv

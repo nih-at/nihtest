@@ -1,4 +1,5 @@
 import re
+import shlex
 import sys
 
 from nihtest import File
@@ -67,7 +68,7 @@ class TestCase:
         self.ok = False
 
     def parse_line(self, line):
-        words = line.split()
+        words = shlex.split(line)
         name = words[0]
         arguments = words[1::]
 

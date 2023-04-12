@@ -14,7 +14,7 @@ def compare_lines(description, expected, got, verbose):
             ok = False
         diff.append(raw_line[0] + raw_line[2:])
     if not ok and verbose:
-        print(f"Unexpected {description}:")
+        print(f"{description} differs:")
         write_lines(sys.stdout, diff)
     return ok
 

@@ -1,6 +1,5 @@
-program nihtest-echo
+program nihtest
+arguments stdout-pass.test
 return 0
-arguments This is a successful test.
-stdout
-This is a successful test.
-end-of-inline-data
+file stdout-pass.test stdout-pass.input
+file nihtest.conf nihtest-conf

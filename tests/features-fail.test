@@ -5,7 +5,7 @@ file features-fail.test features-fail.input
 file nihtest.conf nihtest-conf
 file config.h config.h
 stdout
-Unexpected exit code:
+exit code differs:
 -0
 +1
 features-fail -- FAIL: exit code

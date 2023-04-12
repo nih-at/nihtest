@@ -1,0 +1,3 @@
+program nihtest-false
+precheck nihtest-false
+return 0

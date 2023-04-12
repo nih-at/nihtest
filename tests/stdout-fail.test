@@ -1,6 +1,11 @@
-program nihtest-echo
-return 0
-arguments This is not a successful test.
+program nihtest
+arguments stdout-fail.test
+return 1
+file stdout-fail.test stdout-fail.input
+file nihtest.conf nihtest-conf
 stdout
-This is a successful test.
+output differs:
+-This is a successful test.
++This is not a successful test.
+stdout-fail -- FAIL: output
 end-of-inline-data

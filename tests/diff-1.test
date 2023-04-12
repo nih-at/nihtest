@@ -4,7 +4,7 @@ return 1
 file diff-1.test diff-1.input
 file nihtest.conf nihtest-conf
 stdout
-Unexpected output:
+output differs:
 -E
 +A
  A

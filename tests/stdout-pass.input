@@ -1,0 +1,6 @@
+program nihtest-echo
+return 0
+arguments This is a successful test.
+stdout
+This is a successful test.
+end-of-inline-data

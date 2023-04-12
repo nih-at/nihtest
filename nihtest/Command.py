@@ -14,6 +14,8 @@ class Command:
 
     def run(self):
         program = self.program if os.path.exists(self.program) else shutil.which(self.program)
+        if program is None:
+            raise RuntimeError(f"can't find program {self.program}")
         result = subprocess.run([program] + self.arguments, capture_output=True, text=True, input=self.stdin)
         self.exit_code = result.returncode
         self.stdout = result.stdout.splitlines()

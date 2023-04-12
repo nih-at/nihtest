@@ -1,3 +1,8 @@
-program nihtest-true
-file testfile failure.txt success.txt
-return 0
+program nihtest
+arguments file-fail.test
+return 1
+file file-fail.test file-fail.input
+file nihtest.conf nihtest-conf
+stdout
+file-fail -- FAIL: output
+end-of-inline-data

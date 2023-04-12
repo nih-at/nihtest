@@ -1,2 +1,11 @@
-program nihtest-true
+program nihtest
+arguments true-fail.test
 return 1
+file true-fail.test true-fail.input
+file nihtest.conf nihtest-conf
+stdout
+exit code differs:
+-1
++0
+true-fail -- FAIL: exit code
+end-of-inline-data

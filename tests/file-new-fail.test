@@ -1,3 +1,10 @@
-program nihtest-true
-file testfile {} success.txt
-return 0
+program nihtest
+arguments file-new-fail.test
+return 1
+file file-new-fail.test file-new-fail.input
+file nihtest.conf nihtest-conf
+stdout
+file list differs:
+-testfile
+file-new-fail -- FAIL: file list
+end-of-inline-data

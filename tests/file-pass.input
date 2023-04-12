@@ -1,0 +1,4 @@
+program nihtest-file
+arguments new testfile "This is a successful test.\n"
+file testfile failure.txt success.txt
+return 0
