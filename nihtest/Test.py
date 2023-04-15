@@ -44,7 +44,7 @@ class Test:
             # TODO: status output if verbose
             return TestResult.SKIPPED
 
-        self.sandbox = Sandbox.Sandbox(self.case.name, self.case.configuration.keep_sandbox != Configuration.When.NEVER)
+        self.sandbox = Sandbox.Sandbox(self.case.name, self.case.configuration.keep_sandbox == Configuration.When.NEVER)
 
         for directory in self.case.directories:
             os.mkdir(os.path.join(self.sandbox.directory, directory))
@@ -87,7 +87,7 @@ class Test:
             self.failed.append("file contents")
 
         if self.case.configuration.keep_sandbox == Configuration.When.NEVER or (
-                self.case.configuration.keep_sandbox == Configuration.When.FAILED and self.failed):
+                self.case.configuration.keep_sandbox == Configuration.When.FAILED and not self.failed):
             self.sandbox.cleanup()
 
         if self.failed:

@@ -1,0 +1,17 @@
+program nihtest-true
+file inline-source <inline> success.txt
+This is a successful test.
+end-of-inline-data
+file inline-target failure.txt <inline>
+This is not a successful test.
+end-of-inline-data
+file inline-both <inline> <inline>
+This is the first inline data.
+
+It contains an empty line.
+end-of-inline-data
+This is the second inline data.
+
+It contains an empty line.
+end-of-inline-data
+return 0

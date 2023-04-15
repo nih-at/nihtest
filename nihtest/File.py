@@ -23,10 +23,10 @@ class File:
             return True
 
         input_file_name = os.path.join(directory, self.name)
-        output_file_name = configuration.find_input_file(self.result.file_name)
         output_is_binary = False
 
         if self.result.file_name:
+            output_file_name = configuration.find_input_file(self.result.file_name)
             # TODO: check comparators
             try:
                 output_data = Utility.read_lines(output_file_name)
@@ -40,7 +40,7 @@ class File:
         if not output_is_binary:
             try:
                 input_data = Utility.read_lines(input_file_name)
-                return Utility.compare_lines(self.name, input_data, output_data, configuration.verbose != Configuration.When.NEVER)
+                return Utility.compare_lines(self.name, output_data, input_data, configuration.verbose != Configuration.When.NEVER)
             except UnicodeDecodeError:
                 output_data = os.linesep.join(output_data)
 

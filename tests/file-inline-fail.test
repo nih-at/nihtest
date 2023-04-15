@@ -1,0 +1,13 @@
+program nihtest
+arguments file-inline-fail.test
+return 1
+file file-inline-fail.test file-inline-fail.input
+file nihtest.conf nihtest-conf
+stdout
+inline-both differs:
+-This is the second inline data.
++This is the first inline data.
+ 
+ It contains an empty line.
+file-inline-fail -- FAIL: file contents
+end-of-inline-data

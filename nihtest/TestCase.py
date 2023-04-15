@@ -3,6 +3,7 @@ import shlex
 import sys
 
 from nihtest import File
+from nihtest import Utility
 
 
 class Directive:
@@ -52,10 +53,14 @@ class TestCase:
 
     def readline(self):
         self.line_number += 1
-        return self.file.readline().rstrip('\r\n')
+        line = self.file.readline()
+        if line == "":
+            return None
+        else:
+            return line.rstrip('\r\n')
 
     def parse_case(self):
-        while line := self.readline():
+        while (line := self.readline()) is not None:
             if line == "" or line[0] == "#":
                 continue
             self.parse_line(line)
@@ -89,7 +94,7 @@ class TestCase:
 
     def get_inline_data(self):
         data = []
-        while line := self.readline():
+        while (line := self.readline()) is not None:
             if line == "end-of-inline-data":
                 return data
             data.append(line)
@@ -100,8 +105,15 @@ class TestCase:
         if argument == "{}":
             return None
         if argument == "<inline>":
-            return self.get_inline_data()
+            return File.Data(data=self.get_inline_data())
         return File.Data(file_name=argument)
+
+    def io_data(self, arguments):
+        if len(arguments) > 0:
+            file_name = self.configuration.find_input_file(arguments[0])
+            return Utility.read_lines(file_name)
+        else:
+            return self.get_inline_data()
 
     def directive_arguments(self, arguments):
         self.arguments = arguments
@@ -139,25 +151,16 @@ class TestCase:
         self.environment[arguments[0]] = arguments[1]
 
     def directive_stderr(self, arguments):
-        if len(arguments) > 0:
-            self.stderr = self.file_data(arguments[0])
-        else:
-            self.stderr = self.file_data("<inline>")
+        self.stderr = self.io_data(arguments)
 
     def directive_stderr_replace(self, arguments):
         self.stderr_replace.append((re.compile(arguments[0]), arguments[1]))
 
     def directive_stdin(self, arguments):
-        if len(arguments) > 0:
-            self.stdin = arguments[0]
-        else:
-            self.stdin = self.file_data("<inline>")
+        self.stdin = self.io_data(arguments)
 
     def directive_stdout(self, arguments):
-        if len(arguments) > 0:
-            self.stdout = self.file_data(arguments[0])
-        else:
-            self.stdout = self.file_data("<inline>")
+        self.stdout = self.io_data(arguments)
 
     directives = {
         "arguments": Directive(method=directive_arguments,
