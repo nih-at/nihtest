@@ -3,3 +3,6 @@ features-files = config.h
 program-directories = @PROJECT_BINARY_DIR@
 test-input-directories = input
     @CMAKE_CURRENT_SOURCE_DIR@
+
+[setenv]
+TEST_ENV_CONFIG = This is another successful test.

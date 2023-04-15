@@ -2,6 +2,15 @@ import configparser
 import enum
 import os.path
 
+def get_section(config, key):
+    if key in config:
+        section = config[key]
+        value = {}
+        for subkey in section:
+            value[subkey] = section[subkey]
+        return value
+    else:
+        return {}
 
 def get_array(config, key):
     if value := get_value(config, key):
@@ -37,8 +46,10 @@ class When(enum.Enum):
 class Configuration:
     def __init__(self, args):
         config = configparser.ConfigParser()
+        config.optionxform = str
+
         config.read(args.config_file)
-        settings = []
+        settings = {}
         if "settings" in config:
             settings = config["settings"]
         self.default_program = get_value(settings, "default-program")
@@ -48,7 +59,8 @@ class Configuration:
         self.program_directories = get_array(settings, "program-directories")
         self.keep_sandbox = get_when(settings, "keep-sandbox", When.NEVER)
         self.print_results = get_when(settings, "print-results", When.FAILED)
-        self.comparators = get_value(config, "comparators", [])
+        self.comparators = get_section(config, "comparators")
+        self.environment = get_section(config, "setenv")
         self.verbose = When.FAILED
         self.run_test = True
 

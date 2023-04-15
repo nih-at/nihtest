@@ -1,0 +1,6 @@
+program nihtest-getenv
+arguments TEST_ENV_CONFIG
+stdout
+TEST_ENV_CONFIG=This is another successful test.
+end-of-inline-data
+return 0

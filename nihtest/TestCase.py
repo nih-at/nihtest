@@ -24,7 +24,7 @@ class TestCase:
             self.name = self.name[:-5]
         self.args = args
         self.configuration = configuration
-        self.environment = {}
+        self.environment = configuration.environment.copy()
         file_name = args.testcase
         if file_name[-5:] != ".test":
             file_name += ".test"
