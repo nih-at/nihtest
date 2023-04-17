@@ -5,9 +5,9 @@ file diff-2.test diff-2.input
 file nihtest.conf nihtest-conf
 stdout
 output differs:
--A
 +E
  A
+-A
  B
 -B
 diff-2 -- FAIL: output

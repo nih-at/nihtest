@@ -1,22 +1,20 @@
-import difflib
 import os
 import sys
 
+from nihtest import CompareArrays
 
 def compare_lines(description, expected, got, verbose):
-    raw_diff = list(difflib.Differ().compare(expected, got))
-    diff = []
-    ok = True
-    for raw_line in raw_diff:
-        if raw_line[0] == "?":
-            continue
-        if raw_line[0] != " ":
-            ok = False
-        diff.append(raw_line[0] + raw_line[2:])
-    if not ok and verbose:
+    if not verbose:
+        return expected == got
+
+    compare = CompareArrays.CompareArrays(expected, got)
+    diff = compare.get_diff()
+    if diff:
         print(f"{description} differs:")
         write_lines(sys.stdout, diff)
-    return ok
+        return False
+    else:
+        return True
 
 
 def read_lines(file_name):

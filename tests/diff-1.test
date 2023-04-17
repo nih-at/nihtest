@@ -6,8 +6,8 @@ file nihtest.conf nihtest-conf
 stdout
 output differs:
 -E
-+A
  A
++A
  B
 -E
 +B

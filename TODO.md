@@ -1,3 +1,2 @@
-- Replace difflib with algorithm that creates smaller (and more readable) diffs. 
 - Exclude unwanted files from distribution.
 - Create and install script.
