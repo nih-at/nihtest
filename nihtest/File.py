@@ -4,6 +4,7 @@ import shutil
 from nihtest import Configuration
 from nihtest import Utility
 
+
 class Data:
     def __init__(self, file_name=None, data=None):
         if (file_name is not None and data is not None) or (file_name is None and data is None):

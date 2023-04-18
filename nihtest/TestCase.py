@@ -56,8 +56,7 @@ class TestCase:
         line = self.file.readline()
         if line == "":
             return None
-        else:
-            return line.rstrip('\r\n')
+        return line.rstrip('\r\n')
 
     def parse_case(self):
         while (line := self.readline()) is not None:
@@ -112,8 +111,7 @@ class TestCase:
         if len(arguments) > 0:
             file_name = self.configuration.find_input_file(arguments[0])
             return Utility.read_lines(file_name)
-        else:
-            return self.get_inline_data()
+        return self.get_inline_data()
 
     def directive_arguments(self, arguments):
         self.arguments = arguments

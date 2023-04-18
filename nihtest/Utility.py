@@ -3,6 +3,7 @@ import sys
 
 from nihtest import CompareArrays
 
+
 def compare_lines(description, expected, got, verbose):
     if not verbose:
         return expected == got
@@ -13,8 +14,7 @@ def compare_lines(description, expected, got, verbose):
         print(f"{description} differs:")
         write_lines(sys.stdout, diff)
         return False
-    else:
-        return True
+    return True
 
 
 def read_lines(file_name):

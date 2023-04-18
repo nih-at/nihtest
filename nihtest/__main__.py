@@ -1,5 +1,4 @@
 import argparse
-import os
 import sys
 
 from nihtest import Test
@@ -34,5 +33,6 @@ def main():
         print(f"{sys.argv[0]}: {ex}", file=sys.stderr)
         sys.exit(99)
 
+
 if __name__ == "__main__":
-    exit(main())
+    sys.exit(main())

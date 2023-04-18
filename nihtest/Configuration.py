@@ -2,6 +2,7 @@ import configparser
 import enum
 import os.path
 
+
 def get_section(config, key):
     if key in config:
         section = config[key]
@@ -9,14 +10,14 @@ def get_section(config, key):
         for subkey in section:
             value[subkey] = section[subkey]
         return value
-    else:
-        return {}
+
+    return {}
+
 
 def get_array(config, key):
     if value := get_value(config, key):
         return value.split("\n")
-    else:
-        return []
+    return []
 
 
 def get_value(config, key, default_value=None):

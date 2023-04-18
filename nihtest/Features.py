@@ -2,6 +2,7 @@ import re
 
 from nihtest import Utility
 
+
 class Features:
     def __init__(self, configuration):
         self.feature_files = configuration.feature_files

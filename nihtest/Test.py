@@ -104,7 +104,7 @@ class Test:
 
     def list_files(self):
         files = []
-        for directory, sub_directories, sub_files in os.walk("."):
+        for directory, _, sub_files in os.walk("."):
             for file in sub_files:
                 if directory == ".":
                     name = file
