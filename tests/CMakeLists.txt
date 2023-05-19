@@ -8,6 +8,7 @@ project(nihtest
 
 set(TEST_PROGRAMS
   can-preload
+  comparator
   false
   true
   echo

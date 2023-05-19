@@ -1,0 +1,13 @@
+program nihtest
+arguments comparator-fail.test
+return 1
+file comparator-fail.test comparator-fail.input
+file nihtest.conf nihtest-conf
+file a.fail <inline>
+a
+end-of-inline-data
+stdout
+a.fail differs:
+Assuming input and output for 'a.fail' differ.
+comparator-fail -- FAIL: file contents
+end-of-inline-data

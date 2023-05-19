@@ -6,3 +6,7 @@ test-input-directories = input
 
 [setenv]
 TEST_ENV_CONFIG = This is another successful test.
+
+[comparators]
+pass.pass = nihtest-comparator 0
+fail.fail = nihtest-comparator 1

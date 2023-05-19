@@ -1,6 +1,7 @@
 import configparser
 import enum
 import os.path
+import shlex
 
 
 def get_section(config, key):
@@ -34,7 +35,7 @@ def get_when(config, key, default_value):
             return When.FAILED
         if name == "never":
             return When.NEVER
-        raise RuntimeError(f"unknown value '{name}")
+        raise RuntimeError(f"unknown value '{name}'")
     return default_value
 
 
@@ -64,6 +65,8 @@ class Configuration:
         self.environment = get_section(config, "setenv")
         self.verbose = When.FAILED
         self.run_test = True
+        for key, value in self.comparators.items():
+            self.comparators[key] = shlex.split(value)
 
         if args.quiet:
             self.verbose = When.NEVER

@@ -1,6 +1,8 @@
 import os
+import pathlib
 import shutil
 
+from nihtest import Command
 from nihtest import Configuration
 from nihtest import Utility
 
@@ -28,7 +30,18 @@ class File:
 
         if self.result.file_name:
             output_file_name = configuration.find_input_file(self.result.file_name)
-            # TODO: check comparators
+            file_extension = pathlib.Path(self.name).suffix[1:]
+            output_extension = pathlib.Path(self.result.file_name).suffix[1:]
+            key = f"{file_extension}.{output_extension}"
+            if key in configuration.comparators:
+                comparator = configuration.comparators[key]
+                arguments = comparator[1:] + [input_file_name, output_file_name]
+                command = Command.Command(configuration.find_program(comparator[0]), arguments)
+                command.run()
+                if command.exit_code != 0:
+                    print(f"{self.name} differs:")
+                    print("\n".join(command.stdout))
+                return command.exit_code == 0
             try:
                 output_data = Utility.read_lines(output_file_name)
             except UnicodeDecodeError:

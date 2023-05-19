@@ -1,0 +1,4 @@
+program nihtest-true
+arguments
+return 0
+file a.pass a.pass b.pass
