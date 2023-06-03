@@ -77,6 +77,7 @@ class Configuration:
         if args.no_cleanup:
             self.keep_sandbox = When.ALWAYS
         if args.setup_only:
+            self.keep_sandbox = When.ALWAYS
             self.run_test = False
 
     def find_input_file(self, filename):
