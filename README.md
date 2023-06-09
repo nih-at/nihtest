@@ -6,9 +6,9 @@ It checks that exit code, standard and error outputs are as expected and compare
 
 It is written in Python.
 
-It is documented in man pages: [nihtest(1)](https://raw.githack.com/nih-at/nihtest/master/man/nihtest.html), the config
-file format [nihtest.conf(5)](https://raw.githack.com/nih-at/nihtest/master/man/nihtest.conf.html) and the test
-case language [nihtest-case(5)](https://raw.githack.com/nih-at/nihtest/master/man/nihtest-case.html).
+It is documented in man pages: [nihtest(1)](https://nih.at/nihtest/nihtest.html), the config
+file format [nihtest.conf(5)](https://nih.at/nihtest/nihtest.conf.html) and the test
+case language [nihtest-case(5)](https://nih.at/nihtest/nihtest-case.html).
 
 The man pages are included in the source distribution tarball in the
 `manpages` directory in man (Linux-like), mdoc (BSD), and HTML
