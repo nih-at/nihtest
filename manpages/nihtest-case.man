@@ -1,6 +1,6 @@
 .\" Automatically generated from an mdoc input file.  Do not edit.
 .\" nihtest-case.mdoc -- nihtest test case format description
-.\" Copyright (C) 2020 Dieter Baron and Thomas Klausner
+.\" Copyright (C) 2020-2023 Dieter Baron and Thomas Klausner
 .\"
 .\" This file is part of nihtest, a testing framework.
 .\" The authors can be contacted at <nihtest@nih.at>
@@ -30,7 +30,7 @@
 .\" OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 .\" IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .\"
-.TH "NIHTEST-CASE" "5" "June 2, 2020" "NiH" "File Formats Manual"
+.TH "NIHTEST-CASE" "5" "June 9, 2023" "NiH" "File Formats Manual"
 .nh
 .if n .ad l
 .SH "NAME"
@@ -55,9 +55,10 @@ and
 \fBargs\fR
 commands must appear exactly once, the others are optional.
 .TP 22n
-\fBargs\fR [\fIargs ...\fR]
+\fBarguments\fR [\fIargument ...\fR]
 Run the program with command line arguments
 \fIargs\fR.
+Shell style quoting is supported.
 .TP 22n
 \fBdescription\fR \fItext\fR
 Describes the purpose of the test.
@@ -79,47 +80,58 @@ See also the description of
 in
 nihtest-config(5).
 .TP 22n
-\fBfile\fR \fItest in\fR [\fIout\fR]
-Copy file
+\fBfile\fR \fIname in\fR [\fIout\fR]
+The arguments
 \fIin\fR
-into the testing directory as
-\fItest\fR,
-compare it against
+and
 \fIout\fR
-after program run.
+specify the contents of the file
+\fIname\fR
+in the test directory before and after the program is run, respectively.
 If
 \fIout\fR
-is omitted, it is compared to
-\fIin\fR.
-.TP 22n
-\fBfile-del\fR \fItest in\fR
-Copy file
+is omitted, the file is expected to remain unchanged.
+.sp
+\(lq{}\(rq
+specifies that the file does not exist (i. e. that it is created or deleted by the program).
+.sp
+For
+\(lq<inline>\(rq
+the contents of the file are taken from the test case, up to a line consisting of
+\(lqend-of-inline-data\(rq.
+If both
 \fIin\fR
-into the testing directory as
-\fItest\fR,
-check that it is removed by the program.
+and
+\fIout\fR
+are
+\(lq<inline>\(rq,
+the input data comes first.
+Otherwise the argument specifies the name of the file to copy or compare againts.
 .TP 22n
-\fBfile-new\fR \fItest out\fR
-Check that file
-\fItest\fR
-is created by the program and compare it against
-\fIout\fR.
+\fBmkdir\fR \fIname\fR
+Create directory
+\fIname\fR
+ in the test directory.
 .TP 22n
-\fBprecheck\fR \fIcommand\fR [\fIargs ...\fR]
+\fBprecheck\fR \fIcommand\fR [\fIargument ...\fR]
 If
 \fIcommand\fR
 exits with non-zero status, skip the test.
 .TP 22n
-\fBpreload\fR \fIlibrary\fR
+\fBpreload\fR \fIobject\fR
 Pre-load the shared object
-\fIlibrary\fR
+\fIobject\fR
 before running the program.
+.sp
+This is not supported on macOS and Windows, where tests with
+\fBpreload\fR
+will be skipped.
 .TP 22n
-\fBprogram\fR \fIprg\fR
+\fBprogram\fR \fIname\fR
 Run
-\fIprg\fR.
+\fIname\fR.
 See the description of
-\fBargs\fR
+\fBarguments\fR
 above for its command line arguments.
 If this directive is omitted,
 \fBdefault-program\fR
@@ -127,23 +139,24 @@ from
 \fInihtest.conf\fR
 is run.
 .TP 22n
-\fBreturn\fR \fIret\fR
-\fIret\fR
+\fBreturn\fR \fIexit-code\fR
+\fIexit-code\fR
 is the expected exit code (usually 0 on success).
 .TP 22n
-\fBsetenv\fR \fIvar value\fR
+\fBsetenv\fR \fIvariable value\fR
+.br
 Set the environment variable
-\fIvar\fR
+\fIvariable\fR
 to
 \fIvalue\fR.
 .TP 22n
-\fBstderr\fR \fItext\fR
-Expect the error message
-\fItext\fR
-on standard error output (stderr).
-If multiple
-\fBstderr\fR
-commands are used, the messages are expected in the order given.
+\fBstderr\fR [\fIfile\fR]
+Specify the expect standard error output (stderr).
+If
+\fIfile\fR
+is given, the output is compared with that file,
+otherwise the expected text is taken from the following lines of the test case, up to a line consisting of
+\(lqend-of-inline-data\(rq.
 .TP 22n
 \fBstderr-replace\fR \fIpattern replacement\fR
 Run regular expression replacement over the standard error output
@@ -166,26 +179,21 @@ See
 re_format(7)
 for details.
 .TP 22n
-\fBstdin\fR \fItext\fR
-Provide
-\fItext\fR
-to the program's standard input.
-If multiple
-\fBstdin\fR
-commands are used, the messages are expected in the order given.
-.TP 22n
-\fBstdin-file\fR \fIfile\fR
-Provide the contents of the file
+\fBstdin\fR [\fIfile\fR]
+If
 \fIfile\fR
-to the program's standard input.
+is given, standard input (stdin) is redirected from this file, which means the program has direct access to the file, including the ability to seek within it.
+.sp
+Otherwise the text provided to the program via a pipe is taken from the test case, up to a line consisting of
+\(lqend-of-inline-data\(rq.
 .TP 22n
-\fBstdout\fR \fItext\fR
-The program is expected to print
-\fItext\fR
-to it standard output (stdout).
-If multiple
-\fBstdout\fR
-commands are used, the messages are expected in the order given.
+\fBstdout\fR [\fIfile\fR]
+Specify the expect standard output (stdout).
+If
+\fIfile\fR
+is given, the output is compared with that file,
+otherwise the expected text is taken from the following lines of the test case, up to a line consisting of
+\(lqend-of-inline-data\(rq.
 .SH "SEE ALSO"
 nihtest(1),
 nihtest-config(5)

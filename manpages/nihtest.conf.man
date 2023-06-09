@@ -1,6 +1,6 @@
 .\" Automatically generated from an mdoc input file.  Do not edit.
 .\" nihtest.conf.mdoc -- nihtest config file format
-.\" Copyright (C) 2020 Dieter Baron and Thomas Klausner
+.\" Copyright (C) 2020-2023 Dieter Baron and Thomas Klausner
 .\"
 .\" This file is part of nihtest, a testing framework.
 .\" The authors can be contacted at <nihtest@nih.at>
@@ -30,7 +30,7 @@
 .\" OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 .\" IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .\"
-.TH "NIHTEST.CONF" "5" "June 2, 2020" "NiH" "File Formats Manual"
+.TH "NIHTEST.CONF" "5" "June 9, 2023" "NiH" "File Formats Manual"
 .nh
 .if n .ad l
 .SH "NAME"
@@ -47,31 +47,54 @@ nihtest(1)'s
 \fB\-C\fR
 flag.
 This man page describes the format of this configuration file.
+.SH "FILE FORMAT"
+The configuration file consists of multiple sections, which are started with
+[\fIsection-name\fR].
+The supported sections are
+\fBsettings\fR,
+\fBsetenv\fR,
+and
+\fBcomparators\fR.
 .PP
-The following commands are recognized:
+Each section consists of variable assignments in the format
+\fIname =\fR
+\fIvalue\fR,
+one per line.
+.PP
+Multiple values for the same variable can be specified, one per line, where subsequent lines must be indented with spaces.
+.SH "SETTINGS"
+In the
+\fBsettings\fR
+section, the following variables are recognized:
 .TP 22n
-\fBdefault-program\fR \fIprogram\fR
+\fBdefault-program =\fR \fIprogram\fR
 Test
 \fIprogram\fR
 if no
 \fBprogram\fR
 directive is found in the test.
 .TP 22n
-\fBfile-compare\fR \fItest-extension source-extension command\fR [\fIargs ...\fR]
-When comparing files after test runs, use
-\fIcommand\fR
-with argument
-\fIargs\fR
-for files where the file in the sandbox ends with the extension
-\fItext-extension\fR
-or the file to compare against ends with the extension
-\fIsource-extension\fR.
-I.e., the complete command line used will be:
-.RS 28n
-command args ... expected-file test-result
-.RE
+\fBdefault-stderr-replace =\fR \fIpattern replacement ...\fR
+Each line consists of two values,
+\fIpattern\fR
+is a regular expression and
+\fIreplacement\fR
+the corresponding replacement string.
+These are used for test cases without
+\fBstderr-replace\fR
+directives.
+See
+nihtest-case(5)
+for details on
+\fBstderr-replace\fR.
 .TP 22n
-\fBkeep-sandbox\fR
+\fBfeatures-files =\fR \fIfile ...\fR
+Specifies the files to search for feature defines.
+This is used in the
+\fBfeatures\fR
+directive in test cases.
+.TP 22n
+\fBkeep-sandbox =\fR \fIwhen\fR
 Describe when to keep the sandbox (i.e., not delete it) after running the test.
 The following values are supported:
 .RS 30n
@@ -89,16 +112,14 @@ Always keep the sandbox.
 .RS 22n
 This can be overridden with the
 nihtest(1)
-flags
-\fB\-\fR\fB\-keep-broken\fR
-or
-\fB\-\fR\fB\-no-cleanup\fR.
+flags \fB\-\-keep-broken\fR \fB\-=\fR \fIwhen\fR
+or \fB\-\-no-cleanup\fR.
 The default is
 \fRnever\fR.
 .RE
 .PD
 .TP 22n
-\fBprint-results\fR
+\fBprint-results =\fR \fIwhen\fR
 Describe when to print the test results verbosely.
 The following values are supported:
 .RS 30n
@@ -116,16 +137,19 @@ Verbose mode.
 .RS 22n
 This can be overridden with the
 nihtest(1)
-flags
-\fB\-\fR\fB\-quiet\fR
-or
-\fB\-\fR\fB\-verbose\fR.
+flags \fB\-\-quiet\fR
+or \fB\-\-verbose\fR.
 The default is
 \fRfailed\fR.
 .RE
 .PD
 .TP 22n
-\fBsandbox-directory\fR \fIdirectory\fR
+\fBprogram-directories =\fR \fIdirectory ...\fR
+Specifies the directories programs are searched for.
+They are prepended to
+\fRPATH\fR.
+.TP 22n
+\fBsandbox-directories =\fR \fIdirectory ...\fR
 Create sandboxes in
 \fIdirectory\fR.
 By default, the sandboxes will be created in the current directory.
@@ -133,19 +157,57 @@ A random directory of the pattern
 \fIsandbox_*\fR
 will be used.
 .TP 22n
-\fBsource-directory\fR \fIdirectory\fR
+\fBtest-input-directories =\fR \fIdirectory ...\fR
 nihtest(1)
 searches the current directory and
 \fIdirectory\fR
 for test cases, input and output files.
-.TP 22n
-\fBtop-build-directory\fR \fIdirectory\fR
-Where to look for the
-\fIconfig.h\fR
-file that defines the available features.
-See the
-\fBfeatures\fR
-command in
-nihtest-case(5).
+.SH "SETENV"
+The
+\fBsetenv\fR
+section contains variable and values that will be added as environment variables when the test program is run.
+If the test case contains a
+\fBsetenv\fR
+directive, this section will be ignored.
+.SH "COMPARATORS"
+The
+\fBcomparators\fR
+section specifies programs to use to compare files of certain types.
+The variable names have the format
+\fIgot-extension\fR. \fIexpected-extension\fR,
+the value specifies the command line to use to compare these files.
+The command will be run with the two files as arguments, the file in the sandbox first and the expected last.
+.PP
+The command is expected to exit with code 0 if the two files are considered equal, any other exit code if not.
+The command output will be displayed if verbose test results are enabled (see
+\fBprint-results\fR
+above).
+.PP
+For example, with comparators containing
+.RS 6n
+zip.zip = zipcmp -v
+.RE
+and the test case containing
+.RS 6n
+file got.zip expected.zip
+.RE
+the command
+.RS 6n
+zipcmp -v got.zip expected.zip
+.RE
+will be run to compare the files.
+.SH "EXAMPLES"
+.nf
+.RS 0n
+[settings]
+default-program = program_to_test
+program-directories = bin
+    tests
+[environment]
+LC_ALL=en_US.UTF-8
+[comparators]
+zip.zip = zipcmp -v
+.RE
+.fi
 .SH "SEE ALSO"
 nihtest(1)
