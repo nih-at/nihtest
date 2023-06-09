@@ -1,0 +1,7 @@
+program nihtest-echo
+arguments "backslash '\\', tab '\t', newline '\n'"
+return 0
+stdout
+backslash '\', tab '	', newline '
+'
+end-of-inline-data

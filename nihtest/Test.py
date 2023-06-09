@@ -57,13 +57,16 @@ class Test:
 
         self.sandbox.enter()
         program = self.case.configuration.find_program(self.case.program)
-        stdin = Utility.read_lines(self.case.configuration.find_input_file(self.case.stdin)) if isinstance(self.case.stdin, str) else self.case.stdin
-        environment = self.case.environment
+        environment = {
+            "TZ": "UTC",
+            "LANG": "C",
+            "LC_CTYPE": "C",
+            "POSIXLY_CORRECT": "1"
+        }
+        environment.update(self.case.environment)
         if self.case.preload:
-            if not environment:
-                environment = {}
             environment["LD_PRELOAD"] = " ".join(map(lambda file: self.case.configuration.find_program("lib" + file), self.case.preload))
-        command = Command.Command(program, self.case.arguments, stdin, environment=environment)
+        command = Command.Command(program, self.case.arguments, self.case.stdin, environment=environment)
         command.run()
         files_got = self.list_files()
         self.sandbox.leave()

@@ -4,11 +4,12 @@ import sys
 from nihtest import Test
 from nihtest import Configuration
 
+VERSION = "1.0.0" # TODO: get from Cmake
 
 def main():
     parser = argparse.ArgumentParser(
         prog='nihtest',
-        description="nihtest 0.1\nCopyright (C) 2023 Dieter Baron and Thomas Klausner")
+        description="nihtest " + VERSION  + "\nCopyright (C) 2023 Dieter Baron and Thomas Klausner")
     parser.add_argument('testcase', help='Testcase to run')
     parser.add_argument('-C', '--config-file', metavar='FILE', help='use FILE as config file', default="nihtest.conf")
     parser.add_argument('--keep-broken', action='store_true', help='keep sandbox if test fails')
@@ -21,7 +22,7 @@ def main():
     args = parser.parse_args()
 
     if args.version:
-        print("nihtest 0.1")
+        print("nihtest " + VERSION)
         sys.exit(0)
 
     configuration = Configuration.Configuration(args)

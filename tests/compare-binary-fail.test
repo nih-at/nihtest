@@ -1,0 +1,12 @@
+program nihtest
+arguments test.test
+return 1
+file test.test compare-binary-fail.input
+file nihtest.conf nihtest-conf
+file binary-1 binary-1
+file binary-2 binary-2
+stdout
+a differs:
+Binary files differ.
+test -- FAIL: file contents
+end-of-inline-data

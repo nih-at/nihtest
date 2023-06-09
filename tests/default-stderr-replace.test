@@ -1,0 +1,11 @@
+program nihtest
+arguments comparator-pass.test
+return 0
+file comparator-pass.test comparator-pass.input
+file nihtest.conf nihtest-conf
+file a.pass <inline>
+a
+end-of-inline-data
+file b.pass <inline>
+b
+end-of-inline-data

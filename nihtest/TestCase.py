@@ -5,6 +5,8 @@ import sys
 from nihtest import File
 from nihtest import Utility
 
+def decode_escapes(string):
+    return string.replace("\\n", "\n").replace("\\r", "\r").replace("\\t", "\t").replace("\\\\", "\\")
 
 class Directive:
     def __init__(self, usage, method, minimum_arguments, maximum_arguments=None, only_once=False):
@@ -63,13 +65,15 @@ class TestCase:
             if line == "" or line[0] == "#":
                 continue
             self.parse_line(line)
+        if len(self.stderr_replace) == 0:
+            self.stderr_replace = self.configuration.default_stderr_replace
 
     def error(self, message):
         print(f"{self.file_name}:{self.line_number}: {message}", file=sys.stderr)
         self.ok = False
 
     def parse_line(self, line):
-        words = shlex.split(line)
+        words = list(map(decode_escapes, shlex.split(line)))
         name = words[0]
         arguments = words[1::]
 
@@ -155,7 +159,10 @@ class TestCase:
         self.stderr_replace.append((re.compile(arguments[0]), arguments[1]))
 
     def directive_stdin(self, arguments):
-        self.stdin = self.io_data(arguments)
+        if len(arguments) > 0:
+            self.stdin = self.configuration.find_input_file(arguments[0])
+        else:
+            self.stdin = self.get_inline_data()
 
     def directive_stdout(self, arguments):
         self.stdout = self.io_data(arguments)
@@ -171,7 +178,7 @@ class TestCase:
                               usage="feature ...",
                               minimum_arguments=1),
         "file": Directive(method=directive_file,
-                          usage="test in [out]",
+                          usage="name in [out]",
                           minimum_arguments=2, maximum_arguments=3),
         "mkdir": Directive(method=directive_mkdir,
                            usage="name",

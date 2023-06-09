@@ -8,9 +8,14 @@ class Command:
         self.program = program
         self.arguments = arguments
         self.environment = environment
+        self.stdin = None
+        self.stdin_file = None
         if stdin is None:
             stdin = []
-        self.stdin = os.linesep.join(stdin)
+        if isinstance(stdin, str):
+            self.stdin_file = stdin
+        else:
+            self.stdin = os.linesep.join(stdin) + os.linesep
         self.stdout = None
         self.stderr = None
         self.exit_code = None
@@ -23,7 +28,11 @@ class Command:
             environment = os.environ | self.environment
         else:
             environment = None
-        result = subprocess.run([program] + self.arguments, capture_output=True, check=False, text=True, input=self.stdin, env=environment)
+        if self.stdin_file is not None:
+            with open(self.stdin_file, "rb") as stdin:
+                result = subprocess.run([program] + self.arguments, capture_output=True, check=False, text=True, stdin=stdin, env=environment)
+        else:
+            result = subprocess.run([program] + self.arguments, capture_output=True, check=False, text=True, input=self.stdin, env=environment)
         self.exit_code = result.returncode
         self.stdout = result.stdout.splitlines()
         self.stderr = result.stderr.splitlines()

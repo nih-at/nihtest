@@ -1,2 +1,1 @@
-- Exclude unwanted files from distribution.
-- Create and install script.
+- Put version number in one location instead of three.

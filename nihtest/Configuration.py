@@ -1,8 +1,12 @@
 import configparser
 import enum
 import os.path
+import re
 import shlex
 
+def process_stderr_replace(string):
+    arguments = shlex.split(string)
+    return (re.compile(arguments[0]), arguments[1])
 
 def get_section(config, key):
     if key in config:
@@ -55,16 +59,19 @@ class Configuration:
         if "settings" in config:
             settings = config["settings"]
         self.default_program = get_value(settings, "default-program")
-        self.sandbox_directory = get_value(settings, "sandbox-directory", ".")
+        self.default_stderr_replace = get_array(settings, "default-stderr-replace")
         self.feature_files = get_array(settings, "features-files")
-        self.test_input_directories = get_array(settings, "test-input-directories")
-        self.program_directories = get_array(settings, "program-directories")
         self.keep_sandbox = get_when(settings, "keep-sandbox", When.NEVER)
         self.print_results = get_when(settings, "print-results", When.FAILED)
+        self.program_directories = get_array(settings, "program-directories")
+        self.sandbox_directory = get_value(settings, "sandbox-directory", ".")
+        self.test_input_directories = get_array(settings, "test-input-directories")
         self.comparators = get_section(config, "comparators")
         self.environment = get_section(config, "setenv")
         self.verbose = When.FAILED
         self.run_test = True
+
+        self.default_stderr_replace = list(map(process_stderr_replace, self.default_stderr_replace))
         for key, value in self.comparators.items():
             self.comparators[key] = shlex.split(value)
 

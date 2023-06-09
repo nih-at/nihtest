@@ -42,25 +42,34 @@
 #include <string.h>
 
 int main(int argc, char *argv[]) {
-    for (int i=1; i<argc; i++) {
-	FILE *in;
-	size_t ret;
-	char buf[1024];
-	if (strcmp(argv[i], "-") == 0) {
-	    in = stdin;
-	} else {
-	    in = fopen(argv[i], "r");
-	}
-	if (in == NULL) {
-	    fprintf(stderr, "cannot open '%s': %s", argv[i], strerror(errno));
-	    continue;
-	}
-	while ((ret=fread(buf, 1, sizeof(buf), in)) > 0) {
+    int i = 1;
+
+    FILE *out = stdout;
+
+    if (strcmp(argv[i], "-e") == 0) {
+        out = stderr;
+        i++;
+    }
+
+    for (; i<argc; i++) {
+        FILE *in;
+        size_t ret;
+        char buf[1024];
+        if (strcmp(argv[i], "-") == 0) {
+            in = stdin;
+        } else {
+            in = fopen(argv[i], "r");
+        }
+        if (in == NULL) {
+            fprintf(stderr, "cannot open '%s': %s", argv[i], strerror(errno));
+            continue;
+        }
+        while ((ret = fread(buf, 1, sizeof(buf), in)) > 0) {
             fwrite(buf, 1, ret, stdout);
-	}
-	if (in != stdin) {
-	    fclose(in);
-	}
+        }
+        if (in != stdin) {
+            fclose(in);
+        }
     }
     return 0;
 }

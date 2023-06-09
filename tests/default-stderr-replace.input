@@ -1,0 +1,9 @@
+program nihtest-cat -e -
+arguments
+return 0
+stdin
+default: error line
+end-of-input-data
+stderr
+error -line
+end-of-input-data

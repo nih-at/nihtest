@@ -1,0 +1,5 @@
+program nihtest
+arguments argument-escaped.test
+return 0
+file argument-escaped.test argument-escaped.input
+file nihtest.conf nihtest-conf

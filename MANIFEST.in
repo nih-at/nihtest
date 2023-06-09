@@ -1,3 +1,7 @@
 include manpages/*.man
 include manpages/*.mdoc
 include manpages/*.html
+include CMakeLists.txt
+include NEWS.md
+include TODO.md
+include tests/*
