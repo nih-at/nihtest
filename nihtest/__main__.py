@@ -4,7 +4,8 @@ import sys
 from nihtest import Test
 from nihtest import Configuration
 
-VERSION = "1.0.0" # TODO: get from Cmake
+VERSION = "1.0.0"
+
 
 def main():
     parser = argparse.ArgumentParser(

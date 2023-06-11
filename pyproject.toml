@@ -25,3 +25,18 @@ classifiers = [
 
 [project.scripts]
 nihtest = "nihtest.__main__:main"
+
+[tool.bumpver]
+current_version = "1.0.0"
+version_pattern = "MAJOR.MINOR.PATCH"
+
+[tool.bumpver.file_patterns]
+"nihtest/__main__.py" = [
+    'VERSION = "{version}"'
+]
+"pyproject.toml" = [
+    'version = "{version}"'
+]
+"CMakeLists.txt" = [
+    "VERSION {version}"
+]

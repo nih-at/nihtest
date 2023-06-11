@@ -1,2 +1,1 @@
 - Include documentation in binary distribution.
-- Put version number in one location instead of three.
