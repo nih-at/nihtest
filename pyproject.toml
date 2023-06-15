@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nihtest"
-version = "1.0.0"
+version = "1.1.0"
 authors = [
     { name="Dieter Baron", email="dillo@nih.at" },
     { name="Thomas Klausner", email="wiz@gatalith.at"}
@@ -27,7 +27,7 @@ classifiers = [
 nihtest = "nihtest.__main__:main"
 
 [tool.bumpver]
-current_version = "1.0.0"
+current_version = "1.1.0"
 version_pattern = "MAJOR.MINOR.PATCH"
 
 [tool.bumpver.file_patterns]

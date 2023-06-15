@@ -85,6 +85,18 @@ See
 .Xr nihtest-case 5
 for details on
 .Ic stderr-replace .
+.It Ic environment-clear = true
+If
+.Ic environment-clear
+is set to
+.Dv true ,
+only variables explicitly set or passed through are included in the environment passed to the tested program.
+.It Ic environment-passthrough = Ar variable ...
+The named environment variables are passed through from the environment
+.Xr nihtest 1
+is run in to the environment passed to the tested program.
+.It Ic environment-unset = Ar variable ...
+The named environment variables are removed from the environment passed to the tested program.
 .It Ic features-files = Ar file ...
 Specifies the files to search for feature defines.
 This is used in the
@@ -145,13 +157,10 @@ searches the current directory and
 .Ar directory
 for test cases, input and output files.
 .El
-.Sh SETENV
+.Sh ENVIRONMENT
 The
-.Ic setenv
+.Ic environment
 section contains variable and values that will be added as environment variables when the test program is run.
-If the test case contains a
-.Ic setenv
-directive, this section will be ignored.
 .Sh COMPARATORS
 The
 .Ic comparators
@@ -179,7 +188,7 @@ will be run to compare the files.
 default-program = program_to_test
 program-directories = bin
     tests
-[setenv]
+[environment]
 LC_ALL=en_US.UTF-8
 [comparators]
 zip.zip = zipcmp -v

@@ -60,6 +60,19 @@ Run the program with command line arguments
 Shell style quoting is supported.
 .It Ic description Ar text
 Describes the purpose of the test.
+.It Ic environment-clear
+Only variables explicitly set or passed through are included in the environment passed to the tested program.
+.It Ic environment-passthrough Ar variable ...
+Passes the named environment variables from the environment
+.Xr nihtest 1
+is run in to the tested program.
+.It Ic environment-set Ar variable value
+Set the environment variable
+.Ar variable
+to
+.Ar value .
+.It Ic environment-unset Ar variable ...
+Removes the named environment variables.
 .It Ic features Ar feature ...
 Only run test if all
 .Ar feature Ns No s
@@ -133,11 +146,6 @@ is run.
 .It Ic return Ar exit-code
 .Ar exit-code
 is the expected exit code (usually 0 on success).
-.It Ic setenv Ar variable value
-Set the environment variable
-.Ar variable
-to
-.Ar value .
 .It Ic stderr Op Ar file
 Specify the expect standard error output (stderr).
 If

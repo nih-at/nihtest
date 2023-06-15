@@ -1,4 +1,3 @@
 - Include documentation in binary distribution.
-- Warn about unknown sections in config file
-- Allow running on multiple tests
-- Allow quotes in 'description'
+- Allow running on multiple tests.
+- Allow quotes in `description`.
