@@ -173,16 +173,6 @@ section contains variable and values that will be added as environment variables
 If the test case contains a
 \fBsetenv\fR
 directive, this section will be ignored.
-If this section is not specified, the following environment variables will be set:
-.nf
-.sp
-.RS 8n
-TZ=UTC
-LANG=C
-LC_CTYPE=C
-POSIXLY_CORRECT=1
-.RE
-.fi
 .SH "COMPARATORS"
 The
 \fBcomparators\fR
