@@ -88,6 +88,21 @@ nihtest-case(5)
 for details on
 \fBstderr-replace\fR.
 .TP 22n
+\fBenvironment-clear = true\fR
+If
+\fBenvironment-clear\fR
+is set to
+\fRtrue\fR,
+only variables explicitly set or passed through are included in the environment passed to the tested program.
+.TP 22n
+\fBenvironment-passthrough =\fR \fIvariable ...\fR
+The named environment variables are passed through from the environment
+nihtest(1)
+is run in to the environment passed to the tested program.
+.TP 22n
+\fBenvironment-unset =\fR \fIvariable ...\fR
+The named environment variables are removed from the environment passed to the tested program.
+.TP 22n
 \fBfeatures-files =\fR \fIfile ...\fR
 Specifies the files to search for feature defines.
 This is used in the
@@ -166,13 +181,10 @@ nihtest(1)
 searches the current directory and
 \fIdirectory\fR
 for test cases, input and output files.
-.SH "SETENV"
+.SH "ENVIRONMENT"
 The
-\fBsetenv\fR
+\fBenvironment\fR
 section contains variable and values that will be added as environment variables when the test program is run.
-If the test case contains a
-\fBsetenv\fR
-directive, this section will be ignored.
 .SH "COMPARATORS"
 The
 \fBcomparators\fR
@@ -207,7 +219,7 @@ will be run to compare the files.
 default-program = program_to_test
 program-directories = bin
     tests
-[setenv]
+[environment]
 LC_ALL=en_US.UTF-8
 [comparators]
 zip.zip = zipcmp -v

@@ -63,6 +63,23 @@ Shell style quoting is supported.
 \fBdescription\fR \fItext\fR
 Describes the purpose of the test.
 .TP 22n
+\fBenvironment-clear\fR
+Only variables explicitly set or passed through are included in the environment passed to the tested program.
+.TP 22n
+\fBenvironment-passthrough\fR \fIvariable ...\fR
+Passes the named environment variables from the environment
+nihtest(1)
+is run in to the tested program.
+.TP 22n
+\fBenvironment-set\fR \fIvariable value\fR
+Set the environment variable
+\fIvariable\fR
+to
+\fIvalue\fR.
+.TP 22n
+\fBenvironment-unset\fR \fIvariable ...\fR
+Removes the named environment variables.
+.TP 22n
 \fBfeatures\fR \fIfeature ...\fR
 Only run test if all
 \fIfeature\fRs
@@ -142,13 +159,6 @@ is run.
 \fBreturn\fR \fIexit-code\fR
 \fIexit-code\fR
 is the expected exit code (usually 0 on success).
-.TP 22n
-\fBsetenv\fR \fIvariable value\fR
-.br
-Set the environment variable
-\fIvariable\fR
-to
-\fIvalue\fR.
 .TP 22n
 \fBstderr\fR [\fIfile\fR]
 Specify the expect standard error output (stderr).

@@ -68,6 +68,21 @@
   <dt><a class="permalink" href="#description"><code class="Ic" id="description">description</code></a>
     <var class="Ar">text</var></dt>
   <dd>Describes the purpose of the test.</dd>
+  <dt><a class="permalink" href="#environment-clear"><code class="Ic" id="environment-clear">environment-clear</code></a></dt>
+  <dd>Only variables explicitly set or passed through are included in the
+      environment passed to the tested program.</dd>
+  <dt><a class="permalink" href="#environment-passthrough"><code class="Ic" id="environment-passthrough">environment-passthrough</code></a>
+    <var class="Ar">variable ...</var></dt>
+  <dd>Passes the named environment variables from the environment
+      <a class="Xr" href="nihtest.html">nihtest(1)</a> is run in to the tested
+      program.</dd>
+  <dt><a class="permalink" href="#environment-set"><code class="Ic" id="environment-set">environment-set</code></a>
+    <var class="Ar">variable value</var></dt>
+  <dd>Set the environment variable <var class="Ar">variable</var> to
+      <var class="Ar">value</var>.</dd>
+  <dt><a class="permalink" href="#environment-unset"><code class="Ic" id="environment-unset">environment-unset</code></a>
+    <var class="Ar">variable ...</var></dt>
+  <dd>Removes the named environment variables.</dd>
   <dt><a class="permalink" href="#features"><code class="Ic" id="features">features</code></a>
     <var class="Ar">feature ...</var></dt>
   <dd>Only run test if all
@@ -120,10 +135,6 @@
     <var class="Ar">exit-code</var></dt>
   <dd><var class="Ar">exit-code</var> is the expected exit code (usually 0 on
       success).</dd>
-  <dt><a class="permalink" href="#setenv"><code class="Ic" id="setenv">setenv</code></a>
-    <var class="Ar">variable value</var></dt>
-  <dd>Set the environment variable <var class="Ar">variable</var> to
-      <var class="Ar">value</var>.</dd>
   <dt><a class="permalink" href="#stderr"><code class="Ic" id="stderr">stderr</code></a>
     [<var class="Ar">file</var>]</dt>
   <dd>Specify the expect standard error output (stderr). If

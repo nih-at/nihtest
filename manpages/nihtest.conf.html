@@ -89,6 +89,20 @@ In the <code class="Ic">settings</code> section, the following variables are
       <code class="Ic">stderr-replace</code> directives. See
       <a class="Xr" href="nihtest-case.html">nihtest-case(5)</a> for details on
       <code class="Ic">stderr-replace</code>.</dd>
+  <dt><a class="permalink" href="#environment-clear_=_true"><code class="Ic" id="environment-clear_=_true">environment-clear
+    = true</code></a></dt>
+  <dd>If <code class="Ic">environment-clear</code> is set to
+      <code class="Dv">true</code>, only variables explicitly set or passed
+      through are included in the environment passed to the tested program.</dd>
+  <dt><a class="permalink" href="#environment-passthrough_="><code class="Ic" id="environment-passthrough_=">environment-passthrough
+    =</code></a> <var class="Ar">variable ...</var></dt>
+  <dd>The named environment variables are passed through from the environment
+      <a class="Xr" href="nihtest.html">nihtest(1)</a> is run in to the
+      environment passed to the tested program.</dd>
+  <dt><a class="permalink" href="#environment-unset_="><code class="Ic" id="environment-unset_=">environment-unset
+    =</code></a> <var class="Ar">variable ...</var></dt>
+  <dd>The named environment variables are removed from the environment passed to
+      the tested program.</dd>
   <dt><a class="permalink" href="#features-files_="><code class="Ic" id="features-files_=">features-files
     =</code></a> <var class="Ar">file ...</var></dt>
   <dd>Specifies the files to search for feature defines. This is used in the
@@ -149,11 +163,9 @@ In the <code class="Ic">settings</code> section, the following variables are
 </dl>
 </section>
 <section class="Sh">
-<h1 class="Sh" id="SETENV"><a class="permalink" href="#SETENV">SETENV</a></h1>
-The <code class="Ic">setenv</code> section contains variable and values that
-  will be added as environment variables when the test program is run. If the
-  test case contains a <code class="Ic">setenv</code> directive, this section
-  will be ignored.
+<h1 class="Sh" id="ENVIRONMENT"><a class="permalink" href="#ENVIRONMENT">ENVIRONMENT</a></h1>
+The <code class="Ic">environment</code> section contains variable and values
+  that will be added as environment variables when the test program is run.
 </section>
 <section class="Sh">
 <h1 class="Sh" id="COMPARATORS"><a class="permalink" href="#COMPARATORS">COMPARATORS</a></h1>
@@ -185,7 +197,7 @@ will be run to compare the files.
 default-program = program_to_test
 program-directories = bin
     tests
-[setenv]
+[environment]
 LC_ALL=en_US.UTF-8
 [comparators]
 zip.zip = zipcmp -v
