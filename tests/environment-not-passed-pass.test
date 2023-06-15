@@ -1,0 +1,6 @@
+program nihtest
+arguments case.test
+environment-set NIH_BLOCKED not-passed-through
+return 0
+file case.test environment-not-passed-pass.input
+file nihtest.conf nihtest-conf

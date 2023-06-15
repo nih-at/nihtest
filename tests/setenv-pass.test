@@ -1,5 +1,0 @@
-program nihtest
-arguments setenv-pass.test
-return 0
-file setenv-pass.test setenv-pass.input
-file nihtest.conf nihtest-conf

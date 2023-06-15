@@ -1,0 +1,7 @@
+program nihtest-getenv
+arguments PATH
+environment-unset PATH
+stdout
+PATH=<null>
+end-of-inline-data
+return 0

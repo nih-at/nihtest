@@ -5,6 +5,7 @@ import re
 
 from nihtest import Command
 from nihtest import Configuration
+from nihtest import Environment
 from nihtest import Features
 from nihtest import TestCase
 from nihtest import Sandbox
@@ -57,8 +58,7 @@ class Test:
 
         self.sandbox.enter()
         program = self.case.configuration.find_program(self.case.program)
-        environment = {}
-        environment.update(self.case.environment)
+        environment = Environment.Environment(self.case).environment
         if self.case.preload:
             environment["LD_PRELOAD"] = " ".join(map(lambda file: self.case.configuration.find_program("lib" + file), self.case.preload))
         command = Command.Command(program, self.case.arguments, self.case.stdin, environment=environment)

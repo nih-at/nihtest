@@ -1,0 +1,6 @@
+program nihtest-getenv
+arguments NIH_BLOCKED
+stdout
+NIH_BLOCKED=<null>
+end-of-inline-data
+return 0

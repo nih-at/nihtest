@@ -1,0 +1,5 @@
+program nihtest
+arguments case.test
+return 0
+file case.test environment-unset-pass.input
+file nihtest.conf nihtest-conf

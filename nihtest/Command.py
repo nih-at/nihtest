@@ -24,15 +24,11 @@ class Command:
         program = self.program if os.path.exists(self.program) else shutil.which(self.program)
         if program is None:
             raise RuntimeError(f"can't find program {self.program}")
-        if self.environment:
-            environment = os.environ | self.environment
-        else:
-            environment = None
         if self.stdin_file is not None:
             with open(self.stdin_file, "rb") as stdin:
-                result = subprocess.run([program] + self.arguments, capture_output=True, check=False, text=True, stdin=stdin, env=environment)
+                result = subprocess.run([program] + self.arguments, capture_output=True, check=False, text=True, stdin=stdin, env=self.environment)
         else:
-            result = subprocess.run([program] + self.arguments, capture_output=True, check=False, text=True, input=self.stdin, env=environment)
+            result = subprocess.run([program] + self.arguments, capture_output=True, check=False, text=True, input=self.stdin, env=self.environment)
         self.exit_code = result.returncode
         self.stdout = result.stdout.splitlines()
         self.stderr = result.stderr.splitlines()

@@ -5,7 +5,7 @@ test-input-directories = input
     @CMAKE_CURRENT_SOURCE_DIR@
 default-stderr-replace = "^default: " ""
 
-[setenv]
+[environment]
 TEST_ENV_CONFIG = This is another successful test.
 
 [comparators]

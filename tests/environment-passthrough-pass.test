@@ -1,0 +1,6 @@
+program nihtest
+arguments case.test
+environment-set NIH_PASSTHROUGH passed-through
+return 0
+file case.test environment-passthrough-pass.input
+file nihtest.conf nihtest-conf

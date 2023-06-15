@@ -3,10 +3,48 @@ import enum
 import os.path
 import re
 import shlex
+import sys
+
+config_schema = {
+    "comparators": True,
+    "environment": True,
+    "settings": [
+        "default-program",
+        "default-stderr-replace",
+        "features-files",
+        "keep-sandbox",
+        "print-results",
+        "program-directories",
+        "sandbox-directory",
+        "test-input-directories",
+        "environment-clear",
+        "environment-passthrough",
+        "environment-unset"
+    ]
+}
+
+
+def validate(config, schema, filename):
+    ok = True
+    for section in config.sections():
+        if section in schema:
+            if schema[section] is True:
+                continue
+            else:
+                for key in config[section]:
+                    if key not in schema[section]:
+                        print(f"{filename}: unknown directive '{key}' in section '{section}'", file=sys.stderr)
+                        ok = False
+        else:
+            print(f"{filename}: unknown section '{section}'", file=sys.stderr)
+            ok = False
+    return ok
+
 
 def process_stderr_replace(string):
     arguments = shlex.split(string)
-    return (re.compile(arguments[0]), arguments[1])
+    return re.compile(arguments[0]), arguments[1]
+
 
 def get_section(config, key):
     if key in config:
@@ -17,6 +55,18 @@ def get_section(config, key):
         return value
 
     return {}
+
+
+def get_boolean(config, key, default_value):
+    if key in config:
+        if config[key] == "true":
+            return True
+        elif config[key] == "false":
+            return False
+        else:
+            raise f"invalid value '{config[key]}' for {key}"
+    else:
+        return default_value
 
 
 def get_array(config, key):
@@ -55,6 +105,9 @@ class Configuration:
         config.optionxform = str
 
         config.read(args.config_file)
+        if not validate(config, config_schema, args.config_file):
+            sys.exit(99)
+
         settings = {}
         if "settings" in config:
             settings = config["settings"]
@@ -67,7 +120,10 @@ class Configuration:
         self.sandbox_directory = get_value(settings, "sandbox-directory", ".")
         self.test_input_directories = get_array(settings, "test-input-directories")
         self.comparators = get_section(config, "comparators")
-        self.environment = get_section(config, "setenv")
+        self.environment = get_section(config, "environment")
+        self.environment_clear = get_boolean(settings, "environment-clear", False)
+        self.environment_passthrough = get_array(settings, "environment-passthrough")
+        self.environment_unset = get_array(settings, "environment-unset")
         self.verbose = When.FAILED
         self.run_test = True
 

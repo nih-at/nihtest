@@ -1,0 +1,7 @@
+program nihtest-getenv
+arguments NIH_PASSTHROUGH
+environment-passthrough NIH_PASSTHROUGH
+stdout
+NIH_PASSTHROUGH=passed-through
+end-of-inline-data
+return 0

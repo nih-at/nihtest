@@ -1,5 +1,11 @@
 # arguments has no restrictions
 # description has no restrictions
+environment-clear 1
+environment-passthrough
+environment-set
+environment-set 1
+environment-set 1 2 3
+environment-unset
 features
 file
 file 1
@@ -11,9 +17,6 @@ preload
 preload 1 2
 program
 return
-setenv
-setenv 1
-setenv 1 2 3
 stderr 1 2
 stderr-replace
 stderr-replace 1

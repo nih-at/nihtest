@@ -5,8 +5,10 @@ import sys
 from nihtest import File
 from nihtest import Utility
 
+
 def decode_escapes(string):
     return string.replace("\\n", "\n").replace("\\r", "\r").replace("\\t", "\t").replace("\\\\", "\\")
+
 
 class Directive:
     def __init__(self, usage, method, minimum_arguments, maximum_arguments=None, only_once=False):
@@ -28,6 +30,9 @@ class TestCase:
         self.args = args
         self.configuration = configuration
         self.environment = configuration.environment.copy()
+        self.environment_clear = configuration.environment_clear
+        self.environment_passthrough = configuration.environment_passthrough.copy()
+        self.environment_unset = configuration.environment_unset.copy()
         file_name = args.testcase
         if file_name[-5:] != ".test":
             file_name += ".test"
@@ -123,6 +128,18 @@ class TestCase:
     def directive_description(self, text):
         self.description = text
 
+    def directive_environment_clear(self, _arguments):
+        self.environment_clear = True
+
+    def directive_environment_passthrough(self, arguments):
+        self.environment_passthrough += arguments
+
+    def directive_environment_set(self, arguments):
+        self.environment[arguments[0]] = arguments[1]
+
+    def directive_environment_unset(self, arguments):
+        self.environment_unset += arguments
+
     def directive_features(self, arguments):
         self.features = arguments
 
@@ -149,9 +166,6 @@ class TestCase:
     def directive_return(self, arguments):
         self.exit_code = int(arguments[0])  # TODO: error check?
 
-    def directive_setenv(self, arguments):
-        self.environment[arguments[0]] = arguments[1]
-
     def directive_stderr(self, arguments):
         self.stderr = self.io_data(arguments)
 
@@ -174,6 +188,18 @@ class TestCase:
         "description": Directive(method=directive_description,
                                  minimum_arguments=0, maximum_arguments=-1,
                                  usage="text"),
+        "environment-clear": Directive(method=directive_environment_clear,
+                                       usage="",
+                                       minimum_arguments=0),
+        "environment-passthrough": Directive(method=directive_environment_passthrough,
+                                             usage="variable ...",
+                                             minimum_arguments=1, maximum_arguments=-1),
+        "environment-set": Directive(method=directive_environment_set,
+                                     usage="variable value",
+                                     minimum_arguments=2),
+        "environment-unset": Directive(method=directive_environment_unset,
+                                       usage="variable ...",
+                                       minimum_arguments=1, maximum_arguments=-1),
         "features": Directive(method=directive_features,
                               usage="feature ...",
                               minimum_arguments=1),
@@ -198,9 +224,6 @@ class TestCase:
                             usage="exit-code",
                             minimum_arguments=1,
                             only_once=True),
-        "setenv": Directive(method=directive_setenv,
-                            usage="variable value",
-                            minimum_arguments=2),
         "stderr": Directive(method=directive_stderr,
                             usage="[file]",
                             minimum_arguments=0, maximum_arguments=1,
