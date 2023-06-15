@@ -30,7 +30,7 @@
 .\" OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 .\" IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .\"
-.TH "NIHTEST-CASE" "5" "June 9, 2023" "NiH" "File Formats Manual"
+.TH "NIHTEST-CASE" "5" "June 15, 2023" "NiH" "File Formats Manual"
 .nh
 .if n .ad l
 .SH "NAME"
@@ -71,7 +71,7 @@ The features are extracted from a top-level
 \fIconfig.h\fR
 file.
 If the string
-\fRHAVE_FOO\fR
+\fRFOO\fR
 is defined in the file, the feature
 \fRFOO\fR
 is assumed to be available, otherwise not.

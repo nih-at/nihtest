@@ -34,7 +34,6 @@
    -->
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" href="../nih-man.css" type="text/css" media="all"/>
   <title>NIHTEST-CASE(5)</title>
 </head>
@@ -49,37 +48,37 @@
 <div class="manual-text">
 <section class="Sh">
 <h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
-<p class="Pp"><code class="Nm">nihtest-case</code> &#x2014;
-    <span class="Nd">test case format for nihtest</span></p>
+<code class="Nm">nihtest-case</code> &#x2014;
+<div class="Nd">test case format for nihtest</div>
 </section>
 <section class="Sh">
 <h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
-<p class="Pp"><a class="Xr" href="nihtest.html">nihtest(1)</a> is a testing
-    tool. It uses <span class="Pa">.test</span> files as input. This man page
-    describes the format of these test files.</p>
+<a class="Xr" href="nihtest.html">nihtest(1)</a> is a testing tool. It uses
+  <span class="Pa">.test</span> files as input. This man page describes the
+  format of these test files.
 <p class="Pp">Lines beginning with &#x201C;#&#x201D; are comments.</p>
 <p class="Pp">The following commands are recognized. The
     <code class="Ic">return</code> and <code class="Ic">args</code> commands
     must appear exactly once, the others are optional.</p>
 <dl class="Bl-tag">
-  <dt id="arguments"><a class="permalink" href="#arguments"><code class="Ic">arguments</code></a>
+  <dt><a class="permalink" href="#arguments"><code class="Ic" id="arguments">arguments</code></a>
     [<var class="Ar">argument ...</var>]</dt>
   <dd>Run the program with command line arguments <var class="Ar">args</var>.
       Shell style quoting is supported.</dd>
-  <dt id="description"><a class="permalink" href="#description"><code class="Ic">description</code></a>
+  <dt><a class="permalink" href="#description"><code class="Ic" id="description">description</code></a>
     <var class="Ar">text</var></dt>
   <dd>Describes the purpose of the test.</dd>
-  <dt id="features"><a class="permalink" href="#features"><code class="Ic">features</code></a>
+  <dt><a class="permalink" href="#features"><code class="Ic" id="features">features</code></a>
     <var class="Ar">feature ...</var></dt>
   <dd>Only run test if all
       <var class="Ar">feature</var><span class="No">s</span> are present,
       otherwise skip it. The features are extracted from a top-level
       <span class="Pa">config.h</span> file. If the string
-      <code class="Dv">HAVE_FOO</code> is defined in the file, the feature
+      <code class="Dv">FOO</code> is defined in the file, the feature
       <code class="Dv">FOO</code> is assumed to be available, otherwise not. See
       also the description of <code class="Ic">top-build-directory</code> in
       <a class="Xr" href="nihtest-config.html">nihtest-config(5)</a>.</dd>
-  <dt id="file"><a class="permalink" href="#file"><code class="Ic">file</code></a>
+  <dt><a class="permalink" href="#file"><code class="Ic" id="file">file</code></a>
     <var class="Ar">name in</var> [<var class="Ar">out</var>]</dt>
   <dd>The arguments <var class="Ar">in</var> and <var class="Ar">out</var>
       specify the contents of the file <var class="Ar">name</var> in the test
@@ -95,44 +94,44 @@
         data comes first. Otherwise the argument specifies the name of the file
         to copy or compare againts.</p>
   </dd>
-  <dt id="mkdir"><a class="permalink" href="#mkdir"><code class="Ic">mkdir</code></a>
+  <dt><a class="permalink" href="#mkdir"><code class="Ic" id="mkdir">mkdir</code></a>
     <var class="Ar">name</var></dt>
   <dd>Create directory <var class="Ar">name</var>
     <br/>
      in the test directory.</dd>
-  <dt id="precheck"><a class="permalink" href="#precheck"><code class="Ic">precheck</code></a>
+  <dt><a class="permalink" href="#precheck"><code class="Ic" id="precheck">precheck</code></a>
     <var class="Ar">command</var> [<var class="Ar">argument ...</var>]</dt>
   <dd>If <var class="Ar">command</var> exits with non-zero status, skip the
       test.</dd>
-  <dt id="preload"><a class="permalink" href="#preload"><code class="Ic">preload</code></a>
+  <dt><a class="permalink" href="#preload"><code class="Ic" id="preload">preload</code></a>
     <var class="Ar">object</var></dt>
   <dd>Pre-load the shared object <var class="Ar">object</var> before running the
       program.
     <p class="Pp">This is not supported on macOS and Windows, where tests with
         <code class="Ic">preload</code> will be skipped.</p>
   </dd>
-  <dt id="program"><a class="permalink" href="#program"><code class="Ic">program</code></a>
+  <dt><a class="permalink" href="#program"><code class="Ic" id="program">program</code></a>
     <var class="Ar">name</var></dt>
   <dd>Run <var class="Ar">name</var>. See the description of
       <code class="Ic">arguments</code> above for its command line arguments. If
       this directive is omitted, <code class="Ic">default-program</code> from
       <span class="Pa">nihtest.conf</span> is run.</dd>
-  <dt id="return"><a class="permalink" href="#return"><code class="Ic">return</code></a>
+  <dt><a class="permalink" href="#return"><code class="Ic" id="return">return</code></a>
     <var class="Ar">exit-code</var></dt>
   <dd><var class="Ar">exit-code</var> is the expected exit code (usually 0 on
       success).</dd>
-  <dt id="setenv"><a class="permalink" href="#setenv"><code class="Ic">setenv</code></a>
+  <dt><a class="permalink" href="#setenv"><code class="Ic" id="setenv">setenv</code></a>
     <var class="Ar">variable value</var></dt>
   <dd>Set the environment variable <var class="Ar">variable</var> to
       <var class="Ar">value</var>.</dd>
-  <dt id="stderr"><a class="permalink" href="#stderr"><code class="Ic">stderr</code></a>
+  <dt><a class="permalink" href="#stderr"><code class="Ic" id="stderr">stderr</code></a>
     [<var class="Ar">file</var>]</dt>
   <dd>Specify the expect standard error output (stderr). If
       <var class="Ar">file</var> is given, the output is compared with that
       file, otherwise the expected text is taken from the following lines of the
       test case, up to a line consisting of
     &#x201C;end-of-inline-data&#x201D;.</dd>
-  <dt id="stderr-replace"><a class="permalink" href="#stderr-replace"><code class="Ic">stderr-replace</code></a>
+  <dt><a class="permalink" href="#stderr-replace"><code class="Ic" id="stderr-replace">stderr-replace</code></a>
     <var class="Ar">pattern replacement</var></dt>
   <dd>Run regular expression replacement over the standard error output and the
       expected output as provided by <code class="Ic">stderr</code> before
@@ -142,7 +141,7 @@
       replaced with the content of the corresponding &#x201C;(...)&#x201D; match
       in the <var class="Ar">pattern</var>. See
       <a class="Xr" href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/re_format.html">re_format(7)</a> for details.</dd>
-  <dt id="stdin"><a class="permalink" href="#stdin"><code class="Ic">stdin</code></a>
+  <dt><a class="permalink" href="#stdin"><code class="Ic" id="stdin">stdin</code></a>
     [<var class="Ar">file</var>]</dt>
   <dd>If <var class="Ar">file</var> is given, standard input (stdin) is
       redirected from this file, which means the program has direct access to
@@ -151,7 +150,7 @@
         from the test case, up to a line consisting of
         &#x201C;end-of-inline-data&#x201D;.</p>
   </dd>
-  <dt id="stdout"><a class="permalink" href="#stdout"><code class="Ic">stdout</code></a>
+  <dt><a class="permalink" href="#stdout"><code class="Ic" id="stdout">stdout</code></a>
     [<var class="Ar">file</var>]</dt>
   <dd>Specify the expect standard output (stdout). If <var class="Ar">file</var>
       is given, the output is compared with that file, otherwise the expected
@@ -162,13 +161,13 @@
 <section class="Sh">
 <h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
   ALSO</a></h1>
-<p class="Pp"><a class="Xr" href="nihtest.html">nihtest(1)</a>,
-    <a class="Xr" href="nihtest-config.html">nihtest-config(5)</a></p>
+<a class="Xr" href="nihtest.html">nihtest(1)</a>,
+  <a class="Xr" href="nihtest-config.html">nihtest-config(5)</a>
 </section>
 </div>
 <table class="foot">
   <tr>
-    <td class="foot-date">June 9, 2023</td>
+    <td class="foot-date">June 15, 2023</td>
     <td class="foot-os">NiH</td>
   </tr>
 </table>

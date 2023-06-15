@@ -41,9 +41,9 @@
 \fBnihtest\fR
 [\fB\-hqVv\fR]
 [\fB\-C\fR\ \fIconfig\fR]
-[\fB\-\-keep-broken\fR]
-[\fB\-\-no-cleanup\fR]
-[\fB\-\-setup-only\fR]
+[\fB\-\fR\fB\-keep-broken\fR]
+[\fB\-\fR\fB\-no-cleanup\fR]
+[\fB\-\fR\fB\-setup-only\fR]
 \fItestcase\fR
 .SH "DESCRIPTION"
 \fBnihtest\fR
@@ -74,32 +74,32 @@ for test cases, input and output files.
 supports the following options
 .RS 8n
 .TP 17n
-\fB\-C\fR \fIconfig\fR, \fB\-\-config-file\fR \fIconfig\fR
+\fB\-C\fR \fIconfig\fR, \fB\-\fR\fB\-config-file\fR \fIconfig\fR
 Use
 \fIconfig\fR
 as configuration file instead of
 \fI./nihtest.conf\fR.
 .TP 17n
-\fB\-h\fR, \fB\-\-help\fR
+\fB\-h\fR, \fB\-\fR\fB\-help\fR
 Display a short help message and exit.
 .TP 17n
-\fB\-\-keep-broken\fR
+\fB\-\fR\fB\-keep-broken\fR
 Do not delete the sandbox if the test fails.
 .TP 17n
-\fB\-\-no-cleanup\fR
+\fB\-\fR\fB\-no-cleanup\fR
 Do not delete the sandbox after the test finishes (successfully or not).
 .TP 17n
-\fB\-q\fR, \fB\-\-quiet\fR
+\fB\-q\fR, \fB\-\fR\fB\-quiet\fR
 Do not print test results.
 .TP 17n
-\fB\-\-setup-only\fR
+\fB\-\fR\fB\-setup-only\fR
 Only populate the sandbox, but do not run the actual test.
 .TP 17n
-\fB\-v\fR, \fB\-\-verbose\fR
+\fB\-v\fR, \fB\-\fR\fB\-verbose\fR
 .br
 Print detailed test results.
 .TP 17n
-\fB\-V\fR, \fB\-\-version\fR
+\fB\-V\fR, \fB\-\fR\fB\-version\fR
 .br
 Print
 \fBnihtest\fR

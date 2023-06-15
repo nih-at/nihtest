@@ -112,8 +112,10 @@ Always keep the sandbox.
 .RS 22n
 This can be overridden with the
 nihtest(1)
-flags \fB\-\-keep-broken\fR \fB\-=\fR \fIwhen\fR
-or \fB\-\-no-cleanup\fR.
+flags
+\fB\-\fR\fB\-keep-broken\fR \fB\-=\fR \fIwhen\fR
+or
+\fB\-\fR\fB\-no-cleanup\fR.
 The default is
 \fRnever\fR.
 .RE
@@ -137,8 +139,10 @@ Verbose mode.
 .RS 22n
 This can be overridden with the
 nihtest(1)
-flags \fB\-\-quiet\fR
-or \fB\-\-verbose\fR.
+flags
+\fB\-\fR\fB\-quiet\fR
+or
+\fB\-\fR\fB\-verbose\fR.
 The default is
 \fRfailed\fR.
 .RE
