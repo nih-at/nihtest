@@ -57,12 +57,7 @@ class Test:
 
         self.sandbox.enter()
         program = self.case.configuration.find_program(self.case.program)
-        environment = {
-            "TZ": "UTC",
-            "LANG": "C",
-            "LC_CTYPE": "C",
-            "POSIXLY_CORRECT": "1"
-        }
+        environment = {}
         environment.update(self.case.environment)
         if self.case.preload:
             environment["LD_PRELOAD"] = " ".join(map(lambda file: self.case.configuration.find_program("lib" + file), self.case.preload))
