@@ -40,3 +40,6 @@ version_pattern = "MAJOR.MINOR.PATCH"
 "CMakeLists.txt" = [
     "VERSION {version}"
 ]
+
+[tool.setuptools]
+py-modules = []
