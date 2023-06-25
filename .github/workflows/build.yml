@@ -1,0 +1,42 @@
+name: build
+on: [push]
+permissions:
+  contents: read
+jobs:
+  all:
+    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.os }}${{ matrix.name_extra }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        cmake_extra: [""]
+        name_extra: [""]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: install python and pip
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: prepare build directory
+        run: |
+          cmake -E make_directory ${{runner.workspace}}/build
+      - name: configure (Unix)
+        if: ${{ runner.os != 'Windows' }}
+        working-directory: ${{runner.workspace}}/build
+        run: |
+          cmake ${{ matrix.cmake_extra }} ${{github.workspace}}
+      - name: configure (Windows)
+        if: ${{ runner.os == 'Windows' }}
+        working-directory: ${{runner.workspace}}/build
+        run: |
+          cmake ${{ matrix.cmake_extra }} -DCMAKE_TOOLCHAIN_FILE=${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake ${{github.workspace}}
+      - name: build
+        working-directory: ${{runner.workspace}}/build
+        run: |
+          cmake --build . --config Release
+      - name: test
+        working-directory: ${{runner.workspace}}/build
+        run: |
+          ctest -v -C Release
