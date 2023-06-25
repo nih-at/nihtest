@@ -23,15 +23,9 @@ jobs:
         run: |
           cmake -E make_directory ${{runner.workspace}}/build
       - name: configure (Unix)
-        if: ${{ runner.os != 'Windows' }}
         working-directory: ${{runner.workspace}}/build
         run: |
           cmake ${{ matrix.cmake_extra }} ${{github.workspace}}
-      - name: configure (Windows)
-        if: ${{ runner.os == 'Windows' }}
-        working-directory: ${{runner.workspace}}/build
-        run: |
-          cmake ${{ matrix.cmake_extra }} -DCMAKE_TOOLCHAIN_FILE=${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake ${{github.workspace}}
       - name: build
         working-directory: ${{runner.workspace}}/build
         run: |
