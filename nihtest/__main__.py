@@ -10,7 +10,7 @@ VERSION = "1.1.0"
 def main():
     parser = argparse.ArgumentParser(
         prog='nihtest',
-        description="nihtest " + VERSION  + "\nCopyright (C) 2023 Dieter Baron and Thomas Klausner")
+        description="nihtest " + VERSION + "\nCopyright (C) 2023 Dieter Baron and Thomas Klausner")
     parser.add_argument('testcase', help='Testcase to run')
     parser.add_argument('-C', '--config-file', metavar='FILE', help='use FILE as config file', default="nihtest.conf")
     parser.add_argument('--keep-broken', action='store_true', help='keep sandbox if test fails')

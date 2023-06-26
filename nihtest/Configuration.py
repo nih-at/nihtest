@@ -1,6 +1,7 @@
 import configparser
 import enum
 import os.path
+import platform
 import re
 import shlex
 import sys
@@ -149,6 +150,8 @@ class Configuration:
         raise RuntimeError(f"can't find input file '{filename}'")
 
     def find_program(self, program):
+        if platform.system() == "Windows" and not (program.endswith(".exe") or program.endswith(".com")):
+            program += ".exe"
         if file := self.find_file(program, self.program_directories):
             return file
         return program
