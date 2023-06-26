@@ -1,3 +1,7 @@
+# 1.1.1 [Unreleased]
+
+- Fix Windows compatibility. 
+
 # 1.1.0 [2023-06-15] 
 
 - Improve environment variable handling.
