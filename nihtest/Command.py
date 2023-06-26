@@ -15,7 +15,7 @@ class Command:
         if isinstance(stdin, str):
             self.stdin_file = stdin
         else:
-            self.stdin = os.linesep.join(stdin) + os.linesep
+            self.stdin = "\n".join(stdin) + "\n"
         self.stdout = None
         self.stderr = None
         self.exit_code = None

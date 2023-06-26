@@ -107,7 +107,7 @@ class Test:
                 if directory == ".":
                     name = file
                 else:
-                    name = os.path.join(directory, file)[2:]
+                    name = os.path.join(directory, file)[2:].replace("\\", "/")
                 files.append(name)
         return files
 

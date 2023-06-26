@@ -77,5 +77,4 @@ class File:
                 shutil.copyfile(input_file_name, output_file_name)
             else:
                 with open(output_file_name, "w", encoding='utf-8') as file:
-                    for line in self.input.data:
-                        file.write(line + os.linesep)
+                    Utility.write_lines(file, self.input.data)

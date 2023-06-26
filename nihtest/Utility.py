@@ -27,4 +27,4 @@ def read_lines(file_name):
 
 def write_lines(file, lines):
     for line in lines:
-        file.writelines(line + os.linesep)
+        file.writelines(line + "\n")
