@@ -76,6 +76,6 @@ class File:
                 input_file_name = configuration.find_input_file(self.input.file_name)
                 shutil.copyfile(input_file_name, output_file_name)
             else:
-                with open(output_file_name, "w") as file:
+                with open(output_file_name, "w", encoding='utf-8') as file:
                     for line in self.input.data:
                         file.write(line + os.linesep)

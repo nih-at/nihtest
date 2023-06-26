@@ -19,7 +19,7 @@ def compare_lines(description, expected, got, verbose):
 
 def read_lines(file_name):
     lines = []
-    with open(file_name, "r") as file:
+    with open(file_name, "r", encoding='utf-8') as file:
         while line := file.readline():
             lines.append(line.rstrip("\r\n"))
     return lines

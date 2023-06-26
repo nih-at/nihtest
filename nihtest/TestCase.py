@@ -37,7 +37,7 @@ class TestCase:
         if file_name[-5:] != ".test":
             file_name += ".test"
         self.file_name = self.configuration.find_input_file(file_name)
-        self.file = open(self.file_name, mode="r")
+        self.file = open(self.file_name, mode="r", encoding='utf-8')
         self.line_number = 0
         self.directives_seen = {}
         self.arguments = []
