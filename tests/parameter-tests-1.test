@@ -29,3 +29,4 @@ parameter-tests-1.test:25: too many arguments for 'stdout'
 nihtest: invalid test case
 end-of-inline-data
 stderr-replace ^.*/([^/:]*): "\1:"
+stderr-replace "([A-Z]:)?.*\\\\\\\\(.*):" "\2:"
