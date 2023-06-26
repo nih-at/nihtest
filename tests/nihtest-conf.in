@@ -1,7 +1,7 @@
 [settings]
 features-files = config.h
 program-directories = @PROJECT_BINARY_DIR@
-    @PROJECT_BINARY_DIR@\@CMAKE_BUILD_TYPE@
+    @PROJECT_BINARY_DIR@/@CMAKE_BUILD_TYPE@
 test-input-directories = input
     @CMAKE_CURRENT_SOURCE_DIR@
 default-stderr-replace = "^default: " ""
