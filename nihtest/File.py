@@ -57,7 +57,7 @@ class File:
                 input_data = Utility.read_lines(input_file_name)
                 return Utility.compare_lines(self.name, output_data, input_data, configuration.verbose != Configuration.When.NEVER)
             except UnicodeDecodeError:
-                output_data = os.linesep.join(output_data)
+                output_data = "\n".join(output_data)
 
         with open(input_file_name, "rb") as file:
             input_data = file.read()
