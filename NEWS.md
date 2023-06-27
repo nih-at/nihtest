@@ -1,4 +1,4 @@
-# 1.1.1 [Unreleased]
+# 1.1.1 [2023-06-27]
 
 - Fix Windows compatibility. 
 
