@@ -14,7 +14,7 @@ class Command:
             stdin = []
         if isinstance(stdin, str):
             self.stdin_file = stdin
-        elif self.stdin:
+        elif stdin:
             self.stdin = "\n".join(stdin) + "\n"
         self.stdout = None
         self.stderr = None
