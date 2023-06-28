@@ -112,8 +112,13 @@ class TestCase:
     def file_data(self, argument):
         if argument == "{}":
             return None
-        if argument == "<inline>":
-            return File.Data(data=self.get_inline_data())
+        if len(argument) >= 2 and argument[0] == "<" and argument[-1] == ">":
+            inline_file_name = file_name=argument[1:-1]
+            if inline_file_name == "empty" or inline_file_name.startswith("empty."):
+                data = []
+            else:
+                data = self.get_inline_data()
+            return File.Data(file_name=inline_file_name, data=data)
         return File.Data(file_name=argument)
 
     def io_data(self, arguments):
@@ -240,3 +245,6 @@ class TestCase:
                             minimum_arguments=0, maximum_arguments=1,
                             only_once=True),
     }
+
+    def get_program_directories(self):
+        return self.configuration.program_directories

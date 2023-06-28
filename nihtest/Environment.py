@@ -17,6 +17,12 @@ class Environment:
 
         for variable in passthrough:
             self.environment[variable] = os.environ[variable]
+            if variable == "PATH" and configuration.get_program_directories():
+                additional_path = os.pathsep.join(configuration.get_program_directories())
+                if self.environment[variable]:
+                    self.environment[variable] += os.pathsep + additional_path
+                else:
+                    self.environment[variable] = additional_path
 
         self.environment |= configuration.environment
 

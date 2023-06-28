@@ -1,0 +1,14 @@
+program nihtest
+arguments case.test
+return 0
+file case.test comparator-preprocess.input
+file nihtest.conf nihtest-conf
+file a.txt <inline>
+contents of a.txt
+end-of-inline-data
+file b.txt <inline>
+contents of b.txt
+end-of-inline-data
+file c.txt <inline>
+contents of c.txt
+end-of-inline-data

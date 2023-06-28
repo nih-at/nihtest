@@ -8,6 +8,8 @@ import sys
 
 config_schema = {
     "comparators": True,
+#    "copiers": True,
+    "comparator-preprocessors": True,
     "environment": True,
     "settings": [
         "default-program",
@@ -120,6 +122,7 @@ class Configuration:
         self.program_directories = get_array(settings, "program-directories")
         self.sandbox_directory = get_value(settings, "sandbox-directory", ".")
         self.test_input_directories = get_array(settings, "test-input-directories")
+        self.comparator_preprocessors = get_section(config, "comparator-preprocessors")
         self.comparators = get_section(config, "comparators")
         self.environment = get_section(config, "environment")
         self.environment_clear = get_boolean(settings, "environment-clear", False)
@@ -131,6 +134,8 @@ class Configuration:
         self.default_stderr_replace = list(map(process_stderr_replace, self.default_stderr_replace))
         for key, value in self.comparators.items():
             self.comparators[key] = shlex.split(value)
+        for key, value in self.comparator_preprocessors.items():
+            self.comparator_preprocessors[key] = shlex.split(value)
 
         if args.quiet:
             self.verbose = When.NEVER
@@ -164,3 +169,6 @@ class Configuration:
             if os.path.exists(name):
                 return name
         return None
+
+    def get_program_directories(self):
+        return self.program_directories

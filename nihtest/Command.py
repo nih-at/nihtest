@@ -8,13 +8,13 @@ class Command:
         self.program = program
         self.arguments = arguments
         self.environment = environment
-        self.stdin = None
+        self.stdin = ""
         self.stdin_file = None
         if stdin is None:
             stdin = []
         if isinstance(stdin, str):
             self.stdin_file = stdin
-        else:
+        elif self.stdin:
             self.stdin = "\n".join(stdin) + "\n"
         self.stdout = None
         self.stderr = None

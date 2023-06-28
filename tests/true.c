@@ -31,6 +31,12 @@
   IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <string.h>
+#include <stdio.h>
+
 int main(int argc, char *argv[]) {
+    if (argc > 1 && strcmp(argv[1], "-v") == 0) {
+        printf("true\n");
+    }
     return 0;
 }

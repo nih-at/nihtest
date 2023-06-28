@@ -1,0 +1,8 @@
+program nihtest-true
+arguments
+return 0
+file a.true a.txt <inline.txt>
+true
+end-of-inline-data
+file b.cat b.txt
+file c.txt c.txt
