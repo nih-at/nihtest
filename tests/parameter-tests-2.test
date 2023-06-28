@@ -8,4 +8,4 @@ parameter-tests-2.test:3: too many arguments for 'return'
 nihtest: invalid test case
 end-of-inline-data
 stderr-replace ^.*/([^/:]*): "\1:"
-stderr-replace "([A-Z]:)?.*\\\\\\\\(.*):" "\2:"
+stderr-replace "^([A-Z]:)?.*\\\\\\\\(.*):" "\2:"

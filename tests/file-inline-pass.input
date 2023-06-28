@@ -1,0 +1,17 @@
+program nihtest-cat
+arguments a.txt
+file a.txt a.txt <inline>
+This is the first line.
+
+This is the second paragraph.
+It consists of two lines.
+
+end-of-inline-data
+return 0
+stdout
+This is the first line.
+
+This is the second paragraph.
+It consists of two lines.
+
+end-of-inline-data
