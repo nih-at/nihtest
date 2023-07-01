@@ -14,3 +14,6 @@ The man pages are included in the source distribution tarball in the
 `manpages` directory in man (Linux-like), mdoc (BSD), and HTML
 format. When you're packaging nihtest, please make sure they are
 installed in an appropriate location.
+
+
+[![Github Actions Build Status](https://github.com/nih-at/nihtest/workflows/build/badge.svg)](https://github.com/nih-at/nihtest/actions?query=workflow%3Abuild)
