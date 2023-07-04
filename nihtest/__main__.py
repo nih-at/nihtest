@@ -18,13 +18,9 @@ def main():
     parser.add_argument('-q', '--quiet', action='store_true', help="don't print test result")
     parser.add_argument('--setup-only', action='store_true', help="set up sandbox, but don't run test")
     parser.add_argument('-v', '--verbose', action='store_true', help="print detailed test results")
-    parser.add_argument('-V', '--version', action='store_true', help='display version number and exit')
+    parser.add_argument('-V', '--version', action='version', version='nihtest ' + VERSION)
 
     args = parser.parse_args()
-
-    if args.version:
-        print("nihtest " + VERSION)
-        sys.exit(0)
 
     configuration = Configuration.Configuration(args)
 
