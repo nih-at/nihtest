@@ -1,3 +1,7 @@
+# 1.2.0 [2023-07-19]
+
+- Explicitly specify encoding for stdout of subcommands.
+
 # 1.1.1 [2023-06-27]
 
 - Fix Windows compatibility. 

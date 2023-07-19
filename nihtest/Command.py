@@ -26,9 +26,9 @@ class Command:
             raise RuntimeError(f"can't find program {self.program}")
         if self.stdin_file is not None:
             with open(self.stdin_file, "rb") as stdin:
-                result = subprocess.run([program] + self.arguments, capture_output=True, check=False, text=True, stdin=stdin, env=self.environment)
+                result = subprocess.run([program] + self.arguments, capture_output=True, check=False, text=True, encoding="utf-8", stdin=stdin, env=self.environment)
         else:
-            result = subprocess.run([program] + self.arguments, capture_output=True, check=False, text=True, input=self.stdin, env=self.environment)
+            result = subprocess.run([program] + self.arguments, capture_output=True, check=False, text=True, encoding="utf-8", input=self.stdin, env=self.environment)
         self.exit_code = result.returncode
         self.stdout = result.stdout.splitlines()
         self.stderr = result.stderr.splitlines()
