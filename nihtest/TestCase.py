@@ -1,3 +1,4 @@
+import dateutil.parser
 import re
 import shlex
 import sys
@@ -54,6 +55,7 @@ class TestCase:
         self.stdout = []
         self.ok = True
         self.directories = []
+        self.modification_times = {}
         self.parse_case()
         if not self.ok:
             raise RuntimeError("invalid test case")
@@ -113,7 +115,7 @@ class TestCase:
         if argument == "{}":
             return None
         if len(argument) >= 2 and argument[0] == "<" and argument[-1] == ">":
-            inline_file_name = file_name=argument[1:-1]
+            inline_file_name = argument[1:-1]
             if inline_file_name == "empty" or inline_file_name.startswith("empty."):
                 data = []
             else:
@@ -170,6 +172,13 @@ class TestCase:
 
     def directive_return(self, arguments):
         self.exit_code = int(arguments[0])  # TODO: error check?
+
+    def directive_set_modification_time(self, arguments):
+        if arguments[1].isnumeric():
+            timestamp = int(arguments[1])
+        else:
+            timestamp = dateutil.parser.isoparse(arguments[1]).timestamp()
+        self.modification_times[arguments[0]] = timestamp
 
     def directive_stderr(self, arguments):
         self.stderr = self.io_data(arguments)
@@ -229,6 +238,9 @@ class TestCase:
                             usage="exit-code",
                             minimum_arguments=1,
                             only_once=True),
+        "set-modification-time": Directive(method=directive_set_modification_time,
+                                           usage="file time",
+                                           minimum_arguments=2),
         "stderr": Directive(method=directive_stderr,
                             usage="[file]",
                             minimum_arguments=0, maximum_arguments=1,

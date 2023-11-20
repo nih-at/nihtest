@@ -53,6 +53,9 @@ class Test:
         for file in self.case.files:
             file.prepare(self.case.configuration, self.sandbox.directory)
 
+        for file, modification_time in self.case.modification_times.items():
+            os.utime(os.path.join(self.sandbox.directory, file), (modification_time, modification_time))
+
         if not self.case.configuration.run_test:
             return TestResult.OK
 
