@@ -1,3 +1,10 @@
+# 1.3.0 [2023-12-22]
+
+- Add set-modification-time.
+- Fix inline stdin data.
+- Improve error handling.
+- Require python 3.9.
+
 # 1.2.0 [2023-07-19]
 
 - Explicitly specify encoding for stdout of subcommands.
