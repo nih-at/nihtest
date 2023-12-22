@@ -2,6 +2,7 @@ import enum
 import os
 import platform
 import re
+import sys
 
 from nihtest import Command
 from nihtest import Configuration
@@ -21,6 +22,7 @@ def process_stderr_line(line, replacements):
 class TestResult(enum.Enum):
     OK = 0
     FAILED = 1
+    ERROR = 2 # TODO: correct value
     SKIPPED = 77
 
 
@@ -30,6 +32,11 @@ class Test:
         self.sandbox = None
         self.features = Features.Features(configuration)
         self.failed = []
+        self.ok = True
+
+    def error(self, message):
+        print(f"{message}", file=sys.stderr)
+        self.ok = False
 
     def run(self):
         if self.case.preload and platform.system() in ["Darwin", "Windows"]:
@@ -54,7 +61,13 @@ class Test:
             file.prepare(self.case.configuration, self.sandbox.directory)
 
         for file, modification_time in self.case.modification_times.items():
-            os.utime(os.path.join(self.sandbox.directory, file), (modification_time, modification_time))
+            try:
+                os.utime(os.path.join(self.sandbox.directory, file), (modification_time, modification_time))
+            except Exception as e:
+                self.error(f"can't set modification time for '{file}': {e}")
+
+        if not self.ok:
+            return TestResult.ERROR
 
         if not self.case.configuration.run_test:
             return TestResult.OK

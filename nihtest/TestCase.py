@@ -80,9 +80,13 @@ class TestCase:
         self.ok = False
 
     def parse_line(self, line):
-        words = list(map(decode_escapes, shlex.split(line)))
-        name = words[0]
-        arguments = words[1::]
+        try:
+            words = list(map(decode_escapes, shlex.split(line)))
+            name = words[0]
+            arguments = words[1::]
+        except Exception as e:
+            self.error(f"syntax error: {e}")
+            return
 
         if name not in TestCase.directives:
             self.error(f"unknown directive '{name}'")
