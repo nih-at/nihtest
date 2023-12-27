@@ -78,7 +78,12 @@ class Test:
         if self.case.preload:
             environment["LD_PRELOAD"] = " ".join(map(lambda file: self.case.configuration.find_program("lib" + file), self.case.preload))
         command = Command.Command(program, self.case.arguments, self.case.stdin, environment=environment)
+        if self.case.working_directory is not None:
+            if not os.path.exists(self.case.working_directory):
+                os.mkdir(self.case.working_directory)
+            os.chdir(self.case.working_directory)
         command.run()
+        self.sandbox.chdir_top()
         files_got = self.list_files()
         self.sandbox.leave()
 

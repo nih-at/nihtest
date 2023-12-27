@@ -1,6 +1,10 @@
+# 1.4.0 [Unreleased]
+
+- Add `working-directory` directive.
+
 # 1.3.0 [2023-12-22]
 
-- Add set-modification-time.
+- Add `set-modification-time` directive.
 - Fix inline stdin data.
 - Improve error handling.
 - Require python 3.9.

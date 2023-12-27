@@ -8,6 +8,7 @@ class Sandbox:
         self.auto_cleanup = auto_cleanup
         self.entered = False
         self.directory = None
+        self.parent_directory = os.getcwd()
         basename = os.path.basename(name)
         self.directory = tempfile.mkdtemp(prefix=f"sandbox_{basename}.d", dir=".")
 
@@ -35,5 +36,10 @@ class Sandbox:
     def leave(self):
         if not self.entered:
             raise RuntimeError("not in sandbox")
-        os.chdir("..")
+        os.chdir(self.parent_directory)
         self.entered = False
+
+    def chdir_top(self):
+        if not self.entered:
+            raise RuntimeError("not in sandbox")
+        os.chdir(os.path.join(self.parent_directory, self.directory))

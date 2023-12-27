@@ -14,6 +14,7 @@ config_schema = {
     "settings": [
         "default-program",
         "default-stderr-replace",
+        "default-working-directory",
         "features-files",
         "keep-sandbox",
         "print-results",
@@ -116,6 +117,7 @@ class Configuration:
             settings = config["settings"]
         self.default_program = get_value(settings, "default-program")
         self.default_stderr_replace = get_array(settings, "default-stderr-replace")
+        self.default_working_directory = get_value(settings, "default-working-directory")
         self.feature_files = get_array(settings, "features-files")
         self.keep_sandbox = get_when(settings, "keep-sandbox", When.NEVER)
         self.print_results = get_when(settings, "print-results", When.FAILED)

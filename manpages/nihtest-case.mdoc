@@ -207,6 +207,11 @@ otherwise the expected text is taken from the following lines of the test case, 
 .\" .Xr sh 1
 .\" command
 .\" .Dl ulimit -n 16 .
+.It Ic working-directory Ar directory
+Run the program in the subdirectory
+.Ar directory
+inside the sandbox.
+The directory will be created if it doesn't exist.
 .El
 .Sh SEE ALSO
 .Xr nihtest 1 ,

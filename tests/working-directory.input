@@ -1,0 +1,9 @@
+working-directory subdirectory
+program cat
+arguments ../working-directory-test-file
+file working-directory-test-file <>
+This file is in the top sandbox directory.
+end-of-inline-data
+stdout
+This file is in the top sandbox directory.
+end-of-inline-data

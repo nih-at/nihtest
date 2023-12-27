@@ -56,6 +56,7 @@ class TestCase:
         self.ok = True
         self.directories = []
         self.modification_times = {}
+        self.working_directory = configuration.default_working_directory
         self.parse_case()
         if not self.ok:
             raise RuntimeError("invalid test case")
@@ -199,6 +200,9 @@ class TestCase:
     def directive_stdout(self, arguments):
         self.stdout = self.io_data(arguments)
 
+    def directive_working_directory(self, arguments):
+        self.working_directory = arguments[0]
+
     directives = {
         "arguments": Directive(method=directive_arguments,
                                usage="[argument ...]",
@@ -260,6 +264,10 @@ class TestCase:
                             usage="[file]",
                             minimum_arguments=0, maximum_arguments=1,
                             only_once=True),
+        "working-directory": Directive(method=directive_working_directory,
+                                       usage="directory",
+                                       minimum_arguments=1,
+                                       only_once=True)
     }
 
     def get_program_directories(self):
