@@ -8,7 +8,7 @@ import sys
 
 config_schema = {
     "comparators": True,
-#    "copiers": True,
+    "copiers": True,
     "comparator-preprocessors": True,
     "environment": True,
     "settings": [
@@ -126,6 +126,7 @@ class Configuration:
         self.test_input_directories = get_array(settings, "test-input-directories")
         self.comparator_preprocessors = get_section(config, "comparator-preprocessors")
         self.comparators = get_section(config, "comparators")
+        self.copiers = get_section(config, "copiers")
         self.environment = get_section(config, "environment")
         self.environment_clear = get_boolean(settings, "environment-clear", False)
         self.environment_passthrough = get_array(settings, "environment-passthrough")
@@ -134,6 +135,8 @@ class Configuration:
         self.run_test = True
 
         self.default_stderr_replace = list(map(process_stderr_replace, self.default_stderr_replace))
+        for key, value in self.copiers.items():
+            self.copiers[key] = shlex.split(value)
         for key, value in self.comparators.items():
             self.comparators[key] = shlex.split(value)
         for key, value in self.comparator_preprocessors.items():

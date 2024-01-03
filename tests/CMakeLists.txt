@@ -15,6 +15,7 @@ set(TEST_PROGRAMS
   cat
   getenv
   file
+  uppercase
 )
 
 foreach(PROGRAM ${TEST_PROGRAMS})

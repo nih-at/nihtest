@@ -188,6 +188,27 @@ and the test case containing
 the command
 .Dl zipcmp -v got.zip expected.zip
 will be run to compare the files.
+.Sh COMPARATOR-PREPROCESSORS
+The
+.Ic comparator-preprocessors
+section specifies programs to use to preprocess certain file types for comparison.
+The variable names have the format
+.Ar got-extension . expected-extension ,
+the value specifies the command line to use to preprocess the file in the sandbox.
+The command will be run with the file in the sandbox first as argument.
+The command's output will be compared to the expected file.
+.Pp
+If the command doesn't exit with code 0, the test will fail.
+.Sh COPIERS
+The
+.Ic copiers
+section specifies programs to use to copy certain file types into the sandbox.
+The variable names have the format
+.Ar sandbox-extension . source-extension ,
+the value specifies the command line to use to copy the file into the sandbox.
+The command will be run with the two files as arguments, the source file first and the file in the sandbox last.
+.Pp
+If the command doesn't exit with code 0, the test will fail.
 .Sh EXAMPLES
 .Bd -literal
 [settings]

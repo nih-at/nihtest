@@ -1,6 +1,8 @@
-# 1.4.0 [Unreleased]
+# 1.4.0 [2024-01-03]
 
+- Add copiers.
 - Add `working-directory` directive.
+- Add `read-only` directive.
 
 # 1.3.0 [2023-12-22]
 

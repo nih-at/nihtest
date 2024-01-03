@@ -1,0 +1,6 @@
+program nihtest-true
+arguments
+return 0
+file test.uc test.lc <inline>
+LOWERCASE TEXT
+end-of-inline-data

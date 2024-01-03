@@ -49,6 +49,7 @@ class TestCase:
         self.preload = []
         self.program = configuration.default_program
         self.exit_code = 0
+        self.read_only = []
         self.stderr = []
         self.stderr_replace = []
         self.stdin = []
@@ -175,6 +176,8 @@ class TestCase:
     def directive_program(self, arguments):
         self.program = arguments[0]
 
+    def directive_read_only(self, arguments):
+        self.read_only.append(arguments[0])
     def directive_return(self, arguments):
         self.exit_code = int(arguments[0])  # TODO: error check?
 
@@ -242,6 +245,9 @@ class TestCase:
                              usage="name",
                              minimum_arguments=1,
                              only_once=True),
+        "read-only": Directive(method=directive_read_only,
+                               usage="name",
+                               minimum_arguments=1),
         "return": Directive(method=directive_return,
                             usage="exit-code",
                             minimum_arguments=1,

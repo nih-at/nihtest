@@ -1,3 +1,4 @@
+- Add test for `read-only`. 
 - Include documentation in binary distribution.
 - Allow running on multiple tests.
 - Allow quotes in `description`.

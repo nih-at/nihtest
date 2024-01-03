@@ -2,6 +2,7 @@ import enum
 import os
 import platform
 import re
+import stat
 import sys
 
 from nihtest import Command
@@ -72,6 +73,11 @@ class Test:
         if not self.case.configuration.run_test:
             return TestResult.OK
 
+        for file in self.case.read_only:
+            full_file = os.path.join(self.sandbox.directory, file)
+            st = os.stat(full_file)
+            os.chmod(full_file, st.st_mode & ~(stat.S_IWUSR))
+
         self.sandbox.enter()
         program = self.case.configuration.find_program(self.case.program)
         environment = Environment.Environment(self.case).environment
@@ -87,6 +93,12 @@ class Test:
         files_got = self.list_files()
         self.sandbox.leave()
 
+        for file in self.case.read_only:
+            full_file = os.path.join(self.sandbox.directory, file)
+            if os.path.exists(full_file):
+                st = os.stat(full_file)
+                os.chmod(full_file, st.st_mode | stat.S_IWRITE)
+
         self.compare("exit code", [str(self.case.exit_code)], [str(command.exit_code)])
         self.compare("output", self.case.stdout, command.stdout)
         self.compare("error output", self.case.stderr, self.process_stderr(command.stderr))
@@ -94,7 +106,7 @@ class Test:
         files_expected = []
         for file in self.case.files:
             if file.result:
-                files_expected.append(file.name)
+                files_expected.append(file.file_name(self.sandbox.directory))
 
         self.compare("file list", sorted(files_expected), sorted(files_got))
 

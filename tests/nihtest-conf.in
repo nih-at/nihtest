@@ -17,3 +17,6 @@ fail.fail = nihtest-comparator 1
 [comparator-preprocessors]
 true.txt = nihtest-true -v
 cat.txt = nihtest-cat
+
+[copiers]
+uc.lc = nihtest-uppercase

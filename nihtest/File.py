@@ -1,5 +1,6 @@
 import os
 import pathlib
+import re
 import shutil
 
 from nihtest import Command
@@ -7,6 +8,7 @@ from nihtest import Environment
 from nihtest import Configuration
 from nihtest import Utility
 
+sandbox = re.compile("@SANDBOX@")
 
 class Data:
     def __init__(self, file_name, data=None):
@@ -20,11 +22,14 @@ class File:
         self.input = input
         self.result = result
 
+    def file_name(self, directory):
+        return sandbox.sub(directory, self.name)
+
     def compare(self, configuration, directory):
         if not self.result:
             return True
 
-        input_file_name = os.path.join(directory, self.name)
+        input_file_name = os.path.join(directory, self.file_name(directory))
         output_is_binary = False
 
         file_extension = pathlib.Path(self.name).suffix[1:]
@@ -90,11 +95,24 @@ class File:
 
     def prepare(self, configuration, directory):
         if self.input:
-            output_file_name = os.path.join(directory, self.name)
+            output_file_name = os.path.join(directory, self.file_name(directory))
             os.makedirs(os.path.dirname(output_file_name), 0o777, True)
             if self.input.data is None:
                 input_file_name = configuration.find_input_file(self.input.file_name)
-                shutil.copyfile(input_file_name, output_file_name)
+                file_extension = pathlib.Path(self.name).suffix[1:]
+                output_extension = pathlib.Path(self.input.file_name).suffix[1:]
+                key = f"{file_extension}.{output_extension}"
+                if key in configuration.copiers:
+                    copier = configuration.copiers[key]
+                    program = configuration.find_program(copier[0])
+                    arguments = copier[1:] + [input_file_name, output_file_name]
+                    command = Command.Command(program, arguments, environment=Environment.Environment(configuration).environment)
+                    command.run()
+                    if command.exit_code != 0:
+                        print("\n".join(command.stderr))
+                        raise RuntimeError(f"can't prepare '{self.name}'")
+                else:
+                    shutil.copyfile(input_file_name, output_file_name)
             else:
                 with open(output_file_name, "w", encoding='utf-8') as file:
                     Utility.write_lines(file, self.input.data)

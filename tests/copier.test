@@ -1,0 +1,8 @@
+program nihtest
+arguments test.test
+return 0
+file test.test copier.input
+file nihtest.conf nihtest-conf
+file test.lc <inline>
+lowercase text
+end-of-inline-data
