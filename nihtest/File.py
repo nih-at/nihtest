@@ -23,7 +23,7 @@ class File:
         self.result = result
 
     def file_name(self, directory):
-        return sandbox.sub(directory, self.name)
+        return sandbox.sub(os.path.abspath(directory), self.name)
 
     def compare(self, configuration, directory):
         if not self.result:
