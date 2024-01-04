@@ -134,8 +134,28 @@ class Test:
             self.failed.append(description)
 
     def list_files(self):
+        skip_directories = []
         files = []
-        for directory, _, sub_files in os.walk("."):
+        for directory, sub_directories, sub_files in os.walk("."):
+            skip = False
+            for skip_directory in skip_directories:
+                if directory == skip_directory or directory.startswith(skip_directory + "/"):
+                    skip = True
+                    break
+            if skip:
+                continue
+
+            for dir in sub_directories:
+                if directory == ".":
+                    name = dir
+                else:
+                    name = os.path.join(directory, dir)[2:].replace("\\", "/")
+                for file in self.case.files:
+                    if name == file.name:
+                        files.append(name)
+                        skip_directories.append("./" + name)
+                        break
+
             for file in sub_files:
                 if directory == ".":
                     name = file

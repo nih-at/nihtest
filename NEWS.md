@@ -1,3 +1,7 @@
+# 1.5.0 [Unreleased]
+
+- Allow copiers/comparators to handle directories. 
+
 # 1.4.0 [2024-01-03]
 
 - Add copiers.

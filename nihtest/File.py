@@ -100,8 +100,8 @@ class File:
             if self.input.data is None:
                 input_file_name = configuration.find_input_file(self.input.file_name)
                 file_extension = pathlib.Path(self.name).suffix[1:]
-                output_extension = pathlib.Path(self.input.file_name).suffix[1:]
-                key = f"{file_extension}.{output_extension}"
+                input_extension = pathlib.Path(self.input.file_name).suffix[1:]
+                key = f"{file_extension}.{input_extension}"
                 if key in configuration.copiers:
                     copier = configuration.copiers[key]
                     program = configuration.find_program(copier[0])
