@@ -1,4 +1,4 @@
-# 1.5.0 [Unreleased]
+# 1.5.0 [2024-01-17]
 
 - Allow copiers/comparators to handle directories. 
 
