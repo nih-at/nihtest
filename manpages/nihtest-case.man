@@ -30,7 +30,7 @@
 .\" OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 .\" IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .\"
-.TH "NIHTEST-CASE" "5" "June 15, 2023" "NiH" "File Formats Manual"
+.TH "NIHTEST-CASE" "5" "November 20, 2023" "NiH" "File Formats Manual"
 .nh
 .if n .ad l
 .SH "NAME"
@@ -156,9 +156,21 @@ from
 \fInihtest.conf\fR
 is run.
 .TP 22n
+\fBread-only\fR \fIname\fR
+The file or directory
+\fIname\fR
+will be made read-only.
+.TP 22n
 \fBreturn\fR \fIexit-code\fR
 \fIexit-code\fR
 is the expected exit code (usually 0 on success).
+.TP 22n
+\fBset-modification-time\fR \fIfile\fR \fItime\fR
+Set the modification of
+\fIfile\fR
+in the sandbox to
+\fItime\fR,
+which can be either in ISO-8601 format or seconds since Unix epoch.
 .TP 22n
 \fBstderr\fR [\fIfile\fR]
 Specify the expect standard error output (stderr).
@@ -204,6 +216,12 @@ If
 is given, the output is compared with that file,
 otherwise the expected text is taken from the following lines of the test case, up to a line consisting of
 \(lqend-of-inline-data\(rq.
+.TP 22n
+\fBworking-directory\fR \fIdirectory\fR
+Run the program in the subdirectory
+\fIdirectory\fR
+inside the sandbox.
+The directory will be created if it doesn't exist.
 .SH "SEE ALSO"
 nihtest(1),
 nihtest-config(5)

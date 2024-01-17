@@ -52,7 +52,7 @@ The configuration file consists of multiple sections, which are started with
 [\fIsection-name\fR].
 The supported sections are
 \fBsettings\fR,
-\fBsetenv\fR,
+\fBenvironment\fR,
 and
 \fBcomparators\fR.
 .PP
@@ -87,6 +87,13 @@ See
 nihtest-case(5)
 for details on
 \fBstderr-replace\fR.
+.TP 22n
+\fBdefault-working-directory =\fR \fIdirectory\fR
+Use
+\fIdirectory\fR
+as the working directory if no
+\fBworking-directory\fR
+directive is found in the test.
 .TP 22n
 \fBenvironment-clear = true\fR
 If
@@ -212,6 +219,27 @@ the command
 zipcmp -v got.zip expected.zip
 .RE
 will be run to compare the files.
+.SH "COMPARATOR-PREPROCESSORS"
+The
+\fBcomparator-preprocessors\fR
+section specifies programs to use to preprocess certain file types for comparison.
+The variable names have the format
+\fIgot-extension\fR. \fIexpected-extension\fR,
+the value specifies the command line to use to preprocess the file in the sandbox.
+The command will be run with the file in the sandbox first as argument.
+The command's output will be compared to the expected file.
+.PP
+If the command doesn't exit with code 0, the test will fail.
+.SH "COPIERS"
+The
+\fBcopiers\fR
+section specifies programs to use to copy certain file types into the sandbox.
+The variable names have the format
+\fIsandbox-extension\fR. \fIsource-extension\fR,
+the value specifies the command line to use to copy the file into the sandbox.
+The command will be run with the two files as arguments, the source file first and the file in the sandbox last.
+.PP
+If the command doesn't exit with code 0, the test will fail.
 .SH "EXAMPLES"
 .nf
 .RS 0n

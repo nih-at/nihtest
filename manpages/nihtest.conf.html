@@ -65,7 +65,7 @@
   FORMAT</a></h1>
 The configuration file consists of multiple sections, which are started with
   [<var class="Ar">section-name</var>]. The supported sections are
-  <code class="Ic">settings</code>, <code class="Ic">setenv</code>, and
+  <code class="Ic">settings</code>, <code class="Ic">environment</code>, and
   <code class="Ic">comparators</code>.
 <p class="Pp">Each section consists of variable assignments in the format
     <var class="Ar">name =</var> <var class="Ar">value</var>, one per line.</p>
@@ -89,6 +89,11 @@ In the <code class="Ic">settings</code> section, the following variables are
       <code class="Ic">stderr-replace</code> directives. See
       <a class="Xr" href="nihtest-case.html">nihtest-case(5)</a> for details on
       <code class="Ic">stderr-replace</code>.</dd>
+  <dt><a class="permalink" href="#default-working-directory_="><code class="Ic" id="default-working-directory_=">default-working-directory
+    =</code></a> <var class="Ar">directory</var></dt>
+  <dd>Use <var class="Ar">directory</var> as the working directory if no
+      <code class="Ic">working-directory</code> directive is found in the
+    test.</dd>
   <dt><a class="permalink" href="#environment-clear_=_true"><code class="Ic" id="environment-clear_=_true">environment-clear
     = true</code></a></dt>
   <dd>If <code class="Ic">environment-clear</code> is set to
@@ -188,6 +193,27 @@ the command
 <div class="Bd Bd-indent"><code class="Li">zipcmp -v got.zip
   expected.zip</code></div>
 will be run to compare the files.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COMPARATOR_PREPROCESSORS"><a class="permalink" href="#COMPARATOR_PREPROCESSORS">COMPARATOR-PREPROCESSORS</a></h1>
+The <code class="Ic">comparator-preprocessors</code> section specifies programs
+  to use to preprocess certain file types for comparison. The variable names
+  have the format <var class="Ar">got-extension</var>.
+  <var class="Ar">expected-extension</var>, the value specifies the command line
+  to use to preprocess the file in the sandbox. The command will be run with the
+  file in the sandbox first as argument. The command's output will be compared
+  to the expected file.
+<p class="Pp">If the command doesn't exit with code 0, the test will fail.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COPIERS"><a class="permalink" href="#COPIERS">COPIERS</a></h1>
+The <code class="Ic">copiers</code> section specifies programs to use to copy
+  certain file types into the sandbox. The variable names have the format
+  <var class="Ar">sandbox-extension</var>.
+  <var class="Ar">source-extension</var>, the value specifies the command line
+  to use to copy the file into the sandbox. The command will be run with the two
+  files as arguments, the source file first and the file in the sandbox last.
+<p class="Pp">If the command doesn't exit with code 0, the test will fail.</p>
 </section>
 <section class="Sh">
 <h1 class="Sh" id="EXAMPLES"><a class="permalink" href="#EXAMPLES">EXAMPLES</a></h1>

@@ -131,10 +131,19 @@
       <code class="Ic">arguments</code> above for its command line arguments. If
       this directive is omitted, <code class="Ic">default-program</code> from
       <span class="Pa">nihtest.conf</span> is run.</dd>
+  <dt><a class="permalink" href="#read-only"><code class="Ic" id="read-only">read-only</code></a>
+    <var class="Ar">name</var></dt>
+  <dd>The file or directory <var class="Ar">name</var> will be made
+    read-only.</dd>
   <dt><a class="permalink" href="#return"><code class="Ic" id="return">return</code></a>
     <var class="Ar">exit-code</var></dt>
   <dd><var class="Ar">exit-code</var> is the expected exit code (usually 0 on
       success).</dd>
+  <dt><a class="permalink" href="#set-modification-time"><code class="Ic" id="set-modification-time">set-modification-time</code></a>
+    <var class="Ar">file</var> <var class="Ar">time</var></dt>
+  <dd>Set the modification of <var class="Ar">file</var> in the sandbox to
+      <var class="Ar">time</var>, which can be either in ISO-8601 format or
+      seconds since Unix epoch.</dd>
   <dt><a class="permalink" href="#stderr"><code class="Ic" id="stderr">stderr</code></a>
     [<var class="Ar">file</var>]</dt>
   <dd>Specify the expect standard error output (stderr). If
@@ -167,6 +176,10 @@
       is given, the output is compared with that file, otherwise the expected
       text is taken from the following lines of the test case, up to a line
       consisting of &#x201C;end-of-inline-data&#x201D;.</dd>
+  <dt><a class="permalink" href="#working-directory"><code class="Ic" id="working-directory">working-directory</code></a>
+    <var class="Ar">directory</var></dt>
+  <dd>Run the program in the subdirectory <var class="Ar">directory</var> inside
+      the sandbox. The directory will be created if it doesn't exist.</dd>
 </dl>
 </section>
 <section class="Sh">
@@ -178,7 +191,7 @@
 </div>
 <table class="foot">
   <tr>
-    <td class="foot-date">June 15, 2023</td>
+    <td class="foot-date">November 20, 2023</td>
     <td class="foot-os">NiH</td>
   </tr>
 </table>
