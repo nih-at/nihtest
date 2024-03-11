@@ -44,10 +44,7 @@
 int main(int argc, char *argv[]) {
     int i = 1;
 
-    FILE *out = stdout;
-
     if (strcmp(argv[i], "-e") == 0) {
-        out = stderr;
         i++;
     }
 
