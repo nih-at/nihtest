@@ -1,7 +1,7 @@
 /*
 can-preload.c -- 
 
-Copyright (C) Dieter Baron
+Copyright (C) 2020 Dieter Baron
 
 The authors can be contacted at <assembler@tpau.group>
 
