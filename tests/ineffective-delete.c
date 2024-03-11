@@ -1,7 +1,7 @@
 /*
-  ineffective-remove.c -- override remove
+  ineffective-delete.c -- override delete
 
-  Copyright (C) 2020 Dieter Baron and Thomas Klausner
+  Copyright (C) 2024 Dieter Baron and Thomas Klausner
 
   This file is part of ckmame, a program to check rom sets for MAME.
   The authors can be contacted at <ckmame@nih.at>
@@ -32,10 +32,11 @@
   IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "delete.h"
 #include <stdio.h>
 
 int
-remove(const char *path) {
+delete(const char *path) {
     printf("request to remove '%s' denied", path);
 
     return 0;

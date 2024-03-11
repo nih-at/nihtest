@@ -1,5 +1,5 @@
 program nihtest-file
-preload ineffective-remove.so
+preload ineffective-delete.so
 arguments delete testfile
 file testfile success.txt
 stdout

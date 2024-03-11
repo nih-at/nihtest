@@ -22,8 +22,11 @@ foreach(PROGRAM ${TEST_PROGRAMS})
   add_executable(nihtest-${PROGRAM} ${PROGRAM}.c)
 endforeach()
 
-ADD_LIBRARY(ineffective-remove MODULE ineffective-remove.c)
-TARGET_LINK_LIBRARIES(ineffective-remove ${CMAKE_DL_LIBS})
+add_library(delete SHARED delete.c)
+target_link_libraries(nihtest-file PRIVATE delete)
+
+add_library(ineffective-delete MODULE ineffective-delete.c)
+target_link_libraries(ineffective-delete ${CMAKE_DL_LIBS})
 
 # Tests for helper programs
 add_test(NAME true COMMAND nihtest-true)

@@ -40,6 +40,7 @@
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>
+#include "delete.h"
 
 /* supported commands
  *
@@ -54,7 +55,7 @@ int main(int argc, char *argv[]) {
                 fprintf(stderr, "not enough arguments for delete\n");
                 return 1;
             }
-            if (remove(argv[i]) != 0) {
+            if (delete(argv[i]) != 0) {
                 fprintf(stderr, "error deleting '%s': %s\n", argv[i], strerror(errno));
                 return 1;
             }
