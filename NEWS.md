@@ -1,3 +1,7 @@
+# 1.5.1 [2024-03-15]
+
+- Fix preload test with newer glibc.
+
 # 1.5.0 [2024-01-17]
 
 - Allow copiers/comparators to handle directories. 
