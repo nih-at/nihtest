@@ -1,6 +1,5 @@
 import os
 import pathlib
-import re
 import shutil
 
 from nihtest import Command
@@ -8,7 +7,6 @@ from nihtest import Environment
 from nihtest import Configuration
 from nihtest import Utility
 
-sandbox = re.compile("@SANDBOX@")
 
 class Data:
     def __init__(self, file_name, data=None):
@@ -23,7 +21,7 @@ class File:
         self.result = result
 
     def file_name(self, directory):
-        return sandbox.sub(os.path.abspath(directory), self.name)
+        return self.name.replace("@SANDBOX@", os.path.abspath(directory))
 
     def compare(self, configuration, directory):
         if not self.result:

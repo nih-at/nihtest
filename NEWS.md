@@ -1,3 +1,7 @@
+# 1.5.2 [2024-03-20]
+
+- Fix @SANDBOX@ substitution in file names on Windows.
+
 # 1.5.1 [2024-03-15]
 
 - Fix preload test with newer glibc.
