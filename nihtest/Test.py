@@ -71,6 +71,8 @@ class Test:
             return TestResult.ERROR
 
         if not self.case.configuration.run_test:
+            if self.case.configuration.verbose == Configuration.When.ALWAYS:
+                print(self.case.program + " " + " ".join(self.case.arguments))
             return TestResult.OK
 
         for file in self.case.read_only:

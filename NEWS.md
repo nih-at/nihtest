@@ -1,3 +1,7 @@
+# 1.5.3 [Unreleased]
+
+- Print command line for `--verbose --setup-only`.
+
 # 1.5.2 [2024-03-20]
 
 - Fix @SANDBOX@ substitution in file names on Windows.
