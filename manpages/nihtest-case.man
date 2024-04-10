@@ -30,7 +30,7 @@
 .\" OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 .\" IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .\"
-.TH "NIHTEST-CASE" "5" "November 20, 2023" "NiH" "File Formats Manual"
+.TH "NIHTEST-CASE" "5" "April 10, 2024" "NiH" "File Formats Manual"
 .nh
 .if n .ad l
 .SH "NAME"
@@ -128,7 +128,7 @@ Otherwise the argument specifies the name of the file to copy or compare againts
 \fBmkdir\fR \fIname\fR
 Create directory
 \fIname\fR
- in the test directory.
+in the test directory.
 .TP 22n
 \fBprecheck\fR \fIcommand\fR [\fIargument ...\fR]
 If
@@ -216,6 +216,15 @@ If
 is given, the output is compared with that file,
 otherwise the expected text is taken from the following lines of the test case, up to a line consisting of
 \(lqend-of-inline-data\(rq.
+.TP 22n
+\fBstdout-replace\fR \fIpattern replacement\fR
+Run regular expression replacement over the standard output
+and the expected output as provided by
+\fBstdout\fR
+before comparing them.
+See
+\fBstderr-replace\fR
+for details.
 .TP 22n
 \fBworking-directory\fR \fIdirectory\fR
 Run the program in the subdirectory

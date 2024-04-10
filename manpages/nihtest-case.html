@@ -111,9 +111,7 @@
   </dd>
   <dt><a class="permalink" href="#mkdir"><code class="Ic" id="mkdir">mkdir</code></a>
     <var class="Ar">name</var></dt>
-  <dd>Create directory <var class="Ar">name</var>
-    <br/>
-     in the test directory.</dd>
+  <dd>Create directory <var class="Ar">name</var> in the test directory.</dd>
   <dt><a class="permalink" href="#precheck"><code class="Ic" id="precheck">precheck</code></a>
     <var class="Ar">command</var> [<var class="Ar">argument ...</var>]</dt>
   <dd>If <var class="Ar">command</var> exits with non-zero status, skip the
@@ -176,6 +174,12 @@
       is given, the output is compared with that file, otherwise the expected
       text is taken from the following lines of the test case, up to a line
       consisting of &#x201C;end-of-inline-data&#x201D;.</dd>
+  <dt><a class="permalink" href="#stdout-replace"><code class="Ic" id="stdout-replace">stdout-replace</code></a>
+    <var class="Ar">pattern replacement</var></dt>
+  <dd>Run regular expression replacement over the standard output and the
+      expected output as provided by <code class="Ic">stdout</code> before
+      comparing them. See <code class="Ic">stderr-replace</code> for
+    details.</dd>
   <dt><a class="permalink" href="#working-directory"><code class="Ic" id="working-directory">working-directory</code></a>
     <var class="Ar">directory</var></dt>
   <dd>Run the program in the subdirectory <var class="Ar">directory</var> inside
@@ -191,7 +195,7 @@
 </div>
 <table class="foot">
   <tr>
-    <td class="foot-date">November 20, 2023</td>
+    <td class="foot-date">April 10, 2024</td>
     <td class="foot-os">NiH</td>
   </tr>
 </table>
