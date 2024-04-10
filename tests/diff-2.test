@@ -4,6 +4,7 @@ return 1
 file diff-2.test diff-2.input
 file nihtest.conf nihtest-conf
 stdout
+diff-2.test:1: test case failed
 output differs:
 +E
  A

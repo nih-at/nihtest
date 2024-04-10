@@ -4,6 +4,7 @@ return 1
 file stderr-fail.test stderr-fail.input
 file nihtest.conf nihtest-conf
 stdout
+stderr-fail.test:1: test case failed
 error output differs:
 -This is a successful test.
 +This is not a successful test.

@@ -9,6 +9,7 @@ from nihtest import Command
 from nihtest import Configuration
 from nihtest import Environment
 from nihtest import Features
+from nihtest import Output
 from nihtest import TestCase
 from nihtest import Sandbox
 from nihtest import Utility
@@ -101,20 +102,22 @@ class Test:
                 st = os.stat(full_file)
                 os.chmod(full_file, st.st_mode | stat.S_IWRITE)
 
-        self.compare("exit code", [str(self.case.exit_code)], [str(command.exit_code)])
-        self.compare("output", self.case.stdout, command.stdout)
-        self.compare("error output", self.case.stderr, self.process_stderr(command.stderr))
+        output = Output.Output(self.case.file_name + ":1: test case failed", self.case.configuration.verbose != Configuration.When.NEVER)
+
+        self.compare(output, "exit code", [str(self.case.exit_code)], [str(command.exit_code)])
+        self.compare(output,"output", self.case.stdout, command.stdout)
+        self.compare(output, "error output", self.case.stderr, self.process_stderr(command.stderr))
 
         files_expected = []
         for file in self.case.files:
             if file.result:
                 files_expected.append(file.file_name(self.sandbox.directory))
 
-        self.compare("file list", sorted(files_expected), sorted(files_got))
+        self.compare(output, "file list", sorted(files_expected), sorted(files_got))
 
         file_content_ok = True
         for file in self.case.files:
-            if file.name in files_got and not file.compare(self.case.configuration, self.sandbox.directory):
+            if file.name in files_got and not file.compare(output, self.case.configuration, self.sandbox.directory):
                 file_content_ok = False
         if not file_content_ok:
             self.failed.append("file contents")
@@ -130,9 +133,8 @@ class Test:
         else:
             return TestResult.OK
 
-    def compare(self, description, expected, got):
-        if not Utility.compare_lines(description, expected, got,
-                                     self.case.configuration.verbose != Configuration.When.NEVER):
+    def compare(self, output, description, expected, got):
+        if not Utility.compare_lines(output, description, expected, got):
             self.failed.append(description)
 
     def list_files(self):

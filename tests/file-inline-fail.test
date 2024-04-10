@@ -4,6 +4,7 @@ return 1
 file file-inline-fail.test file-inline-fail.input
 file nihtest.conf nihtest-conf
 stdout
+file-inline-fail.test:1: test case failed
 inline-both differs:
 -This is the second inline data.
 +This is the first inline data.

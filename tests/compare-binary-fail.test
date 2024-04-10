@@ -6,6 +6,7 @@ file nihtest.conf nihtest-conf
 file binary-1 binary-1
 file binary-2 binary-2
 stdout
+test.test:1: test case failed
 a differs:
 Binary files differ.
 test -- FAIL: file contents

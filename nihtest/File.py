@@ -23,7 +23,7 @@ class File:
     def file_name(self, directory):
         return self.name.replace("@SANDBOX@", os.path.abspath(directory))
 
-    def compare(self, configuration, directory):
+    def compare(self, output, configuration, directory):
         if not self.result:
             return True
 
@@ -62,8 +62,8 @@ class File:
                         print(f"comparing {self.name} failed:")
                         print("\n".join(command.stderr))
                     else:
-                        print(f"{self.name} differs:")
-                        print("\n".join(command.stdout))
+                        output.print(f"{self.name} differs:")
+                        output.print("\n".join(command.stdout))
                 return command.exit_code == 0
             output_data = self.result.data
 
@@ -73,21 +73,20 @@ class File:
             # TODO: allow binary data
             command = Command.Command(configuration.find_program(preprocessor[0]), arguments, environment=Environment.Environment(configuration).environment)
             command.run()
-            return Utility.compare_lines(self.name, output_data, command.stdout, configuration.verbose != Configuration.When.NEVER)
+            return Utility.compare_lines(output, self.name, output_data, command.stdout)
 
         if not output_is_binary:
             try:
                 input_data = Utility.read_lines(input_file_name)
-                return Utility.compare_lines(self.name, output_data, input_data, configuration.verbose != Configuration.When.NEVER)
+                return Utility.compare_lines(output, self.name, output_data, input_data)
             except UnicodeDecodeError:
                 output_data = "\n".join(output_data)
 
         with open(input_file_name, "rb") as file:
             input_data = file.read()
         if input_data != output_data:
-            if configuration.verbose != Configuration.When.NEVER:
-                print(f"{self.name} differs:")
-                print("Binary files differ.")
+            output.print(f"{self.name} differs:")
+            output.print("Binary files differ.")
             return False
         return True
 

@@ -4,6 +4,7 @@ return 1
 file file-new-fail.test file-new-fail.input
 file nihtest.conf nihtest-conf
 stdout
+file-new-fail.test:1: test case failed
 file list differs:
 -testfile
 file-new-fail -- FAIL: file list

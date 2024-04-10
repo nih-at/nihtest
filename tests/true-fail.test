@@ -4,6 +4,7 @@ return 1
 file true-fail.test true-fail.input
 file nihtest.conf nihtest-conf
 stdout
+true-fail.test:1: test case failed
 exit code differs:
 -1
 +0

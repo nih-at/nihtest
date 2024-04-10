@@ -4,14 +4,14 @@ import sys
 from nihtest import CompareArrays
 
 
-def compare_lines(description, expected, got, verbose):
-    if not verbose:
+def compare_lines(output, description, expected, got):
+    if not output.verbose:
         return expected == got
 
     compare = CompareArrays.CompareArrays(expected, got)
     diff = compare.get_diff()
     if diff:
-        print(f"{description} differs:")
+        output.print(f"{description} differs:")
         write_lines(sys.stdout, diff)
         return False
     return True
