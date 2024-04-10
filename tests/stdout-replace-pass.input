@@ -1,0 +1,8 @@
+program nihtest-echo
+return 0
+arguments /some/path/tool: This is not a very successful test.
+stdout-replace "not (.) very" "\1"
+stdout-replace "^/.*: " ""
+stdout
+This is a successful test.
+end-of-inline-data

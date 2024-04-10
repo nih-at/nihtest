@@ -15,7 +15,7 @@ from nihtest import Sandbox
 from nihtest import Utility
 
 
-def process_stderr_line(line, replacements):
+def process_output_line(line, replacements):
     for replacement in replacements:
         line = re.sub(replacement[0], replacement[1], line)
     return line
@@ -105,8 +105,8 @@ class Test:
         output = Output.Output(self.case.file_name + ":1: test case failed", self.case.configuration.verbose != Configuration.When.NEVER)
 
         self.compare(output, "exit code", [str(self.case.exit_code)], [str(command.exit_code)])
-        self.compare(output,"output", self.case.stdout, command.stdout)
-        self.compare(output, "error output", self.case.stderr, self.process_stderr(command.stderr))
+        self.compare(output,"output", self.case.stdout, self.process_output_replace(command.stdout, self.case.stdout_replace))
+        self.compare(output, "error output", self.case.stderr, self.process_output_replace(command.stderr, self.case.stderr_replace))
 
         files_expected = []
         for file in self.case.files:
@@ -176,5 +176,5 @@ class Test:
         command.run()
         return command.exit_code == 0
 
-    def process_stderr(self, lines):
-        return list(map(lambda line: process_stderr_line(line, self.case.stderr_replace), lines))
+    def process_output_replace(self, lines, replacements):
+        return list(map(lambda line: process_output_line(line, replacements), lines))

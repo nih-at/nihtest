@@ -1,6 +1,8 @@
-# 1.5.3 [Unreleased]
+# 1.6.0 [2024-04-10]
 
 - Print command line for `--verbose --setup-only`.
+- Add `stdout-replace` directive.
+- Better integration with IDEs.
 
 # 1.5.2 [2024-03-20]
 

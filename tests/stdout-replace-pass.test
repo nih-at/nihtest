@@ -1,0 +1,5 @@
+program nihtest
+arguments test.test
+return 0
+file test.test stdout-replace-pass.input
+file nihtest.conf nihtest-conf

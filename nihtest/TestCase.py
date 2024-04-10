@@ -54,6 +54,7 @@ class TestCase:
         self.stderr_replace = []
         self.stdin = []
         self.stdout = []
+        self.stdout_replace = []
         self.ok = True
         self.directories = []
         self.modification_times = {}
@@ -203,6 +204,9 @@ class TestCase:
     def directive_stdout(self, arguments):
         self.stdout = self.io_data(arguments)
 
+    def directive_stdout_replace(self, arguments):
+        self.stdout_replace.append((re.compile(arguments[0]), arguments[1]))
+
     def directive_working_directory(self, arguments):
         self.working_directory = arguments[0]
 
@@ -270,6 +274,9 @@ class TestCase:
                             usage="[file]",
                             minimum_arguments=0, maximum_arguments=1,
                             only_once=True),
+        "stdout-replace": Directive(method=directive_stdout_replace,
+                                    usage="pattern replacement",
+                                    minimum_arguments=2),
         "working-directory": Directive(method=directive_working_directory,
                                        usage="directory",
                                        minimum_arguments=1,
