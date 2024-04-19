@@ -4,7 +4,7 @@ import sys
 from nihtest import Test
 from nihtest import Configuration
 
-VERSION = "1.6.0"
+VERSION = "1.7.0"
 
 
 def main():
