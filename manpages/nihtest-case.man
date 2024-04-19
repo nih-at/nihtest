@@ -226,6 +226,12 @@ See
 \fBstderr-replace\fR
 for details.
 .TP 22n
+\fBtest-case-source\fR \fIfilename\fR
+Use
+\fIfilename\fR
+to refer to test case in error messages.
+This is useful if the test case is created by a script.
+.TP 22n
 \fBworking-directory\fR \fIdirectory\fR
 Run the program in the subdirectory
 \fIdirectory\fR
