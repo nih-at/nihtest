@@ -129,7 +129,7 @@ class Test:
         if self.failed:
             if self.case.configuration.verbose != Configuration.When.NEVER:
                 print(self.case.name + " -- FAIL: " + ", ".join(self.failed))
-                return TestResult.FAILED
+            return TestResult.FAILED
         else:
             return TestResult.OK
 
