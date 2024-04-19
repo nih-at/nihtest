@@ -38,6 +38,7 @@ class TestCase:
         if file_name[-5:] != ".test":
             file_name += ".test"
         self.file_name = self.configuration.find_input_file(file_name)
+        self.test_case_source = self.file_name
         self.file = open(self.file_name, mode="r", encoding='utf-8')
         self.line_number = 0
         self.directives_seen = {}
@@ -207,6 +208,9 @@ class TestCase:
     def directive_stdout_replace(self, arguments):
         self.stdout_replace.append((re.compile(arguments[0]), arguments[1]))
 
+    def directive_test_case_source(self, arguments):
+        self.test_case_source = arguments[0]
+
     def directive_working_directory(self, arguments):
         self.working_directory = arguments[0]
 
@@ -277,6 +281,10 @@ class TestCase:
         "stdout-replace": Directive(method=directive_stdout_replace,
                                     usage="pattern replacement",
                                     minimum_arguments=2),
+        "test-case-source": Directive(method=directive_test_case_source,
+                                      usage="file",
+                                      minimum_arguments=1,
+                                      only_once=True),
         "working-directory": Directive(method=directive_working_directory,
                                        usage="directory",
                                        minimum_arguments=1,

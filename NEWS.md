@@ -1,3 +1,7 @@
+# 1.7.0 [2024-04-19]
+
+- Add `test-case-source` directory for better support of script generated test cases.
+
 # 1.6.0 [2024-04-10]
 
 - Print command line for `--verbose --setup-only`.

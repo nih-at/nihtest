@@ -102,7 +102,7 @@ class Test:
                 st = os.stat(full_file)
                 os.chmod(full_file, st.st_mode | stat.S_IWRITE)
 
-        output = Output.Output(self.case.file_name + ":1: test case failed", self.case.configuration.verbose != Configuration.When.NEVER)
+        output = Output.Output(self.case.test_case_source + ":1: test case failed", self.case.configuration.verbose != Configuration.When.NEVER)
 
         self.compare(output, "exit code", [str(self.case.exit_code)], [str(command.exit_code)])
         self.compare(output,"output", self.case.stdout, self.process_output_replace(command.stdout, self.case.stdout_replace))
