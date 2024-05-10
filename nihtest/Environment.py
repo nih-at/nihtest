@@ -20,7 +20,7 @@ class Environment:
             if variable == "PATH" and configuration.get_program_directories():
                 additional_path = os.pathsep.join(configuration.get_program_directories())
                 if self.environment[variable]:
-                    self.environment[variable] += os.pathsep + additional_path
+                    self.environment[variable] = additional_path + os.pathsep + self.environment[variable]
                 else:
                     self.environment[variable] = additional_path
 
