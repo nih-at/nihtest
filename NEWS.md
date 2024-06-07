@@ -1,3 +1,7 @@
+# 1.8.0 [2024-06-07]
+
+- Prefer custom path to system path.
+
 # 1.7.0 [2024-04-19]
 
 - Add `test-case-source` directory for better support of script generated test cases.
