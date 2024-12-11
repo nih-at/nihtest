@@ -68,6 +68,15 @@
   <dt><a class="permalink" href="#description"><code class="Ic" id="description">description</code></a>
     <var class="Ar">text</var></dt>
   <dd>Describes the purpose of the test.</dd>
+  <dt><a class="permalink" href="#directory"><code class="Ic" id="directory">directory</code></a>
+    <var class="Ar">name create</var> [<var class="Ar">result</var>]</dt>
+  <dd>Describe directory <var class="Ar">name</var>.
+      <var class="Ar">create</var> and <var class="Ar">result</var> can be
+      either &#x201C;&lt;&gt;&#x201D; if the directory is expected to exist, or
+      &#x201C;{}&#x201D; if it isn't. <var class="Ar">create</var> specifies the
+      state before the test is run, <var class="Ar">result</var> the state
+      afterwards. If <var class="Ar">result</var> is omitted, it defaults to
+      <var class="Ar">create</var>.</dd>
   <dt><a class="permalink" href="#environment-clear"><code class="Ic" id="environment-clear">environment-clear</code></a></dt>
   <dd>Only variables explicitly set or passed through are included in the
       environment passed to the tested program.</dd>
@@ -107,7 +116,7 @@
         &#x201C;end-of-inline-data&#x201D;. If both <var class="Ar">in</var> and
         <var class="Ar">out</var> are &#x201C;&lt;inline&gt;&#x201D;, the input
         data comes first. Otherwise the argument specifies the name of the file
-        to copy or compare againts.</p>
+        to copy or compare against.</p>
   </dd>
   <dt><a class="permalink" href="#mkdir"><code class="Ic" id="mkdir">mkdir</code></a>
     <var class="Ar">name</var></dt>
@@ -199,7 +208,7 @@
 </div>
 <table class="foot">
   <tr>
-    <td class="foot-date">April 10, 2024</td>
+    <td class="foot-date">December 11, 2024</td>
     <td class="foot-os">NiH</td>
   </tr>
 </table>
