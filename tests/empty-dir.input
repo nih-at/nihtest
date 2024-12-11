@@ -1,0 +1,5 @@
+program true
+directory correct <>
+directory missing {} <>
+directory unexpected <> {}
+

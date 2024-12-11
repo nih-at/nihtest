@@ -3,6 +3,7 @@ import re
 import shlex
 import sys
 
+from nihtest import Directory
 from nihtest import File
 from nihtest import Utility
 
@@ -119,6 +120,15 @@ class TestCase:
         self.error("missing end-of-inline-data")
         return data
 
+    def directory_data(self, argument):
+        if argument == "{}":
+            return False
+        elif argument == "<>":
+            return True
+        else:
+            self.error(f"invalid directory argument '{argument}'")
+            return False
+
     def file_data(self, argument):
         if argument == "{}":
             return None
@@ -142,6 +152,15 @@ class TestCase:
 
     def directive_description(self, text):
         self.description = text
+
+    def directive_directory(self, arguments):
+        name = arguments[0]
+        create = self.directory_data(arguments[1])
+        if len(arguments) > 2:
+            result = self.directory_data(arguments[2])
+        else:
+            result = create
+        self.directories.append(Directory.Directory(name, create, result))
 
     def directive_environment_clear(self, _arguments):
         self.environment_clear = True
@@ -167,7 +186,7 @@ class TestCase:
         self.files.append(File.File(name=arguments[0], input=input_source, result=result))
 
     def directive_mkdir(self, arguments):
-        self.directories.append(arguments[0])
+        self.directories.append(Directory.Directory(arguments[0], True, False))
 
     def directive_precheck(self, arguments):
         self.precheck = arguments
@@ -221,6 +240,9 @@ class TestCase:
         "description": Directive(method=directive_description,
                                  minimum_arguments=0, maximum_arguments=-1,
                                  usage="text"),
+        "directory": Directive(method=directive_directory,
+                               usage="name in [out]",
+                               minimum_arguments=2, maximum_arguments=3),
         "environment-clear": Directive(method=directive_environment_clear,
                                        usage="",
                                        minimum_arguments=0),

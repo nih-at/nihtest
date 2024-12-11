@@ -57,7 +57,7 @@ class Test:
         self.sandbox = Sandbox.Sandbox(self.case.name, self.case.configuration.keep_sandbox == Configuration.When.NEVER)
 
         for directory in self.case.directories:
-            os.mkdir(os.path.join(self.sandbox.directory, directory))
+            directory.prepare(self.sandbox.directory)
 
         for file in self.case.files:
             file.prepare(self.case.configuration, self.sandbox.directory)
@@ -93,7 +93,7 @@ class Test:
             os.chdir(self.case.working_directory)
         command.run()
         self.sandbox.chdir_top()
-        files_got = self.list_files()
+        directories_got, files_got = self.list_files()
         self.sandbox.leave()
 
         for file in self.case.read_only:
@@ -108,11 +108,21 @@ class Test:
         self.compare(output,"output", self.case.stdout, self.process_output_replace(command.stdout, self.case.stdout_replace))
         self.compare(output, "error output", self.case.stderr, self.process_output_replace(command.stderr, self.case.stderr_replace))
 
+        directories_expected = {}
         files_expected = []
+        for directory in self.case.directories:
+            if directory.result:
+                directories_expected[directory.name] = True
+
         for file in self.case.files:
             if file.result:
-                files_expected.append(file.file_name(self.sandbox.directory))
+                name = file.file_name(self.sandbox.directory)
+                files_expected.append(name)
+                directory = os.path.dirname(name)
+                if directory:
+                    directories_expected[directory] = True
 
+        self.compare(output, "directory list", sorted(directories_expected.keys()), sorted(directories_got))
         self.compare(output, "file list", sorted(files_expected), sorted(files_got))
 
         file_content_ok = True
@@ -140,6 +150,7 @@ class Test:
     def list_files(self):
         skip_directories = []
         files = []
+        directories = []
         for directory, sub_directories, sub_files in os.walk("."):
             skip = False
             for skip_directory in skip_directories:
@@ -154,11 +165,15 @@ class Test:
                     name = dir
                 else:
                     name = os.path.join(directory, dir)[2:].replace("\\", "/")
+                is_file = False
                 for file in self.case.files:
                     if name == file.name:
                         files.append(name)
                         skip_directories.append("./" + name)
+                        is_file = True
                         break
+                if not is_file:
+                    directories.append(name)
 
             for file in sub_files:
                 if directory == ".":
@@ -166,7 +181,8 @@ class Test:
                 else:
                     name = os.path.join(directory, file)[2:].replace("\\", "/")
                 files.append(name)
-        return files
+
+        return directories, files
 
     def precheck_passed(self):
         if not self.case.precheck:

@@ -1,4 +1,5 @@
 working-directory subdirectory
+directory subdirectory {} <>
 program cat
 arguments ../working-directory-test-file
 file working-directory-test-file <>
