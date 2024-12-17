@@ -2,13 +2,13 @@
 
 VERSION!=	sed -En 's,^version = "(.*)",\1,p' pyproject.toml
 
-.PHONY: bump dist upload
+.PHONY: bump distribution upload
 
 bump:
 	@echo "have you regenerated the man pages?"
 	@echo python -m bumpver update -m
 
-dist:
+distribution:
 	python -m build
 	rm -rf nihtest.egg-info
 
