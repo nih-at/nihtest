@@ -1,0 +1,16 @@
+# Convenience Makefile for making releases
+
+VERSION!=	sed -En 's,^version = "(.*)",\1,p' pyproject.toml
+
+.PHONY: bump dist upload
+
+bump:
+	@echo "have you regenerated the man pages?"
+	@echo python -m bumpver update -m
+
+dist:
+	python -m build
+	rm -rf nihtest.egg-info
+
+upload:
+	python -m twine upload dist/nihtest-${VERSION}-py3-none-any.whl dist/nihtest-${VERSION}.tar.gz
