@@ -3,4 +3,5 @@ __pycache__
 /nihtest.egg-info
 cmake-build-debug/
 /build
+.cache
 .DS_Store
