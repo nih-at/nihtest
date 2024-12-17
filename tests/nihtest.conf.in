@@ -5,4 +5,4 @@ program-directories = @PROJECT_BINARY_DIR@
     @PROJECT_BINARY_DIR@/Release
     @PROJECT_BINARY_DIR@/Debug
     @VENV_BIN_DIR@
-default-stderr-replace = "^[^ :]*: " ""
+default-stderr-replace = "^([A-Za-z]:)?[^: ]*: " ""
