@@ -1,0 +1,9 @@
+program nihtest
+arguments test.test
+return 99
+file test.test file-duplicate.input
+file nihtest.conf nihtest-conf
+stderr
+test.test:3: duplicate definition of file 'testfile'
+invalid test case
+end-of-inline-data

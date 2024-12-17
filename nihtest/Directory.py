@@ -2,7 +2,8 @@ import os
 
 
 class Directory:
-    def __init__(self, name, create, result):
+    def __init__(self, name, create, result, line_number):
+        self.line_number = line_number
         self.name = name
         self.create = create
         self.result = result

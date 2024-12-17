@@ -56,10 +56,10 @@ class Test:
 
         self.sandbox = Sandbox.Sandbox(self.case.name, self.case.configuration.keep_sandbox == Configuration.When.NEVER)
 
-        for directory in self.case.directories:
+        for directory in self.case.directories.values():
             directory.prepare(self.sandbox.directory)
 
-        for file in self.case.files:
+        for file in self.case.files.values():
             file.prepare(self.case.configuration, self.sandbox.directory)
 
         for file, modification_time in self.case.modification_times.items():
@@ -110,11 +110,11 @@ class Test:
 
         directories_expected = {}
         files_expected = []
-        for directory in self.case.directories:
+        for directory in self.case.directories.values():
             if directory.result:
                 directories_expected[directory.name] = True
 
-        for file in self.case.files:
+        for file in self.case.files.values():
             if file.result:
                 name = file.file_name(self.sandbox.directory)
                 files_expected.append(name)
@@ -126,7 +126,7 @@ class Test:
         self.compare(output, "file list", sorted(files_expected), sorted(files_got))
 
         file_content_ok = True
-        for file in self.case.files:
+        for file in self.case.files.values():
             if file.name in files_got and not file.compare(output, self.case.configuration, self.sandbox.directory):
                 file_content_ok = False
         if not file_content_ok:
@@ -166,12 +166,11 @@ class Test:
                 else:
                     name = os.path.join(directory, dir)[2:].replace("\\", "/")
                 is_file = False
-                for file in self.case.files:
-                    if name == file.name:
-                        files.append(name)
-                        skip_directories.append("./" + name)
-                        is_file = True
-                        break
+                if name in self.case.files:
+                    files.append(name)
+                    skip_directories.append("./" + name)
+                    is_file = True
+                    break
                 if not is_file:
                     directories.append(name)
 

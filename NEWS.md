@@ -1,3 +1,10 @@
+# 1.9.0 [Unreleased]
+
+- Fail for unexpeced empty directories.
+- Allow specifying existance of directories.
+- Check for duplicate file/directory specifications in test case.
+- Deprecate `mkdir` directive, use `directory` instead.
+
 # 1.8.0 [2024-06-07]
 
 - Prefer custom path to system path.

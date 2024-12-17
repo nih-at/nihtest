@@ -1,0 +1,9 @@
+program nihtest
+arguments test.test
+return 99
+file test.test directory-duplicate.input
+file nihtest.conf nihtest-conf
+stderr
+test.test:3: duplicate definition of directory 'directory'
+invalid test case
+end-of-inline-data

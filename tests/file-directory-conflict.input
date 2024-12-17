@@ -1,0 +1,4 @@
+program nihtest-true
+file directory/testfile success.txt success.txt
+directory directory <> {}
+return 0

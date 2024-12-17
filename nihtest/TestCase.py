@@ -1,4 +1,5 @@
 import dateutil.parser
+import os.path
 import re
 import shlex
 import sys
@@ -45,8 +46,9 @@ class TestCase:
         self.directives_seen = {}
         self.arguments = []
         self.description = ""
+        self.directories = {}
         self.features = []
-        self.files = []
+        self.files = {}
         self.precheck = None
         self.preload = []
         self.program = configuration.default_program
@@ -58,10 +60,10 @@ class TestCase:
         self.stdout = []
         self.stdout_replace = []
         self.ok = True
-        self.directories = []
         self.modification_times = {}
         self.working_directory = configuration.default_working_directory
         self.parse_case()
+        self.check_case()
         if not self.ok:
             raise RuntimeError("invalid test case")
 
@@ -80,8 +82,18 @@ class TestCase:
         if len(self.stderr_replace) == 0:
             self.stderr_replace = self.configuration.default_stderr_replace
 
-    def error(self, message):
-        print(f"{self.file_name}:{self.line_number}: {message}", file=sys.stderr)
+    def check_case(self):
+        for file in self.files.values():
+            directory_name = os.path.dirname(file.name)
+            if directory_name in self.directories:
+                directory = self.directories[directory_name]
+                if file.result is not None and not directory.result:
+                    self.error(f"directory '{directory_name}' marked as deleted but contains expected file '{file.name}'", directory.line_number)
+
+    def error(self, message, line_number=None):
+        if line_number is None:
+            line_number = self.line_number
+        print(f"{self.file_name}:{line_number}: {message}", file=sys.stderr)
         self.ok = False
 
     def parse_line(self, line):
@@ -160,7 +172,9 @@ class TestCase:
             result = self.directory_data(arguments[2])
         else:
             result = create
-        self.directories.append(Directory.Directory(name, create, result))
+        if name in self.directories:
+            self.error(f"duplicate definition of directory '{name}'")
+        self.directories[name] = (Directory.Directory(name, create, result, self.line_number))
 
     def directive_environment_clear(self, _arguments):
         self.environment_clear = True
@@ -178,15 +192,18 @@ class TestCase:
         self.features = arguments
 
     def directive_file(self, arguments):
+        name = arguments[0]
+        if name in self.files:
+            self.error(f"duplicate definition of file '{name}'")
         input_source = self.file_data(arguments[1])
         if len(arguments) > 2:
             result = self.file_data(arguments[2])
         else:
             result = input_source
-        self.files.append(File.File(name=arguments[0], input=input_source, result=result))
+        self.files[name] = (File.File(name=name, input=input_source, result=result))
 
     def directive_mkdir(self, arguments):
-        self.directories.append(Directory.Directory(arguments[0], True, False))
+        self.directive_directory([arguments[0], "<>", "<>"])
 
     def directive_precheck(self, arguments):
         self.precheck = arguments

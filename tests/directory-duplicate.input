@@ -1,0 +1,4 @@
+program nihtest-true
+directory directory <> {}
+directory directory <> {}
+return 0
