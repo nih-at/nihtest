@@ -1,0 +1,5 @@
+program nihtest
+arguments case.test
+return 0
+file case.test file-in-subsubdirectory.input
+file nihtest.conf nihtest-conf

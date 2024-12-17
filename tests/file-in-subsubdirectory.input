@@ -1,0 +1,4 @@
+program nihtest-file
+arguments case.test
+file sub/directory/testfile success.txt success.txt
+return 0

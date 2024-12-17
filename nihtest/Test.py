@@ -1,5 +1,6 @@
 import enum
 import os
+import pathlib
 import platform
 import re
 import stat
@@ -118,9 +119,10 @@ class Test:
             if file.result:
                 name = file.file_name(self.sandbox.directory)
                 files_expected.append(name)
-                directory = os.path.dirname(name)
-                if directory:
-                    directories_expected[directory] = True
+                directory_name = ""
+                for directory in pathlib.Path(name).parts[:-1]:
+                    directory_name = os.path.join(directory_name, directory)
+                    directories_expected[directory_name] = True
 
         self.compare(output, "directory list", sorted(directories_expected.keys()), sorted(directories_got))
         self.compare(output, "file list", sorted(files_expected), sorted(files_got))

@@ -1,5 +1,6 @@
 import dateutil.parser
 import os.path
+import pathlib
 import re
 import shlex
 import sys
@@ -84,11 +85,12 @@ class TestCase:
 
     def check_case(self):
         for file in self.files.values():
-            directory_name = os.path.dirname(file.name)
-            if directory_name in self.directories:
-                directory = self.directories[directory_name]
-                if file.result is not None and not directory.result:
-                    self.error(f"directory '{directory_name}' marked as deleted but contains expected file '{file.name}'", directory.line_number)
+            directory_names = pathlib.Path(file.name).parts[:-1]
+            for directory_name in directory_names:
+                if directory_name in self.directories:
+                    directory = self.directories[directory_name]
+                    if file.result is not None and not directory.result:
+                        self.error(f"directory '{directory_name}' marked as deleted but contains expected file '{file.name}'", directory.line_number)
 
     def error(self, message, line_number=None):
         if line_number is None:
