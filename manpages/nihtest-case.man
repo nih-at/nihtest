@@ -30,7 +30,7 @@
 .\" OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 .\" IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .\"
-.TH "NIHTEST-CASE" "5" "December 11, 2024" "NiH" "File Formats Manual"
+.TH "NIHTEST-CASE" "5" "December 17, 2024" "NiH" "File Formats Manual"
 .nh
 .if n .ad l
 .SH "NAME"
@@ -149,6 +149,9 @@ Otherwise the argument specifies the name of the file to copy or compare against
 Create directory
 \fIname\fR
 in the test directory.
+This directive is deprecated, use
+\fBdirectory\fR \fIname\fR \fI<>\fR
+instead.
 .TP 22n
 \fBprecheck\fR \fIcommand\fR [\fIargument ...\fR]
 If
