@@ -31,4 +31,7 @@
   IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#ifdef _WIN32
+__declspec(dllexport)
+#endif
 int delete(const char *path);
