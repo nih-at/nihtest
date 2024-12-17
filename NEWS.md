@@ -1,4 +1,4 @@
-# 1.9.0 [Unreleased]
+# 1.9.0 [2024-12-17]
 
 - Fail for unexpeced empty directories.
 - Allow specifying existance of directories.
