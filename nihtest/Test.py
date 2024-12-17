@@ -121,7 +121,10 @@ class Test:
                 files_expected.append(name)
                 directory_name = ""
                 for directory in pathlib.Path(name).parts[:-1]:
-                    directory_name = os.path.join(directory_name, directory)
+                    if not directory_name:
+                        directory_name = directory
+                    else:
+                        directory_name += "/" +  directory
                     directories_expected[directory_name] = True
 
         self.compare(output, "directory list", sorted(directories_expected.keys()), sorted(directories_got))
@@ -154,6 +157,7 @@ class Test:
         files = []
         directories = []
         for directory, sub_directories, sub_files in os.walk("."):
+            directory = directory.replace("\\", "/")
             skip = False
             for skip_directory in skip_directories:
                 if directory == skip_directory or directory.startswith(skip_directory + "/"):
