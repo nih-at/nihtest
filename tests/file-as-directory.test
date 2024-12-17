@@ -1,0 +1,7 @@
+program nihtest
+arguments case.test
+return 0
+file case.test file-as-directory.input
+file nihtest.conf nihtest-conf
+file file success.txt
+file package.dir success.txt

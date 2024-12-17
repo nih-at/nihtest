@@ -79,7 +79,7 @@ class Test:
         for file in self.case.read_only:
             full_file = os.path.join(self.sandbox.directory, file)
             st = os.stat(full_file)
-            os.chmod(full_file, st.st_mode & ~(stat.S_IWUSR))
+            os.chmod(full_file, st.st_mode & ~stat.S_IWUSR)
 
         self.sandbox.enter()
         program = self.case.configuration.find_program(self.case.program)
@@ -165,13 +165,10 @@ class Test:
                     name = dir
                 else:
                     name = os.path.join(directory, dir)[2:].replace("\\", "/")
-                is_file = False
                 if name in self.case.files:
                     files.append(name)
                     skip_directories.append("./" + name)
-                    is_file = True
-                    break
-                if not is_file:
+                else:
                     directories.append(name)
 
             for file in sub_files:

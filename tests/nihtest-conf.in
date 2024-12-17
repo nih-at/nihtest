@@ -13,6 +13,7 @@ TEST_ENV_CONFIG = This is another successful test.
 [comparators]
 pass.pass = nihtest-comparator 0
 fail.fail = nihtest-comparator 1
+dir.dir = nihtest-comparator 0
 
 [comparator-preprocessors]
 true.txt = nihtest-true -v

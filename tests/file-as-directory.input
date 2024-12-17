@@ -1,0 +1,5 @@
+program nihtest-true
+return 0
+file package.dir/a file {}
+file package.dir/b file {}
+file package.dir {} package.dir
