@@ -1,15 +1,15 @@
 program nihtest
-arguments diff-2.test
+arguments case.test
 return 1
-file diff-2.test diff-2.input
+file case.test diff-2.input
 file nihtest.conf nihtest-conf
 stdout
-diff-2.test:1: test case failed
+case.test:1: test case failed
 output differs:
 +E
  A
 -A
  B
 -B
-diff-2 -- FAIL: output
+case -- FAIL: output
 end-of-inline-data

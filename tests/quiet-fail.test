@@ -1,5 +1,5 @@
 program nihtest
-arguments -q true-fail.test
+arguments -q case.test
 return 1
-file true-fail.test true-fail.input
+file case.test true-fail.input
 file nihtest.conf nihtest-conf

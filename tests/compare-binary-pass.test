@@ -1,6 +1,6 @@
 program nihtest
-arguments test.test
+arguments case.test
 return 0
-file test.test compare-binary-pass.input
+file case.test compare-binary-pass.input
 file nihtest.conf nihtest-conf
 file binary-1 binary-1

@@ -1,12 +1,12 @@
 program nihtest
-arguments file-fail.test
+arguments case.test
 return 1
-file file-fail.test file-fail.input
+file case.test file-fail.input
 file nihtest.conf nihtest-conf
 stdout
-file-fail.test:1: test case failed
+case.test:1: test case failed
 testfile differs:
 -This is a successful test.
 +This is not a successful test.
-file-fail -- FAIL: file contents
+case -- FAIL: file contents
 end-of-inline-data

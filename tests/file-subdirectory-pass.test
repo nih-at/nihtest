@@ -1,5 +1,5 @@
 program nihtest
-arguments file-subdirectory-pass.test
+arguments case.test
 return 0
-file file-subdirectory-pass.test file-subdirectory-pass.input
+file case.test file-subdirectory-pass.input
 file nihtest.conf nihtest-conf

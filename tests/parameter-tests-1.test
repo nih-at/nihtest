@@ -1,31 +1,31 @@
 program nihtest
 return 99
-arguments parameter-tests-1.test
-file parameter-tests-1.test parameter-tests-1.input parameter-tests-1.input
+arguments case.test
+file case.test parameter-tests-1.input parameter-tests-1.input
 stderr
-parameter-tests-1.test:3: too many arguments for 'environment-clear'
-parameter-tests-1.test:4: too few arguments for 'environment-passthrough'
-parameter-tests-1.test:5: too few arguments for 'environment-set'
-parameter-tests-1.test:6: too few arguments for 'environment-set'
-parameter-tests-1.test:7: too many arguments for 'environment-set'
-parameter-tests-1.test:8: too few arguments for 'environment-unset'
-parameter-tests-1.test:9: too few arguments for 'features'
-parameter-tests-1.test:10: too few arguments for 'file'
-parameter-tests-1.test:11: too few arguments for 'file'
-parameter-tests-1.test:12: too many arguments for 'file'
-parameter-tests-1.test:13: too few arguments for 'mkdir'
-parameter-tests-1.test:14: too many arguments for 'mkdir'
-parameter-tests-1.test:15: too few arguments for 'precheck'
-parameter-tests-1.test:16: too few arguments for 'preload'
-parameter-tests-1.test:17: too many arguments for 'preload'
-parameter-tests-1.test:18: too few arguments for 'program'
-parameter-tests-1.test:19: too few arguments for 'return'
-parameter-tests-1.test:20: too many arguments for 'stderr'
-parameter-tests-1.test:21: too few arguments for 'stderr-replace'
-parameter-tests-1.test:22: too few arguments for 'stderr-replace'
-parameter-tests-1.test:23: too many arguments for 'stderr-replace'
-parameter-tests-1.test:24: too many arguments for 'stdin'
-parameter-tests-1.test:25: too many arguments for 'stdout'
+case.test:3: too many arguments for 'environment-clear'
+case.test:4: too few arguments for 'environment-passthrough'
+case.test:5: too few arguments for 'environment-set'
+case.test:6: too few arguments for 'environment-set'
+case.test:7: too many arguments for 'environment-set'
+case.test:8: too few arguments for 'environment-unset'
+case.test:9: too few arguments for 'features'
+case.test:10: too few arguments for 'file'
+case.test:11: too few arguments for 'file'
+case.test:12: too many arguments for 'file'
+case.test:13: too few arguments for 'mkdir'
+case.test:14: too many arguments for 'mkdir'
+case.test:15: too few arguments for 'precheck'
+case.test:16: too few arguments for 'preload'
+case.test:17: too many arguments for 'preload'
+case.test:18: too few arguments for 'program'
+case.test:19: too few arguments for 'return'
+case.test:20: too many arguments for 'stderr'
+case.test:21: too few arguments for 'stderr-replace'
+case.test:22: too few arguments for 'stderr-replace'
+case.test:23: too many arguments for 'stderr-replace'
+case.test:24: too many arguments for 'stdin'
+case.test:25: too many arguments for 'stdout'
 nihtest: invalid test case
 end-of-inline-data
 stderr-replace ^.*/([^/:]*): "\1:"

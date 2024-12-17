@@ -1,7 +1,7 @@
 program nihtest
-arguments comparator-pass.test
+arguments case.test
 return 0
-file comparator-pass.test comparator-pass.input
+file case.test comparator-pass.input
 file nihtest.conf nihtest-conf
 file a.pass <inline>
 a

@@ -1,5 +1,5 @@
 program nihtest
-arguments precheck-pass.test
+arguments case.test
 return 0
-file precheck-pass.test precheck-pass.input
+file case.test precheck-pass.input
 file nihtest.conf nihtest-conf

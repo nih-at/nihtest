@@ -1,10 +1,10 @@
 program nihtest
 return 99
-arguments parameter-tests-2.test
-file parameter-tests-2.test parameter-tests-2.input parameter-tests-2.input
+arguments case.test
+file case.test parameter-tests-2.input parameter-tests-2.input
 stderr
-parameter-tests-2.test:2: too many arguments for 'program'
-parameter-tests-2.test:3: too many arguments for 'return'
+case.test:2: too many arguments for 'program'
+case.test:3: too many arguments for 'return'
 nihtest: invalid test case
 end-of-inline-data
 stderr-replace ^.*/([^/:]*): "\1:"

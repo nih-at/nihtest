@@ -1,7 +1,7 @@
 program nihtest
-arguments test.test
+arguments case.test
 return 0
-file test.test copier.input
+file case.test copier.input
 file nihtest.conf nihtest-conf
 file test.lc <inline>
 lowercase text

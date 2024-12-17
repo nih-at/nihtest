@@ -1,5 +1,5 @@
 program nihtest
-arguments stderr-replace-pass.test
+arguments case.test
 return 0
-file stderr-replace-pass.test stderr-replace-pass.input
+file case.test stderr-replace-pass.input
 file nihtest.conf nihtest-conf

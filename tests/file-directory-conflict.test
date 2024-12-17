@@ -1,9 +1,9 @@
 program nihtest
-arguments test.test
+arguments case.test
 return 99
-file test.test file-directory-conflict.input
+file case.test file-directory-conflict.input
 file nihtest.conf nihtest-conf
 stderr
-test.test:3: directory 'directory' marked as deleted but contains expected file 'directory/testfile'
+case.test:3: directory 'directory' marked as deleted but contains expected file 'directory/testfile'
 invalid test case
 end-of-inline-data

@@ -1,6 +1,6 @@
 precheck ./nihtest-can-preload skip
 program nihtest
-arguments preload-pass.test
+arguments case.test
 return 77
-file preload-pass.test preload-pass.input
+file case.test preload-pass.input
 file nihtest.conf nihtest-conf

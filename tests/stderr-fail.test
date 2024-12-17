@@ -1,12 +1,12 @@
 program nihtest
-arguments stderr-fail.test
+arguments case.test
 return 1
-file stderr-fail.test stderr-fail.input
+file case.test stderr-fail.input
 file nihtest.conf nihtest-conf
 stdout
-stderr-fail.test:1: test case failed
+case.test:1: test case failed
 error output differs:
 -This is a successful test.
 +This is not a successful test.
-stderr-fail -- FAIL: error output
+case -- FAIL: error output
 end-of-inline-data

@@ -1,13 +1,13 @@
 program nihtest
-arguments test.test
+arguments case.test
 return 1
-file test.test compare-binary-fail.input
+file case.test compare-binary-fail.input
 file nihtest.conf nihtest-conf
 file binary-1 binary-1
 file binary-2 binary-2
 stdout
-test.test:1: test case failed
+case.test:1: test case failed
 a differs:
 Binary files differ.
-test -- FAIL: file contents
+case -- FAIL: file contents
 end-of-inline-data

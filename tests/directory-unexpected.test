@@ -1,11 +1,11 @@
 program nihtest
-arguments test.test
+arguments case.test
 return 1
-file test.test directory-unexpected.input
+file case.test directory-unexpected.input
 file nihtest.conf nihtest-conf
 stdout
-test.test:1: test case failed
+case.test:1: test case failed
 directory list differs:
 +directory
-test -- FAIL: directory list
+case -- FAIL: directory list
 end-of-inline-data

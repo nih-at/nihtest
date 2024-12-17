@@ -1,5 +1,5 @@
 program nihtest
-arguments stdout-pass.test
+arguments case.test
 return 0
-file stdout-pass.test stdout-pass.input
+file case.test stdout-pass.input
 file nihtest.conf nihtest-conf

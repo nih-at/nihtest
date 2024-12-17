@@ -1,12 +1,12 @@
 program nihtest
-arguments test.test
+arguments case.test
 return 1
-file test.test test-case-source.input
+file case.test test-case-source.input
 file nihtest.conf nihtest-conf
 stdout
 source.test:1: test case failed
 exit code differs:
 -0
 +1
-test -- FAIL: exit code
+case -- FAIL: exit code
 end-of-inline-data
