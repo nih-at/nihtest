@@ -1,3 +1,9 @@
+# 1.9.1 [2024-12-17]
+
+- Fix directory comparators broken in 1.9.0.
+- Fix handling of files in nested directories.
+- Fix on Windows.
+
 # 1.9.0 [2024-12-17]
 
 - Fail for unexpeced empty directories.
