@@ -27,11 +27,15 @@ class TestResult(enum.Enum):
     FAILED = 1
     ERROR = 2 # TODO: correct value
     SKIPPED = 77
+    EXCEPTION = 99
+
+    EXPECTED_FAIL = 100
+    UNEXPECTED_OK = 101
 
 
 class Test:
-    def __init__(self, configuration, args):
-        self.case = TestCase.TestCase(configuration, args)
+    def __init__(self, configuration, args, file_name, name=None):
+        self.case = TestCase.TestCase(configuration, args, file_name, name)
         self.sandbox = None
         self.features = Features.Features(configuration)
         self.failed = []

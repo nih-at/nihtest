@@ -27,17 +27,19 @@ class Directive:
 
 
 class TestCase:
-    def __init__(self, configuration, args):
-        self.name = args.testcase
-        if self.name[-5:] == ".test":
-            self.name = self.name[:-5]
+    def __init__(self, configuration, args, file_name, name=None):
+        if name is not None:
+            self.name = name
+        else:
+            self.name = file_name
+            if self.name[-5:] == ".test":
+                self.name = self.name[:-5]
         self.args = args
         self.configuration = configuration
         self.environment = configuration.environment.copy()
         self.environment_clear = configuration.environment_clear
         self.environment_passthrough = configuration.environment_passthrough.copy()
         self.environment_unset = configuration.environment_unset.copy()
-        file_name = args.testcase
         if file_name[-5:] != ".test":
             file_name += ".test"
         self.file_name = self.configuration.find_input_file(file_name)

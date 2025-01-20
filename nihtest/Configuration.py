@@ -24,6 +24,10 @@ config_schema = {
         "environment-clear",
         "environment-passthrough",
         "environment-unset"
+    ],
+    "suite": [
+        "expected-failing-tests",
+        "tests"
     ]
 }
 
@@ -104,6 +108,11 @@ class When(enum.Enum):
 
 
 class Configuration:
+    class Suite:
+        def __init__(self, config):
+            self.tests = get_array(config, "tests")
+            self.expected_failing_tests = get_array(config, "expected-failing-tests")
+
     def __init__(self, args):
         config = configparser.ConfigParser()
         config.optionxform = str
@@ -153,6 +162,8 @@ class Configuration:
         if args.setup_only:
             self.keep_sandbox = When.ALWAYS
             self.run_test = False
+
+        self.suite = Configuration.Suite(config["suite"] if "suite" in config else {})
 
     def find_input_file(self, filename):
         if file := self.find_file(filename, self.test_input_directories):

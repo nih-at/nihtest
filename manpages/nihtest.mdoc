@@ -29,7 +29,7 @@
 .\" OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 .\" IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .\"
-.Dd June 9, 2023
+.Dd January 20, 2025
 .Dt NIHTEST 1
 .Os
 .Sh NAME
@@ -38,11 +38,12 @@
 .Sh SYNOPSIS
 .Nm
 .Op Fl hqVv
+.Op Fl Fl all
 .Op Fl C Ar config
 .Op Fl Fl keep-broken
 .Op Fl Fl no-cleanup
 .Op Fl Fl setup-only
-.Ar testcase
+.Op Ar testcase ...
 .Sh DESCRIPTION
 .Nm
 is a testing tool for command line utilities.
@@ -53,14 +54,13 @@ The format of these files is described in
 .Xr nihtest-case 5 .
 .Pp
 .Nm
-runs the test case
-.Ar testcase
-expected in the test case directory (see
-.Xr nihtest.conf 5 )
-in the file
-.Pa testcase
-or
-.Pa testcase.test .
+runs the test cases specified on the command line or, if the
+.Fl Fl all
+option is given, in the
+.Ic suite
+section of the config file.
+Shell globs can be used on the command line, test cases are expected in the test case directory.
+.Pp
 .Nm
 searches the current directory and the
 .Ic source-directory
@@ -71,6 +71,10 @@ for test cases, input and output files.
 .Nm
 supports the following options
 .Bl -tag -width 15n -offset 8n
+.It Fl Fl all
+Run all tests specified in the
+.Ic suite
+section of the config file.
 .It Fl C Ar config , Fl Fl config-file Ar config
 Use
 .Ar config

@@ -1,3 +1,7 @@
+# 1.10 [Unreleased]
+
+- Add support for running multiple tests and configuring a test suite.
+
 # 1.9.1 [2024-12-17]
 
 - Fix directory comparators broken in 1.9.0.
