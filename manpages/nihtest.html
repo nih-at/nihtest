@@ -56,12 +56,13 @@
 <table class="Nm">
   <tr>
     <td><code class="Nm">nihtest</code></td>
-    <td>[<code class="Fl">-hqVv</code>] [<code class="Fl">-C</code>
-      <var class="Ar">config</var>]
+    <td>[<code class="Fl">-hqVv</code>]
+      [<code class="Fl">-</code><code class="Fl">-all</code>]
+      [<code class="Fl">-C</code> <var class="Ar">config</var>]
       [<code class="Fl">-</code><code class="Fl">-keep-broken</code>]
       [<code class="Fl">-</code><code class="Fl">-no-cleanup</code>]
       [<code class="Fl">-</code><code class="Fl">-setup-only</code>]
-      <var class="Ar">testcase</var></td>
+      [<var class="Ar">testcase ...</var>]</td>
   </tr>
 </table>
 </section>
@@ -70,17 +71,22 @@
 <code class="Nm">nihtest</code> is a testing tool for command line utilities. It
   uses <span class="Pa">.test</span> files as input. The format of these files
   is described in <a class="Xr" href="nihtest-case.html">nihtest-case(5)</a>.
-<p class="Pp"><code class="Nm">nihtest</code> runs the test case
-    <var class="Ar">testcase</var> expected in the test case directory (see
-    <a class="Xr" href="nihtest.conf.html">nihtest.conf(5)</a>) in the file
-    <span class="Pa">testcase</span> or <span class="Pa">testcase.test</span>.
-    <code class="Nm">nihtest</code> searches the current directory and the
-    <code class="Ic">source-directory</code> specified in
+<p class="Pp"><code class="Nm">nihtest</code> runs the test cases specified on
+    the command line or, if the
+    <code class="Fl">-</code><code class="Fl">-all</code> option is given, in
+    the <code class="Ic">suite</code> section of the config file. Shell globs
+    can be used on the command line, test cases are expected in the test case
+    directory.</p>
+<p class="Pp"><code class="Nm">nihtest</code> searches the current directory and
+    the <code class="Ic">source-directory</code> specified in
     <a class="Xr" href="nihtest.conf.html">nihtest.conf(5)</a> for test cases,
     input and output files.</p>
 <p class="Pp"><code class="Nm">nihtest</code> supports the following options</p>
 <div class="Bd-indent">
 <dl class="Bl-tag">
+  <dt><code class="Fl">-</code><code class="Fl">-all</code></dt>
+  <dd>Run all tests specified in the <code class="Ic">suite</code> section of
+      the config file.</dd>
   <dt><a class="permalink" href="#C"><code class="Fl" id="C">-C</code></a>
     <var class="Ar">config</var>,
     <code class="Fl">-</code><code class="Fl">-config-file</code>
@@ -167,7 +173,7 @@ In general, differences to the test case expectation are marked up with
 </div>
 <table class="foot">
   <tr>
-    <td class="foot-date">June 9, 2023</td>
+    <td class="foot-date">January 20, 2025</td>
     <td class="foot-os">NiH</td>
   </tr>
 </table>

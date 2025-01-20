@@ -216,6 +216,23 @@ The <code class="Ic">copiers</code> section specifies programs to use to copy
 <p class="Pp">If the command doesn't exit with code 0, the test will fail.</p>
 </section>
 <section class="Sh">
+<h1 class="Sh" id="SUITE"><a class="permalink" href="#SUITE">SUITE</a></h1>
+The optional <code class="Ic">suite</code> can be used to define a suite of
+  tests to be run with the <var class="Ar">--all</var> command line option.
+<dl class="Bl-tag">
+  <dt><a class="permalink" href="#tests_="><code class="Ic" id="tests_=">tests
+    =</code></a> <var class="Ar">tests</var></dt>
+  <dd>This specifies the tests to run. It can contain names or shell globs.
+      <span class="Pa">.test</span> will be appended if not present, and files
+      will be searched for in
+    <code class="Dv">test-input-directories</code>.</dd>
+  <dt><a class="permalink" href="#expected-failing-tests_="><code class="Ic" id="expected-failing-tests_=">expected-failing-tests
+    =</code></a> <var class="Ar">tests</var></dt>
+  <dd>This specifies the tests that are expected to fail. Tests are searched in
+      the same way as for <code class="Ic">tests</code>.</dd>
+</dl>
+</section>
+<section class="Sh">
 <h1 class="Sh" id="EXAMPLES"><a class="permalink" href="#EXAMPLES">EXAMPLES</a></h1>
 <div class="Bd">
 <pre>
@@ -227,6 +244,10 @@ program-directories = bin
 LC_ALL=en_US.UTF-8
 [comparators]
 zip.zip = zipcmp -v
+[suite]
+tests = *.test
+expected_failing_tests = *-broken.test
+    completely_broken_test.test
 </pre>
 </div>
 </section>
@@ -238,7 +259,7 @@ zip.zip = zipcmp -v
 </div>
 <table class="foot">
   <tr>
-    <td class="foot-date">June 15, 2023</td>
+    <td class="foot-date">January 20, 2025</td>
     <td class="foot-os">NiH</td>
   </tr>
 </table>

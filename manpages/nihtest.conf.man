@@ -30,7 +30,7 @@
 .\" OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 .\" IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .\"
-.TH "NIHTEST.CONF" "5" "June 15, 2023" "NiH" "File Formats Manual"
+.TH "NIHTEST.CONF" "5" "January 20, 2025" "NiH" "File Formats Manual"
 .nh
 .if n .ad l
 .SH "NAME"
@@ -240,6 +240,23 @@ the value specifies the command line to use to copy the file into the sandbox.
 The command will be run with the two files as arguments, the source file first and the file in the sandbox last.
 .PP
 If the command doesn't exit with code 0, the test will fail.
+.SH "SUITE"
+The optional
+\fBsuite\fR
+can be used to define a suite of tests to be run with the
+\fI--all\fR
+command line option.
+.TP 22n
+\fBtests =\fR \fItests\fR
+This specifies the tests to run. It can contain names or shell globs.
+\fI.test\fR
+will be appended if not present, and files will be searched for in
+\fRtest-input-directories\fR.
+.TP 22n
+\fBexpected-failing-tests =\fR \fItests\fR
+This specifies the tests that are expected to fail.
+Tests are searched in the same way as for
+\fBtests\fR.
 .SH "EXAMPLES"
 .nf
 .RS 0n
@@ -251,6 +268,10 @@ program-directories = bin
 LC_ALL=en_US.UTF-8
 [comparators]
 zip.zip = zipcmp -v
+[suite]
+tests = *.test
+expected_failing_tests = *-broken.test
+    completely_broken_test.test
 .RE
 .fi
 .SH "SEE ALSO"
