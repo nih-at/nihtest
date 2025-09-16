@@ -10,12 +10,11 @@ authors = [
     { name="Thomas Klausner", email="wiz@gatalith.at"}
 ]
 description = "A testing tool for command line utilities."
-license = {text = "BSD-3-Clause"}
+license = "BSD-3-Clause"
 readme = "README.md"
 requires-python = ">=3.9"
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: BSD License",
     "Operating System :: OS Independent",
 ]
 dependencies = [
