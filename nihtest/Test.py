@@ -4,6 +4,7 @@ import pathlib
 import platform
 import re
 import stat
+import subprocess
 import sys
 
 from nihtest import Command
@@ -91,12 +92,16 @@ class Test:
         environment = Environment.Environment(self.case).environment
         if self.case.preload:
             environment["LD_PRELOAD"] = " ".join(map(lambda file: self.case.configuration.find_program("lib" + file), self.case.preload))
-        command = Command.Command(program, self.case.arguments, self.case.stdin, environment=environment)
+        if self.case.configuration.debugger is None:
+            command = Command.Command(program, self.case.arguments, self.case.stdin, environment=environment)
         if self.case.working_directory is not None:
             if not os.path.exists(self.case.working_directory):
                 os.mkdir(self.case.working_directory)
             os.chdir(self.case.working_directory)
-        command.run()
+        if self.case.configuration.debugger is not None:
+            subprocess.run([self.case.configuration.debugger, self.case.configuration.debugger_separator, program] + self.case.arguments, check=False, text=True, encoding="utf-8", env=environment)
+        else:
+            command.run()
         self.sandbox.chdir_top()
         directories_got, files_got = self.list_files()
         self.sandbox.leave()
@@ -106,6 +111,11 @@ class Test:
             if os.path.exists(full_file):
                 st = os.stat(full_file)
                 os.chmod(full_file, st.st_mode | stat.S_IWRITE)
+
+        if self.case.configuration.debugger is not None:
+            if self.case.configuration.keep_sandbox == Configuration.When.ALWAYS:
+                self.sandbox.cleanup()
+            sys.exit(0)
 
         output = Output.Output(self.case.test_case_source + ":1: test case failed", self.case.configuration.verbose != Configuration.When.NEVER)
 

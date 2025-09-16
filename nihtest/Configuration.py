@@ -4,6 +4,7 @@ import os.path
 import platform
 import re
 import shlex
+import shutil
 import sys
 
 config_schema = {
@@ -142,6 +143,8 @@ class Configuration:
         self.environment_unset = get_array(settings, "environment-unset")
         self.verbose = When.FAILED
         self.run_test = True
+        self.debugger = None
+        self.debugger_separator = None
 
         self.default_stderr_replace = list(map(process_stderr_replace, self.default_stderr_replace))
         for key, value in self.copiers.items():
@@ -162,6 +165,19 @@ class Configuration:
         if args.setup_only:
             self.keep_sandbox = When.ALWAYS
             self.run_test = False
+        if args.debug:
+            for debugger in ["gdb", "lldb"]:
+                program =  shutil.which(debugger)
+                if program is not None:
+                    self.debugger = program
+                    if debugger == "lldb":
+                        self.debugger_separator = "--"
+                    elif debugger == "gdb":
+                        self.debugger_separator = "--args"
+                    break
+            if self.debugger is None:
+                print("no debugger found", file=sys.stderr)
+                sys.exit(1)
 
         self.suite = Configuration.Suite(config["suite"] if "suite" in config else {})
 

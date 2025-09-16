@@ -1,6 +1,7 @@
 # 1.10 [Unreleased]
 
 - Add support for running multiple tests and configuring a test suite.
+- Add option to run program inside debugger.
 
 # 1.9.1 [2024-12-17]
 

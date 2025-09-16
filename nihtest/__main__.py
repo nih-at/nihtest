@@ -15,6 +15,7 @@ def main():
     parser.add_argument('testcase', nargs='*')
     parser.add_argument('--all', action='store_true', help='run all test in suite')
     parser.add_argument('-C', '--config-file', metavar='FILE', help='use FILE as config file', default="nihtest.conf")
+    parser.add_argument("--debug", action="store_true", help="run debugger on program in sandbox")
     parser.add_argument('--keep-broken', action='store_true', help='keep sandbox if test fails')
     parser.add_argument('--no-cleanup', action='store_true', help='keep sandbox')
     parser.add_argument('-q', '--quiet', action='store_true', help="don't print test result")

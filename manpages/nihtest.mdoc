@@ -29,7 +29,7 @@
 .\" OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 .\" IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .\"
-.Dd January 20, 2025
+.Dd September 16, 2025
 .Dt NIHTEST 1
 .Os
 .Sh NAME
@@ -40,6 +40,7 @@
 .Op Fl hqVv
 .Op Fl Fl all
 .Op Fl C Ar config
+.Op Fl Fl debug
 .Op Fl Fl keep-broken
 .Op Fl Fl no-cleanup
 .Op Fl Fl setup-only
@@ -80,6 +81,9 @@ Use
 .Ar config
 as configuration file instead of
 .Pa ./nihtest.conf .
+.It Fl Fl debug
+Set up the sandbox, but run the program inside a debugger.
+Results are not checked.
 .It Fl h , Fl Fl help
 Display a short help message and exit.
 .It Fl Fl keep-broken
