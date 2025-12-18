@@ -58,18 +58,26 @@ class Suite:
             current += 1
             print(f"Test {current:{current_len}}/{total} {case.name:<{name_len}}  {result.name}")
 
+        result = Test.TestResult.OK if ok else Test.TestResult.FAILED
 
-        percent = int(100 * (total - failed - skipped) / (total - skipped))
-        if failed == 1:
-            print(f"\n{percent}% tests passed, {failed} test failed out of {total - skipped}")
+        if total - skipped == 0:
+            if skipped == 0:
+                print("\nTest suite is empty.")
+            else:
+                print("\nAll tests were skipped.")
+                result = Test.TestResult.SKIPPED
         else:
-            print(f"\n{percent}% tests passed, {failed} tests failed out of {total - skipped}")
+            percent = int(100 * (total - failed - skipped) / (total - skipped))
+            if failed == 1:
+                print(f"\n{percent}% tests passed, {failed} test failed out of {total - skipped}")
+            else:
+                print(f"\n{percent}% tests passed, {failed} tests failed out of {total - skipped}")
 
         self.print_failures(Test.TestResult.FAILED, "failed")
         self.print_failures(Test.TestResult.UNEXPECTED_OK, "unexpectedly passed")
         self.print_failures(Test.TestResult.SKIPPED, "did not run")
 
-        return Test.TestResult.OK if ok else Test.TestResult.FAILED
+        return result
 
     def add_cases(self, names, expect_failing=False, no_new_cases=False):
         for name in names:
