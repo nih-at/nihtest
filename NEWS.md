@@ -1,7 +1,8 @@
-# 1.10 [Unreleased]
+# 1.10.0 [2026-01-09]
 
 - Add support for running multiple tests and configuring a test suite.
 - Add option to run program inside debugger.
+- Fix handling of relative paths in program directories.
 
 # 1.9.1 [2024-12-17]
 

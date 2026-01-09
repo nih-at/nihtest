@@ -5,7 +5,7 @@ from nihtest import Configuration
 from nihtest import Suite
 from nihtest import Test
 
-VERSION = "1.9.1"
+VERSION = "1.10.0"
 
 
 def main():
