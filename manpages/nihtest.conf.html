@@ -34,6 +34,7 @@
    -->
 <head>
   <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" href="../nih-man.css" type="text/css" media="all"/>
   <title>NIHTEST.CONF(5)</title>
 </head>
@@ -48,25 +49,26 @@
 <div class="manual-text">
 <section class="Sh">
 <h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
-<code class="Nm">nihtest.conf</code> &#x2014;
-<div class="Nd">testing tool configuration file format</div>
+<p class="Pp"><code class="Nm">nihtest.conf</code> &#x2014;
+    <span class="Nd">testing tool configuration file format</span></p>
 </section>
 <section class="Sh">
 <h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
-<a class="Xr" href="nihtest.html">nihtest(1)</a> is a testing tool. It reads a
-  configuration file to get its default settings. The default path for the file
-  is <span class="Pa">nihtest.conf</span> in the current directory; this can be
-  overridden with <a class="Xr" href="nihtest.html">nihtest(1)</a>'s
-  <code class="Fl">-C</code> flag. This man page describes the format of this
-  configuration file.
+<p class="Pp"><a class="Xr" href="nihtest.html">nihtest(1)</a> is a testing
+    tool. It reads a configuration file to get its default settings. The default
+    path for the file is <span class="Pa">nihtest.conf</span> in the current
+    directory; this can be overridden with
+    <a class="Xr" href="nihtest.html">nihtest(1)</a>'s
+    <code class="Fl">-C</code> flag. This man page describes the format of this
+    configuration file.</p>
 </section>
 <section class="Sh">
 <h1 class="Sh" id="FILE_FORMAT"><a class="permalink" href="#FILE_FORMAT">FILE
   FORMAT</a></h1>
-The configuration file consists of multiple sections, which are started with
-  [<var class="Ar">section-name</var>]. The supported sections are
-  <code class="Ic">settings</code>, <code class="Ic">environment</code>, and
-  <code class="Ic">comparators</code>.
+<p class="Pp">The configuration file consists of multiple sections, which are
+    started with [<var class="Ar">section-name</var>]. The supported sections
+    are <code class="Ic">settings</code>, <code class="Ic">environment</code>,
+    and <code class="Ic">comparators</code>.</p>
 <p class="Pp">Each section consists of variable assignments in the format
     <var class="Ar">name =</var> <var class="Ar">value</var>, one per line.</p>
 <p class="Pp">Multiple values for the same variable can be specified, one per
@@ -74,14 +76,14 @@ The configuration file consists of multiple sections, which are started with
 </section>
 <section class="Sh">
 <h1 class="Sh" id="SETTINGS"><a class="permalink" href="#SETTINGS">SETTINGS</a></h1>
-In the <code class="Ic">settings</code> section, the following variables are
-  recognized:
+<p class="Pp">In the <code class="Ic">settings</code> section, the following
+    variables are recognized:</p>
 <dl class="Bl-tag">
-  <dt><a class="permalink" href="#default-program_="><code class="Ic" id="default-program_=">default-program
+  <dt id="default-program"><a class="permalink" href="#default-program"><code class="Ic">default-program
     =</code></a> <var class="Ar">program</var></dt>
   <dd>Test <var class="Ar">program</var> if no <code class="Ic">program</code>
       directive is found in the test.</dd>
-  <dt><a class="permalink" href="#default-stderr-replace_="><code class="Ic" id="default-stderr-replace_=">default-stderr-replace
+  <dt id="default-stderr-replace"><a class="permalink" href="#default-stderr-replace"><code class="Ic">default-stderr-replace
     =</code></a> <var class="Ar">pattern replacement ...</var></dt>
   <dd>Each line consists of two values, <var class="Ar">pattern</var> is a
       regular expression and <var class="Ar">replacement</var> the corresponding
@@ -89,78 +91,76 @@ In the <code class="Ic">settings</code> section, the following variables are
       <code class="Ic">stderr-replace</code> directives. See
       <a class="Xr" href="nihtest-case.html">nihtest-case(5)</a> for details on
       <code class="Ic">stderr-replace</code>.</dd>
-  <dt><a class="permalink" href="#default-working-directory_="><code class="Ic" id="default-working-directory_=">default-working-directory
+  <dt id="default-working-directory"><a class="permalink" href="#default-working-directory"><code class="Ic">default-working-directory
     =</code></a> <var class="Ar">directory</var></dt>
   <dd>Use <var class="Ar">directory</var> as the working directory if no
       <code class="Ic">working-directory</code> directive is found in the
     test.</dd>
-  <dt><a class="permalink" href="#environment-clear_=_true"><code class="Ic" id="environment-clear_=_true">environment-clear
+  <dt id="environment-clear"><a class="permalink" href="#environment-clear"><code class="Ic">environment-clear
     = true</code></a></dt>
   <dd>If <code class="Ic">environment-clear</code> is set to
       <code class="Dv">true</code>, only variables explicitly set or passed
       through are included in the environment passed to the tested program.</dd>
-  <dt><a class="permalink" href="#environment-passthrough_="><code class="Ic" id="environment-passthrough_=">environment-passthrough
+  <dt id="environment-passthrough"><a class="permalink" href="#environment-passthrough"><code class="Ic">environment-passthrough
     =</code></a> <var class="Ar">variable ...</var></dt>
   <dd>The named environment variables are passed through from the environment
       <a class="Xr" href="nihtest.html">nihtest(1)</a> is run in to the
       environment passed to the tested program.</dd>
-  <dt><a class="permalink" href="#environment-unset_="><code class="Ic" id="environment-unset_=">environment-unset
+  <dt id="environment-unset"><a class="permalink" href="#environment-unset"><code class="Ic">environment-unset
     =</code></a> <var class="Ar">variable ...</var></dt>
   <dd>The named environment variables are removed from the environment passed to
       the tested program.</dd>
-  <dt><a class="permalink" href="#features-files_="><code class="Ic" id="features-files_=">features-files
+  <dt id="features-files"><a class="permalink" href="#features-files"><code class="Ic">features-files
     =</code></a> <var class="Ar">file ...</var></dt>
   <dd>Specifies the files to search for feature defines. This is used in the
       <code class="Ic">features</code> directive in test cases.</dd>
-  <dt><a class="permalink" href="#keep-sandbox_="><code class="Ic" id="keep-sandbox_=">keep-sandbox
+  <dt id="keep-sandbox"><a class="permalink" href="#keep-sandbox"><code class="Ic">keep-sandbox
     =</code></a> <var class="Ar">when</var></dt>
   <dd>Describe when to keep the sandbox (i.e., not delete it) after running the
       test. The following values are supported:
     <div class="Bd-indent">
     <dl class="Bl-tag Bl-compact">
-      <dt><a class="permalink" href="#never"><code class="Dv" id="never">never</code></a></dt>
+      <dt id="never"><a class="permalink" href="#never"><code class="Dv">never</code></a></dt>
       <dd>Never keep the sandbox.</dd>
-      <dt><a class="permalink" href="#failed"><code class="Dv" id="failed">failed</code></a></dt>
+      <dt id="failed"><a class="permalink" href="#failed"><code class="Dv">failed</code></a></dt>
       <dd>Keep the sandbox when the test failed.</dd>
-      <dt><a class="permalink" href="#always"><code class="Dv" id="always">always</code></a></dt>
+      <dt id="always"><a class="permalink" href="#always"><code class="Dv">always</code></a></dt>
       <dd>Always keep the sandbox.</dd>
     </dl>
     </div>
     This can be overridden with the
       <a class="Xr" href="nihtest.html">nihtest(1)</a> flags
-      <code class="Fl">-</code> <code class="Fl">-keep-broken</code>
-      <code class="Fl">-=</code> <var class="Ar">when</var> or
-      <code class="Fl">-</code><code class="Fl">-no-cleanup</code>. The default
-      is <code class="Dv">never</code>.</dd>
-  <dt><a class="permalink" href="#print-results_="><code class="Ic" id="print-results_=">print-results
+      <code class="Fl">--keep-broken</code> <code class="Fl">-=</code>
+      <var class="Ar">when</var> or <code class="Fl">--no-cleanup</code>. The
+      default is <code class="Dv">never</code>.</dd>
+  <dt id="print-results"><a class="permalink" href="#print-results"><code class="Ic">print-results
     =</code></a> <var class="Ar">when</var></dt>
   <dd>Describe when to print the test results verbosely. The following values
       are supported:
     <div class="Bd-indent">
     <dl class="Bl-tag Bl-compact">
-      <dt><a class="permalink" href="#never_2"><code class="Dv" id="never_2">never</code></a></dt>
+      <dt id="never~2"><a class="permalink" href="#never~2"><code class="Dv">never</code></a></dt>
       <dd>Quiet mode.</dd>
-      <dt><a class="permalink" href="#failed_2"><code class="Dv" id="failed_2">failed</code></a></dt>
+      <dt id="failed~2"><a class="permalink" href="#failed~2"><code class="Dv">failed</code></a></dt>
       <dd>Print details when the test failed.</dd>
-      <dt><a class="permalink" href="#always_2"><code class="Dv" id="always_2">always</code></a></dt>
+      <dt id="always~2"><a class="permalink" href="#always~2"><code class="Dv">always</code></a></dt>
       <dd>Verbose mode.</dd>
     </dl>
     </div>
     This can be overridden with the
       <a class="Xr" href="nihtest.html">nihtest(1)</a> flags
-      <code class="Fl">-</code> <code class="Fl">-quiet</code> or
-      <code class="Fl">-</code><code class="Fl">-verbose</code>. The default is
-      <code class="Dv">failed</code>.</dd>
-  <dt><a class="permalink" href="#program-directories_="><code class="Ic" id="program-directories_=">program-directories
+      <code class="Fl">--quiet</code> or <code class="Fl">--verbose</code>. The
+      default is <code class="Dv">failed</code>.</dd>
+  <dt id="program-directories"><a class="permalink" href="#program-directories"><code class="Ic">program-directories
     =</code></a> <var class="Ar">directory ...</var></dt>
   <dd>Specifies the directories programs are searched for. They are prepended to
       <code class="Ev">PATH</code>.</dd>
-  <dt><a class="permalink" href="#sandbox-directories_="><code class="Ic" id="sandbox-directories_=">sandbox-directories
+  <dt id="sandbox-directories"><a class="permalink" href="#sandbox-directories"><code class="Ic">sandbox-directories
     =</code></a> <var class="Ar">directory ...</var></dt>
   <dd>Create sandboxes in <var class="Ar">directory</var>. By default, the
       sandboxes will be created in the current directory. A random directory of
       the pattern <span class="Pa">sandbox_*</span> will be used.</dd>
-  <dt><a class="permalink" href="#test-input-directories_="><code class="Ic" id="test-input-directories_=">test-input-directories
+  <dt id="test-input-directories"><a class="permalink" href="#test-input-directories"><code class="Ic">test-input-directories
     =</code></a> <var class="Ar">directory ...</var></dt>
   <dd><a class="Xr" href="nihtest.html">nihtest(1)</a> searches the current
       directory and <var class="Ar">directory</var> for test cases, input and
@@ -169,17 +169,18 @@ In the <code class="Ic">settings</code> section, the following variables are
 </section>
 <section class="Sh">
 <h1 class="Sh" id="ENVIRONMENT"><a class="permalink" href="#ENVIRONMENT">ENVIRONMENT</a></h1>
-The <code class="Ic">environment</code> section contains variable and values
-  that will be added as environment variables when the test program is run.
+<p class="Pp">The <code class="Ic">environment</code> section contains variable
+    and values that will be added as environment variables when the test program
+    is run.</p>
 </section>
 <section class="Sh">
 <h1 class="Sh" id="COMPARATORS"><a class="permalink" href="#COMPARATORS">COMPARATORS</a></h1>
-The <code class="Ic">comparators</code> section specifies programs to use to
-  compare files of certain types. The variable names have the format
-  <var class="Ar">got-extension</var>. <var class="Ar">expected-extension</var>,
-  the value specifies the command line to use to compare these files. The
-  command will be run with the two files as arguments, the file in the sandbox
-  first and the expected last.
+<p class="Pp">The <code class="Ic">comparators</code> section specifies programs
+    to use to compare files of certain types. The variable names have the format
+    <var class="Ar">got-extension</var>.
+    <var class="Ar">expected-extension</var>, the value specifies the command
+    line to use to compare these files. The command will be run with the two
+    files as arguments, the file in the sandbox first and the expected last.</p>
 <p class="Pp">The command is expected to exit with code 0 if the two files are
     considered equal, any other exit code if not. The command output will be
     displayed if verbose test results are enabled (see
@@ -195,38 +196,40 @@ the command
 will be run to compare the files.
 </section>
 <section class="Sh">
-<h1 class="Sh" id="COMPARATOR_PREPROCESSORS"><a class="permalink" href="#COMPARATOR_PREPROCESSORS">COMPARATOR-PREPROCESSORS</a></h1>
-The <code class="Ic">comparator-preprocessors</code> section specifies programs
-  to use to preprocess certain file types for comparison. The variable names
-  have the format <var class="Ar">got-extension</var>.
-  <var class="Ar">expected-extension</var>, the value specifies the command line
-  to use to preprocess the file in the sandbox. The command will be run with the
-  file in the sandbox first as argument. The command's output will be compared
-  to the expected file.
+<h1 class="Sh" id="COMPARATOR-PREPROCESSORS"><a class="permalink" href="#COMPARATOR-PREPROCESSORS">COMPARATOR-PREPROCESSORS</a></h1>
+<p class="Pp">The <code class="Ic">comparator-preprocessors</code> section
+    specifies programs to use to preprocess certain file types for comparison.
+    The variable names have the format <var class="Ar">got-extension</var>.
+    <var class="Ar">expected-extension</var>, the value specifies the command
+    line to use to preprocess the file in the sandbox. The command will be run
+    with the file in the sandbox first as argument. The command's output will be
+    compared to the expected file.</p>
 <p class="Pp">If the command doesn't exit with code 0, the test will fail.</p>
 </section>
 <section class="Sh">
 <h1 class="Sh" id="COPIERS"><a class="permalink" href="#COPIERS">COPIERS</a></h1>
-The <code class="Ic">copiers</code> section specifies programs to use to copy
-  certain file types into the sandbox. The variable names have the format
-  <var class="Ar">sandbox-extension</var>.
-  <var class="Ar">source-extension</var>, the value specifies the command line
-  to use to copy the file into the sandbox. The command will be run with the two
-  files as arguments, the source file first and the file in the sandbox last.
+<p class="Pp">The <code class="Ic">copiers</code> section specifies programs to
+    use to copy certain file types into the sandbox. The variable names have the
+    format <var class="Ar">sandbox-extension</var>.
+    <var class="Ar">source-extension</var>, the value specifies the command line
+    to use to copy the file into the sandbox. The command will be run with the
+    two files as arguments, the source file first and the file in the sandbox
+    last.</p>
 <p class="Pp">If the command doesn't exit with code 0, the test will fail.</p>
 </section>
 <section class="Sh">
 <h1 class="Sh" id="SUITE"><a class="permalink" href="#SUITE">SUITE</a></h1>
-The optional <code class="Ic">suite</code> can be used to define a suite of
-  tests to be run with the <var class="Ar">--all</var> command line option.
+<p class="Pp">The optional <code class="Ic">suite</code> can be used to define a
+    suite of tests to be run with the <var class="Ar">--all</var> command line
+    option.</p>
 <dl class="Bl-tag">
-  <dt><a class="permalink" href="#tests_="><code class="Ic" id="tests_=">tests
+  <dt id="tests"><a class="permalink" href="#tests"><code class="Ic">tests
     =</code></a> <var class="Ar">tests</var></dt>
   <dd>This specifies the tests to run. It can contain names or shell globs.
       <span class="Pa">.test</span> will be appended if not present, and files
       will be searched for in
     <code class="Dv">test-input-directories</code>.</dd>
-  <dt><a class="permalink" href="#expected-failing-tests_="><code class="Ic" id="expected-failing-tests_=">expected-failing-tests
+  <dt id="expected-failing-tests"><a class="permalink" href="#expected-failing-tests"><code class="Ic">expected-failing-tests
     =</code></a> <var class="Ar">tests</var></dt>
   <dd>This specifies the tests that are expected to fail. Tests are searched in
       the same way as for <code class="Ic">tests</code>.</dd>
@@ -234,9 +237,8 @@ The optional <code class="Ic">suite</code> can be used to define a suite of
 </section>
 <section class="Sh">
 <h1 class="Sh" id="EXAMPLES"><a class="permalink" href="#EXAMPLES">EXAMPLES</a></h1>
-<div class="Bd">
-<pre>
-[settings]
+<div class="Bd Li">
+<pre>[settings]
 default-program = program_to_test
 program-directories = bin
     tests
@@ -247,14 +249,13 @@ zip.zip = zipcmp -v
 [suite]
 tests = *.test
 expected_failing_tests = *-broken.test
-    completely_broken_test.test
-</pre>
+    completely_broken_test.test</pre>
 </div>
 </section>
 <section class="Sh">
 <h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
   ALSO</a></h1>
-<a class="Xr" href="nihtest.html">nihtest(1)</a>
+<p class="Pp"><a class="Xr" href="nihtest.html">nihtest(1)</a></p>
 </section>
 </div>
 <table class="foot">
