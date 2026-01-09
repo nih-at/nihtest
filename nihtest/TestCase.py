@@ -334,5 +334,5 @@ class TestCase:
                                        only_once=True)
     }
 
-    def get_program_directories(self):
-        return self.configuration.program_directories
+    def get_program_directories(self, in_sandbox=False):
+        return self.configuration.get_program_directories(in_sandbox)

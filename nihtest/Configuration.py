@@ -132,6 +132,7 @@ class Configuration:
         self.keep_sandbox = get_when(settings, "keep-sandbox", When.NEVER)
         self.print_results = get_when(settings, "print-results", When.FAILED)
         self.program_directories = get_array(settings, "program-directories")
+        self.program_directories_in_sandbox = [os.path.join("..", d) if not os.path.isabs(d) else d for d in self.program_directories]
         self.sandbox_directory = get_value(settings, "sandbox-directory", ".")
         self.test_input_directories = get_array(settings, "test-input-directories")
         self.comparator_preprocessors = get_section(config, "comparator-preprocessors")
@@ -186,10 +187,10 @@ class Configuration:
             return file
         raise RuntimeError(f"can't find input file '{filename}'")
 
-    def find_program(self, program):
+    def find_program(self, program, in_sandbox=False):
         if platform.system() == "Windows" and not (program.endswith(".exe") or program.endswith(".com")):
             program += ".exe"
-        if file := self.find_file(program, self.program_directories):
+        if file := self.find_file(program, self.get_program_directories(in_sandbox)):
             return file
         return program
 
@@ -202,5 +203,8 @@ class Configuration:
                 return name
         return None
 
-    def get_program_directories(self):
-        return self.program_directories
+    def get_program_directories(self, in_sandbox=False):
+        if in_sandbox:
+            return self.program_directories_in_sandbox
+        else:
+            return self.program_directories

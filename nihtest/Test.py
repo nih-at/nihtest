@@ -88,18 +88,18 @@ class Test:
             os.chmod(full_file, st.st_mode & ~stat.S_IWUSR)
 
         self.sandbox.enter()
-        program = self.case.configuration.find_program(self.case.program)
-        environment = Environment.Environment(self.case).environment
+        executable = self.case.configuration.find_program(self.case.program, in_sandbox=True)
+        environment = Environment.Environment(self.case, in_sandbox=True).environment
         if self.case.preload:
-            environment["LD_PRELOAD"] = " ".join(map(lambda file: self.case.configuration.find_program("lib" + file), self.case.preload))
+            environment["LD_PRELOAD"] = " ".join(map(lambda file: self.case.configuration.find_program("lib" + file, in_sandbox=True), self.case.preload))
         if self.case.configuration.debugger is None:
-            command = Command.Command(program, self.case.arguments, self.case.stdin, environment=environment)
+            command = Command.Command(self.case.program, self.case.arguments, self.case.stdin, environment=environment, executable=executable)
         if self.case.working_directory is not None:
             if not os.path.exists(self.case.working_directory):
                 os.mkdir(self.case.working_directory)
             os.chdir(self.case.working_directory)
         if self.case.configuration.debugger is not None:
-            subprocess.run([self.case.configuration.debugger, self.case.configuration.debugger_separator, program] + self.case.arguments, check=False, text=True, encoding="utf-8", env=environment)
+            subprocess.run([self.case.configuration.debugger, self.case.configuration.debugger_separator, executable] + self.case.arguments, check=False, text=True, encoding="utf-8", env=environment)
         else:
             command.run()
         self.sandbox.chdir_top()

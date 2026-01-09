@@ -39,7 +39,7 @@ class File:
             if key in configuration.comparators:
                 comparator = configuration.comparators[key]
                 arguments = comparator[1:] + [input_file_name, output_file_name]
-                command = Command.Command(configuration.find_program(comparator[0]), arguments, environment=Environment.Environment(configuration).environment)
+                command = Command.Command(configuration.find_program(comparator[0], True), arguments, environment=Environment.Environment(configuration, True).environment)
                 command.run()
                 if command.exit_code != 0:
                     print(f"{self.name} differs:")
