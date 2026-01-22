@@ -31,6 +31,9 @@ def main():
 
     if args.all:
         is_suite = True
+        if configuration.suite is None:
+            print(f"{sys.argv[0]}: no test suite configured", file=sys.stderr)
+            sys.exit(1)
         if len(args.testcase) != 0:
             print(f"{sys.argv[0]}: can't explicitly specify test cases when using --all")
             sys.exit(1)

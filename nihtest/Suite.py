@@ -16,8 +16,11 @@ class Suite:
         self.stats = {}
         if len(args.testcase) > 0:
             self.add_cases(args.testcase)
-            self.add_cases(configuration.suite.expected_failing_tests, expect_failing=True, no_new_cases=True)
+            if configuration.suite is not None:
+                self.add_cases(configuration.suite.expected_failing_tests, expect_failing=True, no_new_cases=True)
         else:
+            if configuration.suite is None:
+                raise RuntimeError("no test suite configured")
             self.add_cases(configuration.suite.tests)
             self.add_cases(configuration.suite.expected_failing_tests, expect_failing=True)
 

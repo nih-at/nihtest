@@ -180,7 +180,7 @@ class Configuration:
                 print("no debugger found", file=sys.stderr)
                 sys.exit(1)
 
-        self.suite = Configuration.Suite(config["suite"] if "suite" in config else {})
+        self.suite = Configuration.Suite(config["suite"]) if "suite" in config else None
 
     def find_input_file(self, filename):
         if file := self.find_file(filename, self.test_input_directories):
