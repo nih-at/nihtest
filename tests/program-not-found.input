@@ -1,3 +1,3 @@
-program no-such-file
+program no-such-file.exe
 arguments test
 return 0

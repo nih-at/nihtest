@@ -1,3 +1,8 @@
+# 1.10.1 [Unreleased]
+
+- Properly handle if test program is not found.
+- Exit with error if called with `--all` when no suite is configured.
+
 # 1.10.0 [2026-01-09]
 
 - Add support for running multiple tests and configuring a test suite.

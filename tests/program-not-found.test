@@ -4,5 +4,5 @@ return 2
 file case.test program-not-found.input
 file nihtest.conf nihtest-conf
 stderr
-error running program: can't find program no-such-file
+error running program: can't find program no-such-file.exe
 end-of-inline-data

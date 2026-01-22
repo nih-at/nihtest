@@ -33,5 +33,5 @@ The following tests failed:
   case-4
 end-of-inline-data
 stderr
-error running program: can't find program no-such-file
+error running program: can't find program no-such-file.exe
 end-of-inline-data
