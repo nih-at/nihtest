@@ -11,13 +11,13 @@ stdout
 Test 1/5 case-0          OK
 Test 2/5 case-1          ERROR
 Test 3/5 case-2          OK
-./case-3-failing.test:1: test case failed
+case-3-failing.test:1: test case failed
 exit code differs:
 -1
 +0
 case-3-failing -- FAIL: exit code
 Test 4/5 case-3-failing  EXPECTED_FAIL
-./case-4.test:1: test case failed
+case-4.test:1: test case failed
 exit code differs:
 -1
 +0

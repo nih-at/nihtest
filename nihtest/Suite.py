@@ -105,7 +105,9 @@ class Suite:
         else:
             for directory in ["."] + self.configuration.test_input_directories:
                 for file in glob.glob(name, root_dir=directory):
-                    files.append((os.path.join(directory, file), file[:-5]))
+                    if directory != ".":
+                        file = os.path.join(directory, file)
+                    files.append((file, file[:-5]))
 
         return files
 
