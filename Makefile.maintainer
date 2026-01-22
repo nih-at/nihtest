@@ -1,6 +1,6 @@
 # Convenience Makefile for making releases
 
-VERSION!=	sed -En 's,^version = "(.*)",\1,p' pyproject.toml
+VERSION=	`sed -En 's,^version = "(.*)",\1,p' pyproject.toml`
 
 .PHONY: bump distribution upload
 
