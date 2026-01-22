@@ -1,3 +1,7 @@
+# 1.10.2 [Unreleased]
+
+- Remove dependency on dateutil.
+
 # 1.10.1 [2026-01-22]
 
 - Properly handle if tested program is not found.

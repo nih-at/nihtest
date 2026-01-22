@@ -1,5 +1,4 @@
-import dateutil.parser
-import os.path
+import datetime
 import pathlib
 import re
 import shlex
@@ -227,7 +226,7 @@ class TestCase:
         if arguments[1].isnumeric():
             timestamp = int(arguments[1])
         else:
-            timestamp = dateutil.parser.isoparse(arguments[1]).timestamp()
+            timestamp = datetime.datetime.fromisoformat(arguments[1]).timestamp()
         self.modification_times[arguments[0]] = timestamp
 
     def directive_stderr(self, arguments):
