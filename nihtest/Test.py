@@ -101,7 +101,14 @@ class Test:
         if self.case.configuration.debugger is not None:
             subprocess.run([self.case.configuration.debugger, self.case.configuration.debugger_separator, executable] + self.case.arguments, check=False, text=True, encoding="utf-8", env=environment)
         else:
-            command.run()
+            try:
+                command.run()
+            except Exception as e:
+                self.sandbox.leave()
+                if self.case.configuration.keep_sandbox != Configuration.When.ALWAYS:
+                    self.sandbox.cleanup()
+                self.error(f"error running program: {e}")
+                return TestResult.ERROR
         self.sandbox.chdir_top()
         directories_got, files_got = self.list_files()
         self.sandbox.leave()

@@ -21,3 +21,8 @@ cat.txt = nihtest-cat
 
 [copiers]
 uc.lc = nihtest-uppercase
+
+[suite]
+tests = case-*.test
+expected-failing-tests = case-*-failing.test
+

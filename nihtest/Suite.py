@@ -73,6 +73,7 @@ class Suite:
             else:
                 print(f"\n{percent}% tests passed, {failed} tests failed out of {total - skipped}")
 
+        self.print_failures(Test.TestResult.ERROR, "had errors")
         self.print_failures(Test.TestResult.FAILED, "failed")
         self.print_failures(Test.TestResult.UNEXPECTED_OK, "unexpectedly passed")
         self.print_failures(Test.TestResult.SKIPPED, "did not run")
