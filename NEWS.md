@@ -1,6 +1,6 @@
-# 1.10.1 [Unreleased]
+# 1.10.1 [2026-01-22]
 
-- Properly handle if test program is not found.
+- Properly handle if tested program is not found.
 - Exit with error if called with `--all` when no suite is configured.
 
 # 1.10.0 [2026-01-09]

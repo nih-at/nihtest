@@ -4,9 +4,18 @@ VERSION!=	sed -En 's,^version = "(.*)",\1,p' pyproject.toml
 
 .PHONY: bump distribution upload
 
+all:
+	@echo "Available targets:"
+	@echo "  bump: print instructions how to bump version"
+	@echo "  distribution: create distribution files"
+	@echo "  upload: upload distribution files to PyPi"
+
 bump:
-	@echo "have you regenerated the man pages?"
-	@echo python -m bumpver update -m
+	@echo "Have you regenerated the man pages?"
+	@echo "Bump minor:"
+	@echo "  python -m bumpver update -m"
+	@echo "Bump patch level:"
+	@echo "  python -m bumpver update -p"
 
 distribution:
 	python -m build
