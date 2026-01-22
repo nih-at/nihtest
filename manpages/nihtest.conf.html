@@ -68,7 +68,9 @@
 <p class="Pp">The configuration file consists of multiple sections, which are
     started with [<var class="Ar">section-name</var>]. The supported sections
     are <code class="Ic">settings</code>, <code class="Ic">environment</code>,
-    and <code class="Ic">comparators</code>.</p>
+    <code class="Ic">comparators</code>,
+    <code class="Ic">comparator-preprocessors</code>,
+    <code class="Ic">copiers</code>, and <code class="Ic">suite</code>.</p>
 <p class="Pp">Each section consists of variable assignments in the format
     <var class="Ar">name =</var> <var class="Ar">value</var>, one per line.</p>
 <p class="Pp">Multiple values for the same variable can be specified, one per
@@ -179,8 +181,10 @@
     to use to compare files of certain types. The variable names have the format
     <var class="Ar">got-extension</var>.
     <var class="Ar">expected-extension</var>, the value specifies the command
-    line to use to compare these files. The command will be run with the two
-    files as arguments, the file in the sandbox first and the expected last.</p>
+    line to use to compare these files. The command will be run with one or two
+    files as arguments: the file in the sandbox is the first argument; if the
+    expected file is a file, it will be the second argument, if it is inline
+    data, it will be provided on stdin.</p>
 <p class="Pp">The command is expected to exit with code 0 if the two files are
     considered equal, any other exit code if not. The command output will be
     displayed if verbose test results are enabled (see
@@ -260,7 +264,7 @@ expected_failing_tests = *-broken.test
 </div>
 <table class="foot">
   <tr>
-    <td class="foot-date">January 20, 2025</td>
+    <td class="foot-date">January 21, 2026</td>
     <td class="foot-os">NiH</td>
   </tr>
 </table>

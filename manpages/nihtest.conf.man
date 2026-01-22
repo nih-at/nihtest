@@ -30,7 +30,7 @@
 .\" OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 .\" IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .\"
-.TH "NIHTEST.CONF" "5" "January 20, 2025" "NiH" "File Formats Manual"
+.TH "NIHTEST.CONF" "5" "January 21, 2026" "NiH" "File Formats Manual"
 .nh
 .if n .ad l
 .SH "NAME"
@@ -53,8 +53,11 @@ The configuration file consists of multiple sections, which are started with
 The supported sections are
 \fBsettings\fR,
 \fBenvironment\fR,
+\fBcomparators\fR,
+\fBcomparator-preprocessors\fR,
+\fBcopiers\fR,
 and
-\fBcomparators\fR.
+\fBsuite\fR.
 .PP
 Each section consists of variable assignments in the format
 \fIname =\fR
@@ -195,7 +198,7 @@ section specifies programs to use to compare files of certain types.
 The variable names have the format
 \fIgot-extension\fR. \fIexpected-extension\fR,
 the value specifies the command line to use to compare these files.
-The command will be run with the two files as arguments, the file in the sandbox first and the expected last.
+The command will be run with one or two files as arguments: the file in the sandbox is the first argument; if the expected file is a file, it will be the second argument, if it is inline data, it will be provided on stdin.
 .PP
 The command is expected to exit with code 0 if the two files are considered equal, any other exit code if not.
 The command output will be displayed if verbose test results are enabled (see
