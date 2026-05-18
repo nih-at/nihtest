@@ -39,7 +39,7 @@ int main(int argc, char**argv) {
         exit(2);
     }
 
-#if defined(_WIN32) || defined(__APPLE__)
+#if defined(_WIN32)
     int can_preload = 0;
 #else
     int can_preload = 1;

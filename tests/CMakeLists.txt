@@ -26,7 +26,7 @@ add_library(delete SHARED delete.c)
 target_link_libraries(nihtest-file PRIVATE delete)
 
 add_library(ineffective-delete MODULE ineffective-delete.c)
-target_link_libraries(ineffective-delete ${CMAKE_DL_LIBS})
+target_link_libraries(ineffective-delete PRIVATE delete ${CMAKE_DL_LIBS})
 
 # Tests for helper programs
 add_test(NAME true COMMAND nihtest-true)

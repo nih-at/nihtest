@@ -33,11 +33,15 @@
 */
 
 #include "delete.h"
+#include "nihtest-preload.h"
 #include <stdio.h>
 
+
 int
-delete(const char *path) {
+PRELOAD_NAME(delete)(const char *path) {
     printf("request to remove '%s' denied", path);
 
     return 0;
 }
+
+PRELOAD_REPLACE(delete);

@@ -47,7 +47,7 @@ class Test:
         self.ok = False
 
     def run(self):
-        if self.case.preload and platform.system() in ["Darwin", "Windows"]:
+        if self.case.preload and platform.system() == "Windows":
             # TODO: status output if verbose
             return TestResult.SKIPPED
 
@@ -91,7 +91,7 @@ class Test:
         executable = self.case.configuration.find_program(self.case.program, in_sandbox=True)
         environment = Environment.Environment(self.case, in_sandbox=True).environment
         if self.case.preload:
-            environment["LD_PRELOAD"] = " ".join(map(lambda file: self.case.configuration.find_program("lib" + file, in_sandbox=True), self.case.preload))
+            self._add_preloads(environment)
         if self.case.configuration.debugger is None:
             command = Command.Command(self.case.program, self.case.arguments, self.case.stdin, environment=environment, executable=executable)
         if self.case.working_directory is not None:
@@ -217,3 +217,27 @@ class Test:
 
     def process_output_replace(self, lines, replacements):
         return list(map(lambda line: process_output_line(line, replacements), lines))
+
+    def _add_preloads(self, environment):
+        if self.case.preload:
+            files = map(lambda file: self.case.configuration.find_program(self._preload_filename(file), in_sandbox=True), self.case.preload)
+            if platform.system() == "Windows":
+                raise NotImplementedError("preload is not supported on Windows")
+            elif platform.system() == "Darwin":
+                variable = "DYLD_INSERT_LIBRARIES"
+            else:
+                variable = "LD_PRELOAD"
+            if variable in environment:
+                environment[variable] += ":" + ":".join(files)
+            else:
+                environment[variable] = ":".join(files)
+
+    def _preload_filename(self, filename):
+        name = pathlib.Path(filename).stem
+
+        if platform.system() == "Windows":
+            return name + ".dll"
+        elif platform.system() == "Darwin":
+            return "lib" + name + ".dylib"
+        else:
+            return "lib" + name + ".so"

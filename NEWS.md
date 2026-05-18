@@ -1,5 +1,6 @@
-# 1.10.2 [Unreleased]
+# 1.11.0 [2026-05-18]
 
+- Add support for preload on macOS.
 - Remove dependency on dateutil.
 
 # 1.10.1 [2026-01-22]
