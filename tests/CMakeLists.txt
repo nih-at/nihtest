@@ -25,7 +25,8 @@ endforeach()
 add_library(delete SHARED delete.c)
 target_link_libraries(nihtest-file PRIVATE delete)
 
-add_library(ineffective-delete MODULE ineffective-delete.c)
+# According to cmake documentation, we should use MODULE, but that creates a .so file on macOS, which can't be loaded.
+add_library(ineffective-delete SHARED ineffective-delete.c)
 target_link_libraries(ineffective-delete PRIVATE delete ${CMAKE_DL_LIBS})
 
 # Tests for helper programs

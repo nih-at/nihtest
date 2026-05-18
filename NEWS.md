@@ -1,3 +1,7 @@
+# 1.11.1 [2026-05-18]
+
+- Fix preload test on macOS.
+
 # 1.11.0 [2026-05-18]
 
 - Add support for preload on macOS.
