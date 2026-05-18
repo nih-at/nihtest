@@ -30,7 +30,7 @@
 .\" OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 .\" IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .\"
-.TH "NIHTEST-CASE" "5" "December 17, 2024" "NiH" "File Formats Manual"
+.TH "NIHTEST-CASE" "5" "May 18, 2026" "NiH" "File Formats Manual"
 .nh
 .if n .ad l
 .SH "NAME"
@@ -163,7 +163,7 @@ Pre-load the shared object
 \fIobject\fR
 before running the program.
 .sp
-This is not supported on macOS and Windows, where tests with
+This is not supported on Windows, where tests with
 \fBpreload\fR
 will be skipped.
 .TP 22n
