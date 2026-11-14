@@ -1,3 +1,12 @@
+from enum import Enum, auto
+
+
+class Phase(Enum):
+    START = auto()
+    AFTER_RIGHT = auto()
+    AFTER_DOWN = auto()
+
+
 class CompareArrays:
     def __init__(self, expected, got):
         self.expected = expected
@@ -80,44 +89,53 @@ class CompareArrays:
         return self.diff
 
     def output(self, d, x, y):
-        if d == 0:
-            for i in range(0, x):
-                self.diff.append(" " + self.expected[i])
-            return
-
-        lines = []
-        wdprev = self.path_lengths[d - 1]
-        k = x - y
-
-        # walking backwards we cannot follow all diagonals completely,
-        # going forward we might have entered in the middle of one
-        while True:
-            change = False
-            # did we step right in the previous iteration?
-            if x == wdprev[self.max_size + k - 1] + 1:
-                self.output(d - 1, x - 1, y)
+        stack = [(d, x, y, [], Phase.START)]
+        
+        while stack:
+            d, x, y, lines, phase = stack.pop()
+            
+            if phase == Phase.START:
+                if d == 0:
+                    for i in range(0, x):
+                        self.diff.append(" " + self.expected[i])
+                    continue
+                
+                wdprev = self.path_lengths[d - 1]
+                k = x - y
+                
+                found_step = False
+                # did we step right in the previous iteration?
+                if x == wdprev[self.max_size + k - 1] + 1:
+                    # Push the "after" phase to process after the recursive call
+                    stack.append((d, x, y, lines, Phase.AFTER_RIGHT))
+                    # Push the recursive call
+                    stack.append((d - 1, x - 1, y, [], Phase.START))
+                    found_step = True
+                # did we step down in the previous iteration?
+                elif x == wdprev[self.max_size + k + 1]:
+                    # Push the "after" phase to process after the recursive call
+                    stack.append((d, x, y, lines, Phase.AFTER_DOWN))
+                    # Push the recursive call
+                    stack.append((d - 1, x, y - 1, [], Phase.START))
+                    found_step = True
+                else:
+                    # no match, so try going up diagonally one step and trying again
+                    if x > 0 and y > 0 and self.got[x - 1] == self.expected[y - 1]:
+                        # unchanged lines, for context
+                        lines.append(self.got[x - 1])
+                        # Continue with updated state
+                        stack.append((d, x - 1, y - 1, lines, Phase.START))
+                        found_step = True
+                
+                if not found_step:
+                    raise RuntimeError("internal error creating diff")
+            
+            elif phase == Phase.AFTER_RIGHT:
                 self.diff.append("+" + self.got[x - 1])
                 for line in reversed(lines):
                     self.diff.append(" " + line)
-                return
-
-            # did we step down in the previous iteration?
-            if x == wdprev[self.max_size + k + 1]:
-                self.output(d - 1, x, y - 1)
+            
+            elif phase == Phase.AFTER_DOWN:
                 self.diff.append("-" + self.expected[y - 1])
                 for line in reversed(lines):
                     self.diff.append(" " + line)
-                return
-
-            # no match, so try going up diagonally one step and trying again
-            if x > 0 and y > 0 and self.got[x - 1] == self.expected[y - 1]:
-                # unchanged lines, for context
-                lines.append(self.got[x - 1])
-                x -= 1
-                y -= 1
-                change = True
-
-            if not change:
-                break
-
-        raise RuntimeError("internal error creating diff")

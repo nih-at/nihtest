@@ -31,18 +31,58 @@
   IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <string.h>
 #include <stdio.h>
+#include <string.h>
 
-int main(int argc, char *argv[]) {
-    FILE *out = stdout;
-    int start = 1;
-    if (argc > 1 && strcmp(argv[1], "-e") == 0) {
-	start = 2;
-	out = stderr;
+#define HEX_BUF_SIZE 8192
+
+int hex_value(char c) {
+    if (c >= '0' && c <= '9')
+        return c - '0';
+    if (c >= 'a' && c <= 'f')
+        return c - 'a' + 10;
+    if (c >= 'A' && c <= 'F')
+        return c - 'A' + 10;
+    return 0;
+}
+
+char* hex_decode(char* str) {
+    static char buf[HEX_BUF_SIZE];
+    char* out = buf;
+    while (*str && out - buf < HEX_BUF_SIZE - 1) {
+        if (str[0] == '\\' && str[1] == 'x' && str[2] && str[3]) {
+            int val = hex_value(str[2]) * 16 + hex_value(str[3]);
+            *out++ = (char)val;
+            str += 4;
+        }
+        else {
+            *out++ = *str++;
+        }
     }
-    for (int i=start; i<argc; i++) {
-	fprintf(out, "%s%s", (i == start ? "" : " "), argv[i]);
+    *out = '\0';
+    return buf;
+}
+
+int main(int argc, char* argv[]) {
+    FILE* out = stdout;
+    int start = 1;
+    int hex = 0;
+    while (1) {
+        if (start < argc && strcmp(argv[start], "-e") == 0) {
+            start++;
+            out = stderr;
+        }
+        else if (start < argc && strcmp(argv[start], "-x") == 0) {
+            start++;
+            // handle -x option here if needed
+            hex = 1;
+        }
+        else {
+            break;
+        }
+    }
+    for (int i = start; i < argc; i++) {
+        fprintf(out, "%s%s", (i == start ? "" : " "), hex ? hex_decode(argv[i]) : argv[i]);
     }
     fprintf(out, "\n");
     return 0;

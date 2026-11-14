@@ -1,0 +1,5 @@
+program nihtest
+arguments case.test
+return 0
+file case.test stdout-non-utf8.input
+file nihtest.conf nihtest-conf

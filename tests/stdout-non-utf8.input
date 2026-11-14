@@ -1,0 +1,6 @@
+program nihtest-echo
+return 0
+arguments -x Invalid UTF-8: \\xff
+stdout
+Invalid UTF-8: \xff
+end-of-inline-data

@@ -1,3 +1,8 @@
+# 1.12.0 [Unreleased]
+
+- Handle invalid UTF-8 characters in program output.
+- Handle large diffs.
+
 # 1.11.1 [2026-05-18]
 
 - Fix preload test on macOS.
