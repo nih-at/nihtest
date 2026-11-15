@@ -1,4 +1,4 @@
-# 1.12.0 [Unreleased]
+# 1.12.0 [2026-11-15]
 
 - Handle invalid UTF-8 characters in program output.
 - Handle large diffs.
